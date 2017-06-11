@@ -45,7 +45,6 @@ import vertgreen.command.admin.BotRestartCommand;
 import vertgreen.command.admin.UpdateCommand;
 import vertgreen.command.admin.CompileCommand;
 import vertgreen.command.admin.AnnounceCommand;
-import vertgreen.command.admin.MavenTestCommand;
 import vertgreen.command.admin.PlayerDebugCommand;
 import vertgreen.command.admin.ExitCommand;
 import vertgreen.Config;

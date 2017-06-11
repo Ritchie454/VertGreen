@@ -41,7 +41,6 @@ import vertgreen.command.fun.JokeCommand;
 import vertgreen.command.admin.BotRestartCommand;
 import vertgreen.command.admin.UpdateCommand;
 import vertgreen.command.admin.CompileCommand;
-import vertgreen.command.admin.MavenTestCommand;
 import vertgreen.command.admin.ExitCommand;
 import vertgreen.command.moderation.ClearCommand;
 import vertgreen.command.moderation.HardbanCommand;
@@ -79,7 +78,6 @@ public class MainCommandInitializer {
 
         CommandRegistry.registerCommand("update", new UpdateCommand());
         CommandRegistry.registerCommand("compile", new CompileCommand());
-        CommandRegistry.registerCommand("mvntest", new MavenTestCommand());
         CommandRegistry.registerCommand("botrestart", new BotRestartCommand());
         CommandRegistry.registerCommand("clear", new ClearCommand());
         CommandRegistry.registerCommand("talk", new TalkCommand());
