@@ -35,6 +35,7 @@ import vertgreen.command.maintenance.StatsCommand;
 import vertgreen.command.maintenance.VersionCommand;
 import vertgreen.command.maintenance.ShardsCommand;
 import vertgreen.command.maintenance.MemoryCommand;
+import vertgreen.command.maintenance.StatusCommand;
 import vertgreen.command.fun.TalkCommand;
 import vertgreen.command.fun.JokeCommand;
 import vertgreen.command.admin.BotRestartCommand;
@@ -56,6 +57,8 @@ public class MainCommandInitializer {
 
         CommandRegistry.registerCommand("commands", new CommandsCommand());
         CommandRegistry.registerAlias("commands", "comms");
+        CommandRegistry.registerCommand("status", new StatusCommand());
+        CommandRegistry.registerAlias("status", "work");
         CommandRegistry.registerCommand("memory", new MemoryCommand());
         CommandRegistry.registerAlias("memory", "stats.memory");
         CommandRegistry.registerCommand("shards", new ShardsCommand());

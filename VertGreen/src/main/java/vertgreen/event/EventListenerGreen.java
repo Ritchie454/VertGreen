@@ -176,12 +176,12 @@ public class EventListenerGreen extends AbstractEventListener {
     @Override
     public void onReady(ReadyEvent event) {
         super.onReady(event);
-        event.getJDA().getPresence().setGame(Game.of("Say " + Config.CONFIG.getPrefix() + "help"));
+        event.getJDA().getPresence().setGame(Game.of("with Nepgear"));
     }
 
     @Override
     public void onReconnect(ReconnectedEvent event) {
-        event.getJDA().getPresence().setGame(Game.of("Say " + Config.CONFIG.getPrefix() + "help"));
+        event.getJDA().getPresence().setGame(Game.of("with Nepgear"));
     }
 
     /* music related */
