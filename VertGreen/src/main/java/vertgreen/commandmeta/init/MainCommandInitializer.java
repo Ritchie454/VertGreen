@@ -74,7 +74,7 @@ public class MainCommandInitializer {
         CommandRegistry.registerAlias("gitinfo", "git");
         CommandRegistry.registerCommand("exit", new ExitCommand());
         CommandRegistry.registerCommand("avatar", new AvatarCommand());
-        CommandRegistry.registerCommand("joke", new JokeCommand());
+        CommandRegistry.registerCommand("boast", new JokeCommand());
         CommandRegistry.registerCommand("update", new UpdateCommand());
         CommandRegistry.registerCommand("compile", new CompileCommand());
         CommandRegistry.registerCommand("botrestart", new BotRestartCommand());
