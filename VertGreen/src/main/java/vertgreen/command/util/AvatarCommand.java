@@ -47,6 +47,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
         EmbedBuilder eb = new EmbedBuilder();
         String msg;
         if (message.getMentionedUsers().isEmpty()) {
+            if (message.getContent().isEmpty()){
             //String command = args[0].substring(Config.CONFIG.getPrefix().length());
             //HelpCommand.sendFormattedCommandHelp(guild, channel, invoker, command);
             eb.setColor(invoker.getColor());
@@ -54,6 +55,15 @@ public class AvatarCommand extends Command implements IUtilCommand {
             //msg = "Avatar for: " + invoker.getEffectiveName();
             eb.setImage(invoker.getUser().getAvatarUrl() + "?size=1024");
             //eb.addField("Url", invoker.getUser().getAvatarUrl() + "?size=1024", true);
+            } else {
+            Member target;
+            target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
+            eb.setColor(target.getColor());
+            eb.addField("Avatar for: " + target.getEffectiveName(), target.getUser().getAvatarUrl(), true);
+            //msg = "Avatar for: " + target.getEffectiveName();
+            eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");    
+            //eb.addField("Url", target.getUser().getAvatarUrl() + "?size=1024", true);
+            }
         } else {
             Member target;
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);

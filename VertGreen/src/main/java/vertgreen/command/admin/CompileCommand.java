@@ -40,6 +40,8 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import vertgreen.VertGreen;
+import vertgreen.util.ExitCodes;
 
 public class CompileCommand extends Command implements ICommandOwnerRestricted {
 
@@ -105,6 +107,8 @@ public class CompileCommand extends Command implements ICommandOwnerRestricted {
         } catch (InterruptedException | IOException | RateLimitedException ex) {
             throw new RuntimeException(ex);
         }
+        channel.sendMessage("Now restarting...").queue();
+        VertGreen.shutdown(ExitCodes.EXIT_CODE_UPDATE);
     }
 
     @Override
