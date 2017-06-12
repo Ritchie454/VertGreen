@@ -43,6 +43,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 import org.slf4j.LoggerFactory;
+import net.dv8tion.jda.core.EmbedBuilder;
+import vertgreen.util.BotConstants;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -142,26 +144,36 @@ public class MALCommand extends Command implements IUtilCommand {
         if (minDeviation > 3) {
             return false;
         }
-
+        EmbedBuilder eb = new EmbedBuilder();
         msg = data.has("title") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malTitle"), msg, data.get("title")) : msg;
+        eb.addField(msg, name, true);
         msg = data.has("english") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malEnglishTitle"), msg, data.get("english")) : msg;
+        eb.addField(msg, name, true);
         msg = data.has("synonyms") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malSynonyms"), msg, data.get("synonyms")) : msg;
+        eb.addField(msg, name, true);
         msg = data.has("episodes") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malEpisodes"), msg, data.get("episodes")) : msg;
+        eb.addField(msg, name, true);
         msg = data.has("score") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malScore"), msg, data.get("score")) : msg;
+        eb.addField(msg, name, true);
         msg = data.has("type") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malType"), msg, data.get("type")) : msg;
+        eb.addField(msg, name, true);
         msg = data.has("status") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malStatus"), msg, data.get("status")) : msg;
-        msg = data.has("start_date") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malStartDate"), msg, data.get("start_date")) : msg;
+        eb.addField(msg, name, true);
         msg = data.has("end_date") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malEndDate"), msg, data.get("end_date")) + "\n" : msg;
+        eb.addField(msg, name, true);
 
         if (data.has("synopsis")) {
             Matcher m = Pattern.compile("^[^\\n\\r<]+").matcher(StringEscapeUtils.unescapeHtml4(data.getString("synopsis")));
             m.find();
             msg = data.has("synopsis") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malSynopsis"), msg, m.group(0)) : msg;
+            eb.addField(msg, name, true);
+
         }
 
         msg = data.has("id") ? msg + "http://myanimelist.net/anime/" + data.get("id") + "/" : msg;
+        eb.addField(msg, name, true);msg = data.has("start_date") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malStartDate"), msg, data.get("start_date")) : msg;
 
-        channel.sendMessage(msg).queue();
+        channel.sendMessage(eb.build()).queue();
         return true;
     }
 
@@ -177,14 +189,17 @@ public class MALCommand extends Command implements IUtilCommand {
         }
 
         JSONObject data = items.getJSONObject(0);
-
+        EmbedBuilder eb = new EmbedBuilder();
         msg = data.has("name") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUserName"), msg, data.get("name")) : msg;
+        eb.addField(msg, name, true);
         msg = data.has("url") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUrl"), msg, data.get("url")) : msg;
+        eb.addField(msg, name, true);
         msg = data.has("image_url") ? msg + data.get("image_url") : msg;
-
+        
+        eb.addField(msg, name, true);
         log.debug(msg);
 
-        channel.sendMessage(msg).queue();
+        channel.sendMessage(eb.build()).queue();
         return true;
     }
 
