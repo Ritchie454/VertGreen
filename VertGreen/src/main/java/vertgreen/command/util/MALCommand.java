@@ -206,7 +206,7 @@ public class MALCommand extends Command implements IUtilCommand {
             eb.addField("Url", ""+data.get("url")), true);
         }
         if (data.has("image_url")){// ? msg + data.get("image_url") : msg;   
-            eb.setImage(data.get("image_url"));
+            eb.setImage(""+data.get("image_url"));
         }
         //log.debug(msg);
 
