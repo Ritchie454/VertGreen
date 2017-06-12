@@ -200,13 +200,13 @@ public class MALCommand extends Command implements IUtilCommand {
         JSONObject data = items.getJSONObject(0);
         EmbedBuilder eb = new EmbedBuilder();
         if (data.has("name")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUserName"), msg, data.get("name")) : msg;
-            eb.addField("Username", data.get("name")), true);
+            eb.addField("Username", ""+data.get("name")), true);
         }
         if (data.has("url")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUrl"), msg, data.get("url")) : msg;
-            eb.addField("Url", data.get("url")), true);
+            eb.addField("Url", ""+data.get("url")), true);
         }
         if (data.has("image_url")){// ? msg + data.get("image_url") : msg;   
-            eb.addField("Avatar", data.get("image_url"), true);
+            eb.setImage(data.get("image_url"));
         }
         //log.debug(msg);
 
