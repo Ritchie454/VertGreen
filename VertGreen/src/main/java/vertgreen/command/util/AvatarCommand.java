@@ -50,13 +50,13 @@ public class AvatarCommand extends Command implements IUtilCommand {
             //HelpCommand.sendFormattedCommandHelp(guild, channel, invoker, command);
             eb.setColor(invoker.getColor());
             eb.setTitle("Avatar for: " + invoker.getEffectiveName());
-            eb.setImage(invoker.getUser().getAvatarUrl());
+            eb.setImage(invoker.getUser().getAvatarUrl() + "?size=1024");
         } else {
             Member target;
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
             eb.setColor(target.getColor());
             eb.setTitle("Avatar for: " + target.getEffectiveName());
-            eb.setImage(target.getUser().getAvatarUrl());    
+            eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");    
         }
         channel.sendMessage(eb.build()).queue();
     }
