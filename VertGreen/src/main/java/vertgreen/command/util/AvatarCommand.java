@@ -45,19 +45,20 @@ public class AvatarCommand extends Command implements IUtilCommand {
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         EmbedBuilder eb = new EmbedBuilder();
+        String msg;
         if (message.getMentionedUsers().isEmpty()) {
             //String command = args[0].substring(Config.CONFIG.getPrefix().length());
             //HelpCommand.sendFormattedCommandHelp(guild, channel, invoker, command);
             eb.setColor(invoker.getColor());
             //eb.setTitle("Avatar for: " + invoker.getEffectiveName());
-            String msg = "Avatar for: " + invoker.getEffectiveName();
+            msg = "Avatar for: " + invoker.getEffectiveName();
             eb.setThumbnail(invoker.getUser().getAvatarUrl() + "?size=1024");
         } else {
             Member target;
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
             eb.setColor(target.getColor());
             //eb.setTitle("Avatar for: " + target.getEffectiveName());
-            String msg = "Avatar for: " + target.getEffectiveName();
+            msg = "Avatar for: " + target.getEffectiveName();
             eb.setThumbnail(target.getUser().getAvatarUrl() + "?size=1024");    
         }
         channel.sendMessage(msg).queue();
