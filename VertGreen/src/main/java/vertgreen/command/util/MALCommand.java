@@ -146,6 +146,7 @@ public class MALCommand extends Command implements IUtilCommand {
         }
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(BotConstants.VERTGREEN_COLOR);
+        eb.setThumb("https://myanimelist.cdn-dena.com/img/sp/icon/apple-touch-icon-256.png");
         if (data.has("title")){//MessageFormat.format(I18n.get(channel.getGuild()).getString("malTitle"), msg, data.get("title")) : msg;
             eb.addField("Title", "" + data.get("title"), true);
         }
