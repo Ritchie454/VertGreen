@@ -145,34 +145,41 @@ public class MALCommand extends Command implements IUtilCommand {
             return false;
         }
         EmbedBuilder eb = new EmbedBuilder();
-        msg = data.has("title") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malTitle"), msg, data.get("title")) : msg;
-        eb.addField(msg, name, true);
-        msg = data.has("english") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malEnglishTitle"), msg, data.get("english")) : msg;
-        eb.addField(msg, name, true);
-        msg = data.has("synonyms") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malSynonyms"), msg, data.get("synonyms")) : msg;
-        eb.addField(msg, name, true);
-        msg = data.has("episodes") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malEpisodes"), msg, data.get("episodes")) : msg;
-        eb.addField(msg, name, true);
-        msg = data.has("score") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malScore"), msg, data.get("score")) : msg;
-        eb.addField(msg, name, true);
-        msg = data.has("type") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malType"), msg, data.get("type")) : msg;
-        eb.addField(msg, name, true);
-        msg = data.has("status") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malStatus"), msg, data.get("status")) : msg;
-        eb.addField(msg, name, true);
-        msg = data.has("end_date") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malEndDate"), msg, data.get("end_date")) + "\n" : msg;
-        eb.addField(msg, name, true);
-
+        if (data.has("title")){//MessageFormat.format(I18n.get(channel.getGuild()).getString("malTitle"), msg, data.get("title")) : msg;
+            eb.addField(I18n.get(channel.getGuild()).getString("malTitle"), "" + data.get("title"), true);
+        }
+        if (data.has("english")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malEnglishTitle"), msg, data.get("english")) : msg;
+            eb.addField(I18n.get(channel.getGuild()).getString("malEnglishTitle"), "" + data.get("english"), true);
+        }
+        if (data.has("synonyms")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malSynonyms"), msg, data.get("synonyms")) : msg;
+        eb.addField(I18n.get(channel.getGuild()).getString("malSynonyms"), ""+data.get("synonyms"), true);
+        }
+        if (data.has("episodes")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malEpisodes"), msg, data.get("episodes")) : msg;
+        eb.addField(I18n.get(channel.getGuild()).getString("malEpisodes"), ""+data.get("episodes"), true);
+        }
+        if (data.has("score")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malScore"), msg, data.get("score")) : msg;
+        eb.addField(I18n.get(channel.getGuild()).getString("malScore"), ""+data.get("score"), true);
+        }
+        if (data.has("type")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malType"), msg, data.get("type")) : msg;
+        eb.addField(I18n.get(channel.getGuild()).getString("malType"), ""+data.get("type"), true);
+        }
+        if (data.has("status")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malStatus"), msg, data.get("status")) : msg;
+        eb.addField(I18n.get(channel.getGuild()).getString("malStatus"), ""+data.get("status"), true);
+        }
+        if (data.has("end_date")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malEndDate"), msg, data.get("end_date")) + "\n" : msg;
+        eb.addField(I18n.get(channel.getGuild()).getString("malEndDate"), ""+data.get("end_date"), true);
+        }
         if (data.has("synopsis")) {
             Matcher m = Pattern.compile("^[^\\n\\r<]+").matcher(StringEscapeUtils.unescapeHtml4(data.getString("synopsis")));
             m.find();
-            msg = data.has("synopsis") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malSynopsis"), msg, m.group(0)) : msg;
-            eb.addField(msg, name, true);
-
+            if(data.has("synopsis")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malSynopsis"), msg, m.group(0)) : msg;
+            eb.addField(I18n.get(channel.getGuild()).getString("malSynopsis"), "" + m.group(0), true);
+            }
         }
 
-        msg = data.has("id") ? msg + "http://myanimelist.net/anime/" + data.get("id") + "/" : msg;
-        eb.addField(msg, name, true);msg = data.has("start_date") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malStartDate"), msg, data.get("start_date")) : msg;
-
+        if (data.has("id")) {// ? msg + "http://myanimelist.net/anime/" + data.get("id") + "/" : msg;
+        eb.addField("http://myanimelist.net/anime/" + data.get("id") + "/", "", true);
+        }
         channel.sendMessage(eb.build()).queue();
         return true;
     }
