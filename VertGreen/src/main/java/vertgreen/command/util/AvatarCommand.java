@@ -50,18 +50,18 @@ public class AvatarCommand extends Command implements IUtilCommand {
             //String command = args[0].substring(Config.CONFIG.getPrefix().length());
             //HelpCommand.sendFormattedCommandHelp(guild, channel, invoker, command);
             eb.setColor(invoker.getColor());
-            eb.setTitle("Avatar for: " + invoker.getEffectiveName());
+            eb.addField("Avatar for: " + invoker.getEffectiveName(), "", true);
             //msg = "Avatar for: " + invoker.getEffectiveName();
             eb.setImage(invoker.getUser().getAvatarUrl() + "?size=1024");
-            eb.addField("Url", invoker.getUser().getAvatarUrl() + "?size=1024", true);
+            //eb.addField("Url", invoker.getUser().getAvatarUrl() + "?size=1024", true);
         } else {
             Member target;
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
             eb.setColor(target.getColor());
-            eb.setTitle("Avatar for: " + target.getEffectiveName());
+            eb.addField("Avatar for: " + target.getEffectiveName(), "", true);
             //msg = "Avatar for: " + target.getEffectiveName();
             eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");    
-            eb.addField("Url", target.getUser().getAvatarUrl() + "?size=1024", true);
+            //eb.addField("Url", target.getUser().getAvatarUrl() + "?size=1024", true);
         }
         //channel.sendMessage(msg).queue();
         channel.sendMessage(eb.build()).queue();

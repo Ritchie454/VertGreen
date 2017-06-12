@@ -146,7 +146,7 @@ public class MALCommand extends Command implements IUtilCommand {
         }
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(BotConstants.VERTGREEN_COLOR);
-        eb.setThumbnail("https://myanimelist.cdn-dena.com/img/sp/icon/apple-touch-icon-256.png".toString());
+        eb.setThumbnail("https://myanimelist.cdn-dena.com/img/sp/icon/apple-touch-icon-256.png");
         if (data.has("title")){//MessageFormat.format(I18n.get(channel.getGuild()).getString("malTitle"), msg, data.get("title")) : msg;
             eb.addField("Title", "" + data.get("title"), true);
         }
@@ -199,11 +199,12 @@ public class MALCommand extends Command implements IUtilCommand {
 
         JSONObject data = items.getJSONObject(0);
         EmbedBuilder eb = new EmbedBuilder();
+        eb.setColor(BotConstants.VERTGREEN_COLOR);
         if (data.has("name")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUserName"), msg, data.get("name")) : msg;
-            eb.addField("Username", ""+data.get("name"), true);
+            eb.setTitle(data.get("name").toString());
         }
         if (data.has("url")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUrl"), msg, data.get("url")) : msg;
-            eb.addField("Url", ""+data.get("url"), true);
+            eb.addField("Url", data.get("url").toString(), true);
         }
         if (data.has("image_url")){// ? msg + data.get("image_url") : msg;   
             eb.setImage(data.get("image_url").toString());
