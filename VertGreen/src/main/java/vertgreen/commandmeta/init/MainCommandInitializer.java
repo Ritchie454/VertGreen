@@ -76,7 +76,7 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("avatar", new AvatarCommand());
         CommandRegistry.registerCommand("boast", new JokeCommand());
         CommandRegistry.registerCommand("update", new UpdateCommand());
-        CommandRegistry.registerCommand("compile", new CompileCommand());
+        CommandRegistry.registerCommand("forceupdate", new CompileCommand());
         CommandRegistry.registerCommand("botrestart", new BotRestartCommand());
         CommandRegistry.registerCommand("clear", new ClearCommand());
         CommandRegistry.registerCommand("talk", new TalkCommand());
