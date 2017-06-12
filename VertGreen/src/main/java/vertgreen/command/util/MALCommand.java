@@ -199,14 +199,16 @@ public class MALCommand extends Command implements IUtilCommand {
 
         JSONObject data = items.getJSONObject(0);
         EmbedBuilder eb = new EmbedBuilder();
-        msg = data.has("name") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUserName"), msg, data.get("name")) : msg;
-        eb.addField(msg, name, true);
-        msg = data.has("url") ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUrl"), msg, data.get("url")) : msg;
-        eb.addField(msg, name, true);
-        msg = data.has("image_url") ? msg + data.get("image_url") : msg;
-        
-        eb.addField(msg, name, true);
-        log.debug(msg);
+        if (data.has("name")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUserName"), msg, data.get("name")) : msg;
+            eb.addField("Username", data.get("name")), true);
+        }
+        if (data.has("url")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUrl"), msg, data.get("url")) : msg;
+            eb.addField("Url", data.get("url")), true);
+        }
+        if (data.has("image_url")){// ? msg + data.get("image_url") : msg;   
+            eb.addField("Avatar", data.get("image_url"), true);
+        }
+        //log.debug(msg);
 
         channel.sendMessage(eb.build()).queue();
         return true;
