@@ -45,6 +45,7 @@ import java.text.MessageFormat;
 import java.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 import vertgreen.util.TextUtils;
+import vertgreen.commandmeta.MessagingException;
 
 /**
  * Created by napster on 22.03.17.
