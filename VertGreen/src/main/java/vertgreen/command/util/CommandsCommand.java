@@ -43,6 +43,7 @@ import vertgreen.util.BotConstants;
 import java.text.MessageFormat;
 import java.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
+import vertgreen.util.TextUtils;
 
 /**
  * Created by napster on 22.03.17.
@@ -121,10 +122,10 @@ public class CommandsCommand extends Command implements IUtilCommand {
             eb.addField("Maintenance", maint.replace("**Maintenance:**", ""), true);
             eb.addField("Bot Owner", owner.replace("**Bot owner:**", ""), true);
         }
-
         eb.addField(MessageFormat.format(I18n.get(guild).getString("commandsMoreHelp"), "`" + Config.CONFIG.getPrefix() + "help <command>`"), "", true);
         channel.sendMessage(eb.build()).queue();
-        channel.sendMessage("If you can't see embeds, you can use this handy link instead!\nhttps://hastebin.com/tehacorutu.sql").queue();
+        String comurl = TextUtils.postToHastebin(owner + fun + util + mod + maint, true) + ".vertcmds";
+        channel.sendMessage("If you can't see embeds, you can use this handy link instead!\nhttps://hastebin.com/tehacorutu.sql\nTest Url: " + comurl).queue();
     }
 
     @Override
