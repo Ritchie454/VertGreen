@@ -33,6 +33,9 @@ public class MemoryCommand extends Command implements IMaintenanceCommand {
                 days, hours, mins, secs, CommandManager.commandsExecuted - 1)
                 + "\n";
         EmbedBuilder eb = new EmbedBuilder();
+        if (Runtime.getRuntime().totalMemory() / 1000000 > 50) {
+            channel.sendMessage("Warning, High memory usage ~~TEST MESSAGE PLEASE IGNORE~~");
+        }
         eb.setColor(BotConstants.VERTGREEN_COLOR);
         eb.addField("Memory Stats", "Reserved memory: " + Runtime.getRuntime().totalMemory() / 1000000 + "MB\n" + "-> Of which is used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "MB\n" + "-> Of which is free: " + Runtime.getRuntime().freeMemory() / 1000000 + "MB\n" + "Max reservable: " + Runtime.getRuntime().maxMemory() / 1000000 + "MB\n", true);
         
