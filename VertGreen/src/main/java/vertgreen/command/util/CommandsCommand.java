@@ -82,15 +82,15 @@ public class CommandsCommand extends Command implements IUtilCommand {
         List<String> sortedAliases = new ArrayList<>(unsortedAliases);
         Collections.sort(sortedAliases);
 
-        String fun = "**" + I18n.get(guild).getString("commandsFun") + ":** ";
-        String util = "**" + I18n.get(guild).getString("commandsUtility") + ":** ";
-        String mod = "**" + I18n.get(guild).getString("commandsModeration") + ":** ";
-        String maint = "**" + I18n.get(guild).getString("commandsMaintenance") + ":** ";
-        String owner = "**" + I18n.get(guild).getString("commandsBotOwner") + ":** ";
+        String fun = I18n.get(guild).getString("commandsFun");
+        String util = I18n.get(guild).getString("commandsUtility");
+        String mod = I18n.get(guild).getString("commandsModeration");
+        String maint = I18n.get(guild).getString("commandsMaintenance");
+        String owner = I18n.get(guild).getString("commandsBotOwner");
 
         for (String alias : sortedAliases) {
             Command c = CommandRegistry.getCommand(alias).command;
-            String formattedAlias = "`" + alias + "` ";
+            String formattedAlias = alias;
 
             if (c instanceof ICommandOwnerRestricted) {
                 owner += formattedAlias;
@@ -114,21 +114,21 @@ public class CommandsCommand extends Command implements IUtilCommand {
        EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(BotConstants.VERTGREEN_COLOR);
         eb.setTitle("__Commands__");
-        eb.addField("Fun", fun.replace("**Fun:**", ""), true);
-        eb.addField("Utility", util.replace("**Utility:**", ""), true);
+        eb.addField("Fun", fun, true);
+        eb.addField("Utility", util, true);
         if (invoker.hasPermission(Permission.MESSAGE_MANAGE)) {
-            eb.addField("Moderation", mod.replace("**Moderation:**", ""), true);
+            eb.addField("Moderation", mod, true);
         }
 
         if (DiscordUtil.isUserBotOwner(invoker.getUser())) {
-            eb.addField("Maintenance", maint.replace("**Maintenance:**", ""), true);
-            eb.addField("Bot Owner", owner.replace("**Bot owner:**", ""), true);
+            eb.addField("Maintenance", maint, true);
+            eb.addField("Bot Owner", owner, true);
         }
         eb.addField(MessageFormat.format(I18n.get(guild).getString("commandsMoreHelp"), "`" + Config.CONFIG.getPrefix() + "help <command>`"), "", true);
         channel.sendMessage(eb.build()).queue();
         try {
-        String comurl = TextUtils.postToHastebin(owner + fun + util + mod + maint, true) + ".vertcmds";
-        channel.sendMessage("If you can't see embeds, you can use this handy link instead!\nhttps://hastebin.com/tehacorutu.sql\nTest Url: " + comurl).queue();
+        String comurl = TextUtils.postToHastebin(owner + "\n" + fun + "\n" + util + "\n" + mod + "\n" + maint, true) + ".vertcmds";
+        channel.sendMessage("If you can't see embeds, you can use this handy link instead!\n" + comurl).queue();
         }
         catch (UnirestException ex) {
             throw new MessagingException("Export Failed");
