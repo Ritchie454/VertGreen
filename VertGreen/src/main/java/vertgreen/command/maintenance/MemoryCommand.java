@@ -33,7 +33,7 @@ public class MemoryCommand extends Command implements IMaintenanceCommand {
                 days, hours, mins, secs, CommandManager.commandsExecuted - 1)
                 + "\n";
         EmbedBuilder eb = new EmbedBuilder();
-        Long Mem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory() / 1000000;
+        Long Mem = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000;
         if (Mem > 500) {
             channel.sendMessage("Warning, High memory usage!").queue();
         } else if (Mem > 250) {
