@@ -24,6 +24,7 @@
 
 package vertgreen.command.util;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import vertgreen.commandmeta.abs.IMaintenanceCommand;
 import vertgreen.commandmeta.abs.ICommandOwnerRestricted;
 import vertgreen.commandmeta.abs.Command;
