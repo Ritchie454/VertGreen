@@ -124,9 +124,14 @@ public class CommandsCommand extends Command implements IUtilCommand {
         }
         eb.addField(MessageFormat.format(I18n.get(guild).getString("commandsMoreHelp"), "`" + Config.CONFIG.getPrefix() + "help <command>`"), "", true);
         channel.sendMessage(eb.build()).queue();
+        try {
         String comurl = TextUtils.postToHastebin(owner + fun + util + mod + maint, true) + ".vertcmds";
         channel.sendMessage("If you can't see embeds, you can use this handy link instead!\nhttps://hastebin.com/tehacorutu.sql\nTest Url: " + comurl).queue();
-    }
+        }
+        catch (UnirestException ex) {
+            throw new MessagingException("Export Failed");
+        }
+     }
 
     @Override
     public String help(Guild guild) {
