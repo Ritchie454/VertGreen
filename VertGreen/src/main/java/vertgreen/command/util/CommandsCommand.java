@@ -90,7 +90,7 @@ public class CommandsCommand extends Command implements IUtilCommand {
 
         for (String alias : sortedAliases) {
             Command c = CommandRegistry.getCommand(alias).command;
-            String formattedAlias = alias;
+            String formattedAlias = alias + "  ";
 
             if (c instanceof ICommandOwnerRestricted) {
                 owner += formattedAlias;
@@ -114,15 +114,15 @@ public class CommandsCommand extends Command implements IUtilCommand {
        EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(BotConstants.VERTGREEN_COLOR);
         eb.setTitle("__Commands__");
-        eb.addField("Fun", fun, true);
-        eb.addField("Utility", util, true);
+        eb.addField("Fun", fun.replace("Fun", ""), true);
+        eb.addField("Utility", util.replace("Utility", ""), true);
         if (invoker.hasPermission(Permission.MESSAGE_MANAGE)) {
-            eb.addField("Moderation", mod, true);
+            eb.addField("Moderation", mod.replace("Moderation", ""), true);
         }
 
         if (DiscordUtil.isUserBotOwner(invoker.getUser())) {
-            eb.addField("Maintenance", maint, true);
-            eb.addField("Bot Owner", owner, true);
+            eb.addField("Maintenance", maint.replace("Maintenance", ""), true);
+            eb.addField("Bot Owner", owner.replace("Bot Owner", ""), true);
         }
         eb.addField(MessageFormat.format(I18n.get(guild).getString("commandsMoreHelp"), "`" + Config.CONFIG.getPrefix() + "help <command>`"), "", true);
         channel.sendMessage(eb.build()).queue();
