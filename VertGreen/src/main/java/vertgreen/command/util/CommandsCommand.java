@@ -122,12 +122,12 @@ public class CommandsCommand extends Command implements IUtilCommand {
 
         if (DiscordUtil.isUserBotOwner(invoker.getUser())) {
             eb.addField("Maintenance", maint.replace("Maintenance", ""), true);
-            eb.addField("Bot Owner", owner.replace("Bot Owner", ""), true);
+            eb.addField("Bot Owner", owner.replace("Bot owner", ""), true);
         }
         eb.addField(MessageFormat.format(I18n.get(guild).getString("commandsMoreHelp"), "`" + Config.CONFIG.getPrefix() + "help <command>`"), "", true);
         channel.sendMessage(eb.build()).queue();
         try {
-        String comurl = TextUtils.postToHastebin("Fun\n" + fun.replace("Fun", "") + "Utility\n" + util.replace("Utility", "") + "Moderation\n" + mod.replace("Moderation", ""), true) + ".vertcmds";
+        String comurl = TextUtils.postToHastebin("-Fun----------------------------------------\n" + fun.replace("Fun", "") + "\n-Utility----------------------------------------\n" + util.replace("Utility", "") + "\n-Moderation----------------------------------------\n" + mod.replace("Moderation", ""), true) + ".vertcmds";
         channel.sendMessage("If you can't see embeds, you can use this handy link instead!\n" + comurl).queue();
         }
         catch (UnirestException ex) {
