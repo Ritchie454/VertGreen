@@ -127,7 +127,7 @@ public class CommandsCommand extends Command implements IUtilCommand {
         eb.addField(MessageFormat.format(I18n.get(guild).getString("commandsMoreHelp"), "`" + Config.CONFIG.getPrefix() + "help <command>`"), "", true);
         channel.sendMessage(eb.build()).queue();
         try {
-        String comurl = TextUtils.postToHastebin(owner + "\n" + fun + "\n" + util + "\n" + mod + "\n" + maint, true) + ".vertcmds";
+        String comurl = TextUtils.postToHastebin("Fun\n" + fun.replace("Fun", "") + "Utility\n" + util.replace("Utility", "") + "Moderation\n" + mod.replace("Moderation", ""), true) + ".vertcmds";
         channel.sendMessage("If you can't see embeds, you can use this handy link instead!\n" + comurl).queue();
         }
         catch (UnirestException ex) {
