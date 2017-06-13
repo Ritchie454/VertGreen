@@ -73,6 +73,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+import vertgreen.util.BotConstants;
 
 public abstract class VertGreen {
 
@@ -115,7 +116,9 @@ public abstract class VertGreen {
                 " \\ \\   / / ___  _ __ | |_  / /   ___  _ __   ___   ___  _ ___\n" +
                 "  \\ \\ / / / _ \\| '__|| __|| |   |__ || '__| / _ \\ / _ \\| '_  |\n" +
                 "   \\ V / |  __/| |   | |_  \\ \\____/ /| |   |  __/|  __/| | | |\n" +
-                "    \\_/   \\___||_|    \\__|  \\______/ |_|    \\___| \\___||_| |_|\n\n");
+                "    \\_/   \\___||_|    \\__|  \\______/ |_|    \\___| \\___||_| |_|\n\n" +
+                "Distribution: " + BotConstants.BOT_RELEASE + "\n" +
+                "Version: " + BotConstants.BOT_VERSION);
 
         I18n.start();
 

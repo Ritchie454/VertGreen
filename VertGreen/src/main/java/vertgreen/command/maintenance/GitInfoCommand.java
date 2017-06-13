@@ -41,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import vertgreen.util.BotConstants;
 
 /**
  * Created by napster on 05.05.17.
@@ -73,9 +74,9 @@ public class GitInfoCommand extends Command implements IMaintenanceCommand {
         embedBuilder.addField("Commit timestamp", gitRepoState.commitTime, false);
         embedBuilder.addField("Commit on Github", url, false);
 
-        embedBuilder.addField("Version", gitRepoState.buildVersion, true);
+        embedBuilder.addField("Version", BotConstants.BOT_VERSION, true);
         embedBuilder.addField("Branch", gitRepoState.branch, true);
-        embedBuilder.addField("Built by", gitRepoState.buildUserName, true);
+        embedBuilder.addField("Built by", "Ritchie454 (@Kurozume Tennokouboshi#4452)", true);
 
         embedBuilder.setColor(new Color(240, 81, 51));//git-scm color
         embedBuilder.setThumbnail(octocats.getRandomImageUrl());//github octocat thumbnail

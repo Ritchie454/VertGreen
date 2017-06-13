@@ -33,16 +33,21 @@ public class MemoryCommand extends Command implements IMaintenanceCommand {
                 days, hours, mins, secs, CommandManager.commandsExecuted - 1)
                 + "\n";
         EmbedBuilder eb = new EmbedBuilder();
-        Long Mem = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000;
-        if (Mem > 500) {
-            channel.sendMessage("Warning, High memory usage!").queue();
-        } else if (Mem > 250) {
-            channel.sendMessage("Moderate memory usage").queue();
+        Long TotMem = Runtime.getRuntime().totalMemory() / 1000000;
+        Long FreeMem = Runtime.getRuntime().freeMemory() / 1000000;
+        Long MaxMem = Runtime.getRuntime().maxMemory() / 1000000;
+        Long CurrMem = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000;
+        if (CurrMem > 500) {
+            eb.setFooter("Warning, High memory usage!", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Achtung.svg/1169px-Achtung.svg.png");
+            eb.setColor(BotConstants.VERTRED_COLOR);
+        } else if (CurrMem > 250) {
+            eb.setFooter("Moderate memory usage", "http://www.clker.com/cliparts/6/8/1/7/1242237019492940192Achtung-yellow.svg.hi.png");
+            eb.setColor(BotConstants.VERTYELLOW_COLOR);
         } else {
-            channel.sendMessage("Low memory usage :ok_hand:").queue();
+            eb.setFooter("Low memory usage", "http://www.freeiconspng.com/uploads/accept-tick-icon-12.png");
+            eb.setColor(BotConstants.VERTGREEN_COLOR);
         }
-        eb.setColor(BotConstants.VERTGREEN_COLOR);
-        eb.addField("Memory Stats", "Reserved memory: " + Runtime.getRuntime().totalMemory() / 1000000 + "MB\n" + "-> Of which is used: " + Mem + "MB\n" + "-> Of which is free: " + Runtime.getRuntime().freeMemory() / 1000000 + "MB\n" + "Max reservable: " + Runtime.getRuntime().maxMemory() / 1000000 + "MB\n", true);
+        eb.addField("Memory Stats", "Reserved memory: " + TotMem + "MB\n" + "-> Of which is used: " + CurrMem + "MB\n" + "-> Of which is free: " + FreeMem + "MB\n" + "Max reservable: " + MaxMem + "MB\n", true);
         
         channel.sendMessage(eb.build()).queue();
     }

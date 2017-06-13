@@ -35,7 +35,7 @@ public class VersionCommand extends Command implements IMaintenanceCommand {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(BotConstants.VERTGREEN_COLOR);
         
-        eb.addField("Version Info", "Distribution: " + Config.CONFIG.getDistribution() + "\n" + "JDA responses total: " + guild.getJDA().getResponseTotal() + "\n" + "JDA version: " + JDAInfo.VERSION + "\n", true);
+        eb.addField("Version Info", "Distribution: " + BotConstants.BOT_RELEASE + "\n" + "Bot Version:" + BotConstants.BOT_VERSION + "\n" + "JDA responses total: " + guild.getJDA().getResponseTotal() + "\n" + "JDA version: " + JDAInfo.VERSION + "\n", true);
         
         channel.sendMessage(eb.build()).queue();
     }
