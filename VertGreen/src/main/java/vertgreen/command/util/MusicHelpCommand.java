@@ -25,6 +25,7 @@
 
 package vertgreen.command.util;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import vertgreen.command.music.control.SkipCommand;
 import vertgreen.command.music.control.PlayCommand;
 import vertgreen.command.music.control.PauseCommand;
@@ -50,7 +51,6 @@ import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IMusicCommand;
 import vertgreen.commandmeta.abs.IUtilCommand;
 import vertgreen.feature.I18n;
-import vertgreen.util.TextUtils;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
@@ -59,12 +59,14 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import vertgreen.util.BotConstants;
 
 import java.util.*;
+import vertgreen.commandmeta.MessagingException;
+import vertgreen.util.TextUtils;
 
 public class MusicHelpCommand extends Command implements IUtilCommand {
 
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
-
+        String Help = "";
         //aggregate all commands and the aliases they may be called with
         Map<Class<? extends Command>, List<String>> commandToAliases = new HashMap<>();
         Set<String> commandsAndAliases = CommandRegistry.getRegisteredCommandsAndAliases();
@@ -88,15 +90,16 @@ public class MusicHelpCommand extends Command implements IUtilCommand {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("🎵 Vert's Music Commands 🎵");
         eb.setColor(BotConstants.VERTGREEN);
+        
         //create help strings for each music command and its main alias
         List<String> musicComms = new ArrayList<>();
         for (Command command : sortedComms) {
-
             String mainAlias = commandToAliases.get(command.getClass()).get(0);
             mainAlias = CommandRegistry.getCommand(mainAlias).name;
             String formattedHelp = HelpCommand.getFormattedCommandHelp(guild, command, mainAlias);
             musicComms.add(formattedHelp);
             eb.addField(mainAlias, formattedHelp, true);
+            Help = Help + mainAlias + "\n" + formattedHelp + "\n-----------------------\n";
         }
         
         //output the resulting help, splitting it in several messages if necessary
@@ -109,8 +112,15 @@ public class MusicHelpCommand extends Command implements IUtilCommand {
             out += s + "\n";
         }
         //channel.sendMessage(TextUtils.asMarkdown(out)).queue();
+        
         channel.sendMessage(eb.build()).queue();
-        channel.sendMessage("If you can't see embeds, you can use this handy link instead!\nhttps://hastebin.com/adebedahuw.makefile").queue();
+        try {
+            String comurl = TextUtils.postToHastebin(Help, true) + ".vertmusiccmds";
+            channel.sendMessage("If you can't see embeds, you can use this handy link instead!\n" + comurl).queue();
+        }
+        catch (UnirestException ex) {
+            throw new MessagingException("Export Failed");
+        }
     }
 
     @Override

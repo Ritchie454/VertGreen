@@ -31,7 +31,6 @@ import vertgreen.commandmeta.abs.IModerationCommand;
 import vertgreen.feature.I18n;
 import vertgreen.util.DiscordUtil;
 import vertgreen.util.TextUtils;
-import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
@@ -74,7 +73,7 @@ public class LanguageCommand extends Command implements IModerationCommand {
     private void handleNoArgs(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(BotConstants.VERTGREEN);
-        eb.setThumbnail(guild.getIconUrl());
+        eb.setThumbnail("https://d30y9cdsu7xlg0.cloudfront.net/png/51904-200.png");
         eb.addField("Languages available to " + guild.getName(), I18n.get(guild).getString("langInfo").replace(Config.DEFAULT_PREFIX, Config.CONFIG.getPrefix()), true); 
         List<String> keys = new ArrayList<>(I18n.LANGS.keySet());
         Collections.sort(keys);
@@ -82,7 +81,7 @@ public class LanguageCommand extends Command implements IModerationCommand {
             I18n.FredBoatLocale loc = I18n.LANGS.get(key);
             eb.addField(loc.getNativeName(), loc.getCode(), true);
         }     
-        eb.addField("Disclaimer", "Translations may not be 100% accurate or complete.", true);
+        eb.setFooter(" | Disclaimer | Translations may not be 100% accurate or complete.", "https://www.spiralscripts.co.uk/images/stories/warning-medium.png");
         channel.sendMessage(eb.build()).queue(); 
     }
 

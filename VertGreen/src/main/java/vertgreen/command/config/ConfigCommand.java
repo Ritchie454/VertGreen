@@ -57,10 +57,11 @@ public class ConfigCommand extends Command implements IModerationCommand {
 
     private void printConfig(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         GuildConfig gc = EntityReader.getGuildConfig(guild.getId());
-
+        
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(BotConstants.VERTGREEN);
         eb.setThumbnail(guild.getIconUrl());
+        eb.setFooter(" | Vertbot Configuration options Rev 4", "https://image.flaticon.com/icons/png/128/76/76716.png");
         eb.addField("Configuration for " + guild.getName(), "Use `" + Config.CONFIG.getPrefix() + "config <key> <value>` to adjust a specific value. The configuration is below:", true); 
         eb.addField("track_announce", "" + gc.isTrackAnnounce(), true);
         eb.addField("auto_resume", "" + gc.isAutoResume(), true);
@@ -83,16 +84,16 @@ public class ConfigCommand extends Command implements IModerationCommand {
         GuildConfig gc = EntityReader.getGuildConfig(guild.getId());
         String key = args[1];
         String val = args[2];
-
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setColor(BotConstants.VERTGREEN);
+        eb.setThumbnail(guild.getIconUrl());
+        eb.setFooter(" | Vertbot Configuration options Rev 4", "https://image.flaticon.com/icons/png/128/76/76716.png");
         switch (key) {
             case "track_announce":
                 if (val.equalsIgnoreCase("true") | val.equalsIgnoreCase("false")) {
                     gc.setTrackAnnounce(Boolean.valueOf(val));
                     EntityWriter.mergeGuildConfig(gc);
                     //TextUtils.replyWithName(channel, invoker, "`track_announce` " + MessageFormat.format(I18n.get(guild).getString("configSetTo"), val));
-                    EmbedBuilder eb = new EmbedBuilder();
-                    eb.setColor(BotConstants.VERTGREEN);
-                    eb.setThumbnail(guild.getIconUrl());
                     eb.addField("Updated Configuration:", "track_announce" + (I18n.get(guild).getString("configSetTo")) + val , true);
                     channel.sendMessage(eb.build()).queue(); 
                 } else {
@@ -104,9 +105,6 @@ public class ConfigCommand extends Command implements IModerationCommand {
                     gc.setAutoResume(Boolean.valueOf(val));
                     EntityWriter.mergeGuildConfig(gc);
                     //TextUtils.replyWithName(channel, invoker, "`auto_resume` " + MessageFormat.format(I18n.get(guild).getString("configSetTo"), val));
-                    EmbedBuilder eb = new EmbedBuilder();
-                    eb.setColor(BotConstants.VERTGREEN);
-                    eb.setThumbnail(guild.getIconUrl());
                     eb.addField("Updated Configuration:", "auto_resume" + (I18n.get(guild).getString("configSetTo")) + val , true);
                     channel.sendMessage(eb.build()).queue(); 
                 } else {

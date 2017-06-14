@@ -56,6 +56,16 @@ EmbedBuilder eb = new EmbedBuilder();
             eb.addField("Last minute's packet stats:", "Packets sent:   " + guildPlayer.getAudioLossCounter().getLastMinuteSuccess() + "\n"
                 + "Null packets:   " + guildPlayer.getAudioLossCounter().getLastMinuteLoss() + "\n"
                 + "Packet deficit: " + deficit, true);
+            Integer loss = guildPlayer.getAudioLossCounter().getLastMinuteLoss();
+            String status;
+            if (loss >= 3000) {
+                status = " | Warning, High packet loss!";
+            } else if (loss >= 1500){
+                status = " | Moderate packet loss";
+            } else {
+                status = " | Low packet loss 👌";
+            }
+            eb.setFooter(status, "http://images.clipartpanda.com/bolt-20clip-20art-4cbzq4ncg.png");
             channel.sendMessage(eb.build()).queue();
         }
     }
