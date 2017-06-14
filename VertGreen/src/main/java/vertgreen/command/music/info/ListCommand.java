@@ -89,7 +89,7 @@ public class ListCommand extends Command implements IMusicCommand {
         List<AudioTrackContext> sublist = tracks.subList(i, listEnd);
         String playmode = "";
         if (player.isShuffle()) {
-            playmode.append("|" + I18n.get(guild).getString("listShowShuffled"));
+            playmode = playmode + "|" + I18n.get(guild).getString("listShowShuffled");
             //mb.append(I18n.get(guild).getString("listShowShuffled"));
             //mb.append("\n");
             if (player.getRepeatMode() == RepeatMode.OFF){
@@ -98,14 +98,14 @@ public class ListCommand extends Command implements IMusicCommand {
         }
         if (player.getRepeatMode() == RepeatMode.SINGLE) {
             //mb.append(I18n.get(guild).getString("listShowRepeatSingle"));
-            playmode.append("|" + I18n.get(guild).getString("listShowRepeatSingle"));
+            playmode = playmode + "|" + I18n.get(guild).getString("listShowRepeatSingle");
             //mb.append("\n");
         } else if (player.getRepeatMode() == RepeatMode.ALL) {
             //mb.append(I18n.get(guild).getString("listShowRepeatAll"));
-            playmode.append("|" + I18n.get(guild).getString("listShowRepeatAll"));
+            playmode = playmode + "|" + I18n.get(guild).getString("listShowRepeatAll");
             //mb.append("\n");
         }
-        eb.setFooter(playmode, "https://img06.deviantart.net/76a5/i/2013/031/7/6/music_notes_stock_by_bassgeisha-d3h9mpv.jpg");
+        eb.setFooter(playmode, "http://www.thestarbiz.com/wp-content/uploads/2016/05/icon-m.png");
         //mb.append(MessageFormat.format(I18n.get(guild).getString("listPageNum"), page, maxPages));
         eb.setTitle("Showing current Playlist, Page: " + page + "/" + maxPages);
         //mb.append("\n");
