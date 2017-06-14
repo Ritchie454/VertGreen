@@ -74,7 +74,7 @@ public class GitInfoCommand extends Command implements IMaintenanceCommand {
         embedBuilder.addField("Commit timestamp", gitRepoState.commitTime, false);
         embedBuilder.addField("Commit on Github", url, false);
 
-        embedBuilder.addField("Version", BotConstants.BOT_VERSION, true);
+        embedBuilder.addField("Version", BotConstants.VERSION, true);
         embedBuilder.addField("Branch", gitRepoState.branch, true);
         embedBuilder.addField("Built by", "Ritchie454 (@Kurozume Tennokouboshi#4452) <@!197063812027908097>", true);
 

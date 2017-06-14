@@ -244,7 +244,7 @@ public class NowplayingCommand extends Command implements IMusicCommand {
                 .setAuthor(at.getInfo().author, null, null)
                 .setTitle(atc.getEffectiveTitle(), at.getIdentifier())
                 .setDescription(MessageFormat.format(I18n.get(channel.getGuild()).getString("npLoadedFromHTTP"), desc, at.getIdentifier())) //TODO: Probe data
-                .setColor(BotConstants.VERTGREEN_COLOR)
+                .setColor(BotConstants.VERTGREEN)
                 .setFooter(channel.getJDA().getSelfUser().getName(), channel.getJDA().getSelfUser().getAvatarUrl())
                 .build();
 
@@ -264,7 +264,7 @@ public class NowplayingCommand extends Command implements IMusicCommand {
                 .setAuthor(at.getInfo().author, null, null)
                 .setTitle(atc.getEffectiveTitle(), null)
                 .setDescription(MessageFormat.format(I18n.get(channel.getGuild()).getString("npLoadedDefault"), desc, at.getSourceManager().getSourceName()))
-                .setColor(BotConstants.VERTGREEN_COLOR)
+                .setColor(BotConstants.VERTGREEN)
                 .setFooter(channel.getJDA().getSelfUser().getName(), channel.getJDA().getSelfUser().getAvatarUrl())
                 .build();
 

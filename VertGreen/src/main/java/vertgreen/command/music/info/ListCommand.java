@@ -64,7 +64,7 @@ public class ListCommand extends Command implements IMusicCommand {
 
         //MessageBuilder mb = new MessageBuilder();
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(BotConstants.VERTRED_COLOR);
+        eb.setColor(BotConstants.VERTRED);
         int page = 1;
         if(args.length >= 2) {
             try {

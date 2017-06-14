@@ -17,6 +17,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import vertgreen.util.BotConstants;
 
 import java.text.MessageFormat;
+import vertgreen.util.GitRepoState;
 
 public class StatsCommand extends Command implements IMaintenanceCommand {
 
@@ -33,7 +34,7 @@ public class StatsCommand extends Command implements IMaintenanceCommand {
                 days, hours, mins, secs, CommandManager.commandsExecuted - 1)
                 + "\n";
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(BotConstants.VERTGREEN_COLOR);
+        eb.setColor(BotConstants.VERTGREEN);
         
         eb.addField("Stats for this bot", (MessageFormat.format(I18n.get(guild).getString("statsRate"), str, (float) (CommandManager.commandsExecuted - 1) / ((float) totalSecs / (float) (60 * 60)))), true);
         
@@ -46,8 +47,9 @@ public class StatsCommand extends Command implements IMaintenanceCommand {
             eb.addField("Shard Info","Sharding: " + VertGreen.getInstance(guild.getJDA()).getShardInfo().getShardString() + "\n" + "Known servers: " + VertGreen.getAllGuilds().size() + "\n" + "Known users in servers: " + VertGreen.getAllUsersAsMap().size() + "\n" , true);
         }
       
-        eb.addField("Version Info", "Distribution: " + BotConstants.BOT_RELEASE + "\n" + "Bot Version:" + BotConstants.BOT_VERSION + "\n" + "JDA responses total: " + guild.getJDA().getResponseTotal() + "\n" + "JDA version: " + JDAInfo.VERSION + "\n", true);
-         
+        eb.addField("Version Info", "Distribution: " + BotConstants.RELEASE + "\n" + "Bot Version:" + BotConstants.VERSION + "\n" + "JDA responses total: " + guild.getJDA().getResponseTotal() + "\n" + "JDA version: " + JDAInfo.VERSION + "\n", true);
+        GitRepoState gitRepoState = GitRepoState.getGitRepositoryState();
+        eb.setFooter("Rev: " + gitRepoState.describe, "http://i.imgur.com/RjWwxlg.png");
         channel.sendMessage(eb.build()).queue();
     }
 

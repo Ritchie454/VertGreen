@@ -55,29 +55,6 @@ public class CommandManager {
         String[] args = commandToArguments(message.getRawContent());
         commandsExecuted++;
 
-        if (invoked instanceof IMusicBackupCommand
-                && guild.getJDA().getSelfUser().getId().equals(BotConstants.MUSIC_BOT_ID)
-                && DiscordUtil.isMainBotPresent(guild)) {
-            log.info("Ignored command because main bot is present and I am the public music FredBoat");
-            return;
-        }
-
-        if (guild.getJDA().getSelfUser().getId().equals(BotConstants.PATRON_BOT_ID)
-                && Config.CONFIG.getDistribution() == DistributionEnum.PATRON
-                && guild.getId().equals(BotConstants.FREDBOAT_HANGOUT_ID)) {
-            log.info("Ignored command because patron bot is not allowed in FredBoatHangout");
-            return;
-        }
-
-        if (Config.CONFIG.getDistribution() == DistributionEnum.MUSIC
-                && DiscordUtil.isPatronBotPresentAndOnline(guild)
-                && guild.getMemberById(BotConstants.PATRON_BOT_ID) != null
-                && guild.getMemberById(BotConstants.PATRON_BOT_ID).hasPermission(channel, Permission.MESSAGE_WRITE, Permission.MESSAGE_READ)
-                && Config.CONFIG.getPrefix().equals(Config.DEFAULT_PREFIX)
-                && !guild.getId().equals(BotConstants.FREDBOAT_HANGOUT_ID)) {
-            log.info("Ignored command because patron bot is able to user that channel");
-            return;
-        }
 
         if (invoked instanceof IMusicCommand
                 && !channel.getGuild().getSelfMember().hasPermission(channel, Permission.MESSAGE_WRITE)) {
@@ -97,27 +74,6 @@ public class CommandManager {
             //only admins and the bot owner can execute these
             if (!isAdmin(invoker) && !DiscordUtil.isUserBotOwner(invoker.getUser())) {
                 channel.sendMessage(TextUtils.prefaceWithName(invoker, I18n.get(guild).getString("cmdAccessDenied"))).queue();
-                return;
-            }
-        }
-
-        //Hardcode music commands in FredBoatHangout. Blacklist any channel that isn't #general or #staff, but whitelist Frederikam
-        if (invoked instanceof IMusicCommand
-                && guild.getId().equals(BotConstants.FREDBOAT_HANGOUT_ID)
-                && guild.getJDA().getSelfUser().getId().equals(BotConstants.MUSIC_BOT_ID)) {
-            if (!channel.getId().equals("174821093633294338")
-                    && !channel.getId().equals("217526705298866177")
-                    && !invoker.getUser().getId().equals("203330266461110272")//Cynth
-                    && !invoker.getUser().getId().equals("81011298891993088")) {
-                message.delete().queue();
-                channel.sendMessage(invoker.getEffectiveName() + ": Please don't spam music commands outside of <#174821093633294338>.").queue(message1 -> {
-                    RestActionScheduler.schedule(
-                            message1.delete(),
-                            5,
-                            TimeUnit.SECONDS
-                    );
-                });
-
                 return;
             }
         }

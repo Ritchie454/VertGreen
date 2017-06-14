@@ -87,7 +87,7 @@ public class MusicHelpCommand extends Command implements IUtilCommand {
         Collections.sort(sortedComms, new MusicCommandsComparator());
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("🎵 Vert's Music Commands 🎵");
-        eb.setColor(BotConstants.VERTGREEN_COLOR);
+        eb.setColor(BotConstants.VERTGREEN);
         //create help strings for each music command and its main alias
         List<String> musicComms = new ArrayList<>();
         for (Command command : sortedComms) {

@@ -51,7 +51,7 @@ public class AudioDebugCommand extends Command implements IMaintenanceCommand {
         } else {
             int deficit = AudioLossCounter.EXPECTED_PACKET_COUNT_PER_MIN - (guildPlayer.getAudioLossCounter().getLastMinuteLoss() + guildPlayer.getAudioLossCounter().getLastMinuteSuccess());
 EmbedBuilder eb = new EmbedBuilder();
-            eb.setColor(BotConstants.VERTGREEN_COLOR);
+            eb.setColor(BotConstants.VERTGREEN);
             eb.setTitle("Debugging information");
             eb.addField("Last minute's packet stats:", "Packets sent:   " + guildPlayer.getAudioLossCounter().getLastMinuteSuccess() + "\n"
                 + "Null packets:   " + guildPlayer.getAudioLossCounter().getLastMinuteLoss() + "\n"

@@ -145,7 +145,7 @@ public class MALCommand extends Command implements IUtilCommand {
             return false;
         }
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(BotConstants.VERTGREEN_COLOR);
+        eb.setColor(BotConstants.VERTGREEN);
         eb.setThumbnail("https://myanimelist.cdn-dena.com/img/sp/icon/apple-touch-icon-256.png");
         if (data.has("title")){//MessageFormat.format(I18n.get(channel.getGuild()).getString("malTitle"), msg, data.get("title")) : msg;
             eb.addField("Title", "" + data.get("title"), true);
@@ -199,7 +199,7 @@ public class MALCommand extends Command implements IUtilCommand {
 
         JSONObject data = items.getJSONObject(0);
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(BotConstants.VERTGREEN_COLOR);
+        eb.setColor(BotConstants.VERTGREEN);
         if (data.has("name")){// ? MessageFormat.format(I18n.get(channel.getGuild()).getString("malUserName"), msg, data.get("name")) : msg;
             eb.setTitle(data.get("name").toString());
         }

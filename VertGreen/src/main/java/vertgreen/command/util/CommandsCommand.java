@@ -112,7 +112,7 @@ public class CommandsCommand extends Command implements IUtilCommand {
         }
 
        EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(BotConstants.VERTGREEN_COLOR);
+        eb.setColor(BotConstants.VERTGREEN);
         eb.setTitle("__Commands__");
         eb.addField("Fun", fun.replace("Fun", ""), true);
         eb.addField("Utility", util.replace("Utility", ""), true);

@@ -83,7 +83,7 @@ public abstract class ProvideJDASingleton {
 
             String imageUrl = "";
             String comment = "";
-            Color color = BotConstants.VERTGREEN_COLOR;
+            Color color = BotConstants.VERTGREEN;
             if (totalPassed > totalAttempted) {
                 imageUrl = "http://i.imgur.com/q2kzLPw.png";
                 comment = "More tests passed than attempted. This can't be real, can it?";

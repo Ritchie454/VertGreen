@@ -61,7 +61,7 @@ public class ConfigCommand extends Command implements IModerationCommand {
         GuildConfig gc = EntityReader.getGuildConfig(guild.getId());
 
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(BotConstants.VERTGREEN_COLOR);
+        eb.setColor(BotConstants.VERTGREEN);
         eb.setThumbnail(guild.getIconUrl());
         eb.addField("Configuration for " + guild.getName(), "Use `" + Config.CONFIG.getPrefix() + "config <key> <value>` to adjust a specific value. The configuration is below:", true); 
         eb.addField("track_announce", "" + gc.isTrackAnnounce(), true);
@@ -93,7 +93,7 @@ public class ConfigCommand extends Command implements IModerationCommand {
                     EntityWriter.mergeGuildConfig(gc);
                     //TextUtils.replyWithName(channel, invoker, "`track_announce` " + MessageFormat.format(I18n.get(guild).getString("configSetTo"), val));
                     EmbedBuilder eb = new EmbedBuilder();
-                    eb.setColor(BotConstants.VERTGREEN_COLOR);
+                    eb.setColor(BotConstants.VERTGREEN);
                     eb.setThumbnail(guild.getIconUrl());
                     eb.addField("Updated Configuration:", "track_announce" + (I18n.get(guild).getString("configSetTo")) + val , true);
                     channel.sendMessage(eb.build()).queue(); 
@@ -107,7 +107,7 @@ public class ConfigCommand extends Command implements IModerationCommand {
                     EntityWriter.mergeGuildConfig(gc);
                     //TextUtils.replyWithName(channel, invoker, "`auto_resume` " + MessageFormat.format(I18n.get(guild).getString("configSetTo"), val));
                     EmbedBuilder eb = new EmbedBuilder();
-                    eb.setColor(BotConstants.VERTGREEN_COLOR);
+                    eb.setColor(BotConstants.VERTGREEN);
                     eb.setThumbnail(guild.getIconUrl());
                     eb.addField("Updated Configuration:", "auto_resume" + (I18n.get(guild).getString("configSetTo")) + val , true);
                     channel.sendMessage(eb.build()).queue(); 

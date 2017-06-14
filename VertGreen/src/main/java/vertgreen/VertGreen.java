@@ -25,6 +25,7 @@
 
 package vertgreen;
 
+import vertgreen.util.GitRepoState;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -90,9 +91,6 @@ public abstract class VertGreen {
     static EventListenerVert listenerSelf;
     ShardWatchdogListener shardWatchdogListener = null;
     private static AtomicInteger numShardsReady = new AtomicInteger(0);
-    
-    //GitRepoState gitRepoState = GitRepoState.getGitRepositoryState();
-    //public static final String GITCOMMIT_ID = gitRepoState.describe;
 
     //For when we need to join a revived shard with it's old GuildPlayers
     final ArrayList<String> channelsToRejoin = new ArrayList<>();
@@ -120,9 +118,8 @@ public abstract class VertGreen {
                 "  \\ \\ / / / _ \\| '__|| __|| |   |__ || '__| / _ \\ / _ \\| '_  |\n" +
                 "   \\ v / |  __/| |   | |_  \\ \\____/ /| |   |  __/|  __/| | | |\n" +
                 "    \\_/   \\___||_|    \\__|  \\______/ |_|    \\___| \\___||_| |_|\n\n" +
-                "Distribution: " + BotConstants.BOT_RELEASE + "\n" +
-                "Version: " + BotConstants.BOT_VERSION + "\n" +
-                "Git Commit ID: [ERROR] UNABLE TO RETRIEVE GIT COMMIT ID");/* + GITCOMMIT_ID*/
+                "Distribution: " + BotConstants.RELEASE + "\n" +
+                "Version: " + BotConstants.VERSION + "\n");
 
         I18n.start();
 

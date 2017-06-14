@@ -57,7 +57,7 @@ public class FuzzyUserSearchCommand extends Command implements IMaintenanceComma
 
              EmbedBuilder eb = new EmbedBuilder();
             eb.setTitle("Fuzzy Search Results");
-            eb.setColor(BotConstants.VERTGREEN_COLOR);
+            eb.setColor(BotConstants.VERTGREEN);
             for(Member member : list){
                 eb.addField( member.getNickname(), member.getUser().getName() + "#" + member.getUser().getDiscriminator(), true);
             }

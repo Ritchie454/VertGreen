@@ -50,7 +50,7 @@ public class ServerInfoCommand extends Command implements IUtilCommand {
         int i = 0;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(BotConstants.VERTGREEN_COLOR);
+        eb.setColor(BotConstants.VERTGREEN);
         eb.setTitle(MessageFormat.format(I18n.get(guild).getString("serverinfoTitle"),guild.getName()), null);
         eb.setThumbnail(guild.getIconUrl());
         for (Member u : guild.getMembers()) {

@@ -33,7 +33,7 @@ public class ShardsCommand extends Command implements IMaintenanceCommand {
                 days, hours, mins, secs, CommandManager.commandsExecuted - 1)
                 + "\n";
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(BotConstants.VERTGREEN_COLOR);
+        eb.setColor(BotConstants.VERTGREEN);
         
         if(DiscordUtil.isMusicBot()){
             eb.addField("Shard Info","Sharding: " + VertGreen.getInstance(guild.getJDA()).getShardInfo().getShardString() + "\n" + "Players playing: " + PlayerRegistry.getPlayingPlayers().size() + "\n" + "Known servers: " + VertGreen.getAllGuilds().size() + "\n" + "Known users in servers: " + VertGreen.getAllUsersAsMap().size() + "\n" , true);

@@ -39,13 +39,13 @@ public class MemoryCommand extends Command implements IMaintenanceCommand {
         Long CurrMem = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000;
         if (CurrMem > 500) {
             eb.setFooter("Warning, High memory usage!", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Achtung.svg/1169px-Achtung.svg.png");
-            eb.setColor(BotConstants.VERTRED_COLOR);
+            eb.setColor(BotConstants.VERTRED);
         } else if (CurrMem > 250) {
             eb.setFooter("Moderate memory usage", "http://www.clker.com/cliparts/6/8/1/7/1242237019492940192Achtung-yellow.svg.hi.png");
-            eb.setColor(BotConstants.VERTYELLOW_COLOR);
+            eb.setColor(BotConstants.VERTYELLOW);
         } else {
             eb.setFooter("Low memory usage", "http://www.freeiconspng.com/uploads/accept-tick-icon-12.png");
-            eb.setColor(BotConstants.VERTGREEN_COLOR);
+            eb.setColor(BotConstants.VERTGREEN);
         }
         eb.addField("Memory Stats", "Reserved memory: " + TotMem + "MB\n" + "-> Of which is used: " + CurrMem + "MB\n" + "-> Of which is free: " + FreeMem + "MB\n" + "Max reservable: " + MaxMem + "MB\n", true);
         
