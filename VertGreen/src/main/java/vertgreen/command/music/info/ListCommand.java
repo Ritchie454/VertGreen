@@ -89,7 +89,7 @@ public class ListCommand extends Command implements IMusicCommand {
         List<AudioTrackContext> sublist = tracks.subList(i, listEnd);
         String playmode = "";
         if (player.isShuffle()) {
-            playmode = playmode + "|" + I18n.get(guild).getString("listShowShuffled");
+            playmode = playmode + " | " + I18n.get(guild).getString("listShowShuffled").replace(".", "");
             //mb.append(I18n.get(guild).getString("listShowShuffled"));
             //mb.append("\n");
             if (player.getRepeatMode() == RepeatMode.OFF){
@@ -98,11 +98,11 @@ public class ListCommand extends Command implements IMusicCommand {
         }
         if (player.getRepeatMode() == RepeatMode.SINGLE) {
             //mb.append(I18n.get(guild).getString("listShowRepeatSingle"));
-            playmode = playmode + "|" + I18n.get(guild).getString("listShowRepeatSingle");
+            playmode = playmode + " | " + I18n.get(guild).getString("listShowRepeatSingle").replace(".", "");
             //mb.append("\n");
         } else if (player.getRepeatMode() == RepeatMode.ALL) {
             //mb.append(I18n.get(guild).getString("listShowRepeatAll"));
-            playmode = playmode + "|" + I18n.get(guild).getString("listShowRepeatAll");
+            playmode = playmode + " | " + I18n.get(guild).getString("listShowRepeatAll").replace(".", "");
             //mb.append("\n");
         }
         eb.setFooter(playmode, "http://www.thestarbiz.com/wp-content/uploads/2016/05/icon-m.png");
