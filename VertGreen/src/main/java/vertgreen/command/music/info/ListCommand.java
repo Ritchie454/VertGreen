@@ -54,7 +54,7 @@ public class ListCommand extends Command implements IMusicCommand {
     private static final int PAGE_SIZE = 10;
 
     @Override
-    public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args, YoutubeAudioTrack at) {
+    public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         GuildPlayer player = PlayerRegistry.get(guild);
         player.setCurrentTC(channel);
         if(player.isQueueEmpty()) {
@@ -116,9 +116,9 @@ public class ListCommand extends Command implements IMusicCommand {
             String status = " ";
             if (i == 0) {
                 status = player.isPlaying() ? " \\▶" : " \\\u23F8"; //Escaped play and pause emojis
-                if (at instanceof YoutubeAudioTrack) {
-                    eb.setThumbnail("https://i.ytimg.com/vi/" + at.getIdentifier() + "/hqdefault.jpg");
-                }
+                //if (at instanceof YoutubeAudioTrack) {
+                //    eb.setThumbnail("https://i.ytimg.com/vi/" + at.getIdentifier() + "/hqdefault.jpg");
+                //}
             }
             //mb.append("[" +
             //        TextUtils.forceNDigits(i + 1, numberLength)
@@ -126,7 +126,9 @@ public class ListCommand extends Command implements IMusicCommand {
             //        .append(status)
             //        .append(MessageFormat.format(I18n.get(guild).getString("listAddedBy"), atc.getEffectiveTitle(), atc.getMember().getEffectiveName()))
             //        .append("\n");
-            eb.addField("[" + TextUtils.forceNDigits(i + 1, numberLength) + "]" + status + atc.getEffectiveTitle(), "Added By: " + atc.getMember().getEffectiveName() + "\nAudio provided by: " + atc.getTrack().getSourceManager().getSourceName(), true);
+            String name  = atc.getTrack().getSourceManager().getSourceName(); 
+            name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+            eb.addField("[" + TextUtils.forceNDigits(i + 1, numberLength) + "]" + status + atc.getEffectiveTitle(), "Added By: " + atc.getMember().getEffectiveName() + "\nAudio provided by: " + name, true);
             //eb.addField("", "", false);
             if (i == listEnd) {
                 break;
