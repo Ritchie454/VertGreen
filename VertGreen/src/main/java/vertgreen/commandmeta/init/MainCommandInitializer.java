@@ -59,11 +59,11 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("status", new StatusCommand());
         CommandRegistry.registerAlias("status", "work");
         CommandRegistry.registerCommand("memory", new MemoryCommand());
-        CommandRegistry.registerAlias("memory", "stats.memory");
+        CommandRegistry.registerAlias("memory", "stats>memory");
         CommandRegistry.registerCommand("shards", new ShardsCommand());
-        CommandRegistry.registerAlias("shards", "stats.shards");
+        CommandRegistry.registerAlias("shards", "stats>shards");
         CommandRegistry.registerCommand("version", new VersionCommand());
-        CommandRegistry.registerAlias("version", "stats.version");
+        CommandRegistry.registerAlias("version", "stats>version");
         CommandRegistry.registerCommand("stats", new StatsCommand());
         CommandRegistry.registerCommand("serverinfo", new vertgreen.command.util.ServerInfoCommand());
         CommandRegistry.registerAlias("serverinfo", "guildinfo");
