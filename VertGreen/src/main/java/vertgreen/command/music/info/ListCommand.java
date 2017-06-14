@@ -54,7 +54,7 @@ public class ListCommand extends Command implements IMusicCommand {
     private static final int PAGE_SIZE = 10;
 
     @Override
-    public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
+    public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args, YoutubeAudioTrack at) {
         GuildPlayer player = PlayerRegistry.get(guild);
         player.setCurrentTC(channel);
         if(player.isQueueEmpty()) {
