@@ -25,6 +25,7 @@
 
 package vertgreen.command.util;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IUtilCommand;
 import vertgreen.feature.I18n;
@@ -33,8 +34,10 @@ import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.EmbedBuilder;
+import vertgreen.commandmeta.MessagingException;
 
 import vertgreen.util.ArgumentUtil;
+import vertgreen.util.TextUtils;
 
 public class AvatarCommand extends Command implements IUtilCommand {
 
@@ -45,15 +48,27 @@ public class AvatarCommand extends Command implements IUtilCommand {
         if (message.getMentionedUsers().isEmpty()) {
             eb.setColor(invoker.getColor());
             eb.addField("Avatar for: " + invoker.getEffectiveName(), "", true);
-            eb.setImage(invoker.getUser().getAvatarUrl() + "?size=1024");
-            eb.setFooter(invoker.getUser().getAvatarUrl() + "?size=1024", invoker.getUser().getAvatarUrl());
+            eb.setImage(invoker.getUser().getAvatarUrl() + "?size=1024");    
+        try {
+            String comurl = TextUtils.postToHastebin(invoker.getUser().getAvatarUrl() + "?size=1024", true) + ".avatar";
+            eb.setFooter(comurl, invoker.getUser().getAvatarUrl());
+        }
+        catch (UnirestException ex) {
+            throw new MessagingException("Couldn't upload avatar to hastebin :(");
+        }
         } else {
             Member target;
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
             eb.setColor(target.getColor());
             eb.addField("Avatar for: " + target.getEffectiveName(), "", true);
-            eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");    
-            eb.setFooter(target.getUser().getAvatarUrl() + "?size=1024", target.getUser().getAvatarUrl());
+            eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");
+            try {
+                String comurl = TextUtils.postToHastebin(target.getUser().getAvatarUrl() + "?size=1024", true) + ".avatar";
+                eb.setFooter(comurl, target.getUser().getAvatarUrl());
+            }
+            catch (UnirestException ex) {
+                throw new MessagingException("Couldn't upload avatar to hastebin :(");
+            }
         }
         channel.sendMessage(eb.build()).queue();
     }
