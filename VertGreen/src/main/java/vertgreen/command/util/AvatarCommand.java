@@ -47,7 +47,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
         String msg;
         if (message.getMentionedUsers().isEmpty()) {
             eb.setColor(invoker.getColor());
-            eb.addField("Avatar for: " + invoker.getEffectiveName(), "", true);
+            eb.setTitle("Avatar for " + invoker.getEffectiveName());
             eb.setImage(invoker.getUser().getAvatarUrl() + "?size=1024");    
         try {
             String comurl = TextUtils.postToHastebin(invoker.getUser().getAvatarUrl() + "?size=1024", true) + ".avatar";
@@ -60,7 +60,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
             Member target;
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
             eb.setColor(target.getColor());
-            eb.addField("Avatar for: " + target.getEffectiveName(), "", true);
+            eb.setTitle("Avatar for " + target.getEffectiveName());
             eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");
             try {
                 String comurl = TextUtils.postToHastebin(target.getUser().getAvatarUrl() + "?size=1024", true) + ".avatar";
