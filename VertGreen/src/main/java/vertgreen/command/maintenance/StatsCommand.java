@@ -1,6 +1,5 @@
 package vertgreen.command.maintenance;
 
-import vertgreen.Config;
 import vertgreen.VertGreen;
 import vertgreen.audio.PlayerRegistry;
 import vertgreen.commandmeta.CommandManager;
