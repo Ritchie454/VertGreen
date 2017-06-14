@@ -122,7 +122,7 @@ public abstract class VertGreen {
                 "    \\_/   \\___||_|    \\__|  \\______/ |_|    \\___| \\___||_| |_|\n\n" +
                 "Distribution: " + BotConstants.BOT_RELEASE + "\n" +
                 "Version: " + BotConstants.BOT_VERSION + "\n"
-                "Git Commit ID: [ERROR] UNABLE TO RETRIEVE GIT COMMIT ID"/* + GITCOMMIT_ID*/);
+                "Git Commit ID: [ERROR] UNABLE TO RETRIEVE GIT COMMIT ID");/* + GITCOMMIT_ID*/
 
         I18n.start();
 
@@ -236,7 +236,7 @@ public abstract class VertGreen {
                 " / _____|| |                           |  ___  \\       | |__\n" +
                 "/ /      | |    ___ __    __ ___  _ __ | |___| |  ___  |  __|\n" +
                 "| |      | |   / _ \\\\ \\  / // _ \\| '__||  ___ <  / _ \\ | |\n" +
-                "\\ \_____ \\ \\_ |  __/ \\ \\/ /|  __/| |   | |___| || |_| || |__\n" +
+                "\\ \\_____ \\ \\_ |  __/ \\ \\/ /|  __/| |   | |___| || |_| || |__\n" +
                 " \\______| \\__| \\___|  \\__/  \\___||_|   |_______/ \\___/  \\___|\n\n" +
                 "Starting CleverBot");
                 jca = new JCABuilder().setKey(Config.CONFIG.getCbKey()).setUser(Config.CONFIG.getCbUser()).buildBlocking();
