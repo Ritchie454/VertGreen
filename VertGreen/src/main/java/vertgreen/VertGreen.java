@@ -109,7 +109,8 @@ public abstract class VertGreen {
 
     public static void main(String[] args) throws LoginException, IllegalArgumentException, InterruptedException, IOException, UnirestException {
         Runtime.getRuntime().addShutdownHook(new Thread(ON_SHUTDOWN, "Vert main shutdownhook"));
-
+        GitRepoState gitRepoState = GitRepoState.getGitRepositoryState();
+        public static final String GITCOMMIT_ID = gitRepoState.describe;
         log.info("\n\n" +
                 "__       __           _      ______\n" +
                 "\\ \\     / /          | |    / _____\\\n" +
@@ -118,7 +119,8 @@ public abstract class VertGreen {
                 "   \\ V / |  __/| |   | |_  \\ \\____/ /| |   |  __/|  __/| | | |\n" +
                 "    \\_/   \\___||_|    \\__|  \\______/ |_|    \\___| \\___||_| |_|\n\n" +
                 "Distribution: " + BotConstants.BOT_RELEASE + "\n" +
-                "Version: " + BotConstants.BOT_VERSION);
+                "Version: " + BotConstants.BOT_VERSION + "\n"
+                "Git Commit ID: " + GITCOMMIT_ID);
 
         I18n.start();
 
