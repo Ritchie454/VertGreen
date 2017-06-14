@@ -28,26 +28,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by napster on 22.03.17.
- * <p>
- * <p>
- * Extend this class from all tests that require a JDA instance
- * <p>
- * <p>
- * Extend this class from all other tests and call bumpPassedTests() after every successful @Test function & call
- * saveClassStats() in a @AfterAll function, to display test stats in your Discord testing channel
- * <p>
- * <p>
- * Do not run JDA requiring tests in a Travis CI environment
- * Reason: it would need an encrypted Discord bot token, and using encrypted Travis variables is not available for
- * Pull Request builds for security reasons.
- * Use this code at the start of each of your @Test units that use JDA to skip those tests:
- * Assumptions.assumeFalse(isTravisEnvironment(), () -> "Aborting test: Travis CI detected");
- * <p>
- * <p>
- * This class doesn't need i18n as it's aimed at developers, not users
- */
 public abstract class ProvideJDASingleton {
 
     private static final Logger log = LoggerFactory.getLogger(ProvideJDASingleton.class);
@@ -222,9 +202,6 @@ public abstract class ProvideJDASingleton {
         classStats.add(out);
     }
 
-    /**
-     * @return true if this is running in a Travis CI environment
-     */
     protected static boolean isTravisEnvironment() {
         //https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables
         return "true".equals(System.getenv("TRAVIS"));

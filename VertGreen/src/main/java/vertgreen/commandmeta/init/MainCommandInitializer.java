@@ -1,27 +1,3 @@
-/*
- * MIT License
- *
- * Copyright (c) 2017 Frederik Ar. Mikkelsen
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 package vertgreen.commandmeta.init;
 
 import vertgreen.command.util.AvatarCommand;
@@ -55,13 +31,9 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("commands", new CommandsCommand());
         CommandRegistry.registerAlias("commands", "comms");
         CommandRegistry.registerCommand("status", new StatusCommand());
-        CommandRegistry.registerAlias("status", "work");
         CommandRegistry.registerCommand("memory", new MemoryCommand());
-        CommandRegistry.registerAlias("memory", "stats>memory");
         CommandRegistry.registerCommand("shards", new ShardsCommand());
-        CommandRegistry.registerAlias("shards", "stats>shards");
         CommandRegistry.registerCommand("version", new VersionCommand());
-        CommandRegistry.registerAlias("version", "stats>version");
         CommandRegistry.registerCommand("stats", new StatsCommand());
         CommandRegistry.registerCommand("serverinfo", new vertgreen.command.util.ServerInfoCommand());
         CommandRegistry.registerAlias("serverinfo", "guildinfo");
@@ -82,9 +54,6 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("kick", new KickCommand());
         CommandRegistry.registerCommand("softban", new SoftbanCommand());
 
-
-        /* Other Anime Discord, Sergi memes or any other memes */
-        // saved in this album https://imgur.com/a/wYvDu
     }
 
 }

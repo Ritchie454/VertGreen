@@ -47,27 +47,11 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import vertgreen.util.TextUtils;
 import vertgreen.commandmeta.MessagingException;
 
-/**
- * Created by napster on 22.03.17.
- * <p>
- * YO DAWG I HEARD YOU LIKE COMMANDS SO I PUT
- * THIS COMMAND IN YO BOT SO YOU CAN SHOW MORE
- * COMMANDS WHILE YOU EXECUTE THIS COMMAND
- * <p>
- * Display available commands
- */
 public class CommandsCommand extends Command implements IUtilCommand {
 
-    //design inspiration by Weiss Schnee's bot
-    //https://cdn.discordapp.com/attachments/230033957998166016/296356070685671425/unknown.png
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
 
-        //is this the music boat? shortcut to showing those commands
-        //taking this shortcut we're missing out on showing a few commands to pure music bot users
-        // http://i.imgur.com/511Hb8p.png screenshot from 1st April 2017
-        //bot owner and debug commands (+ ;;music and ;;help) missing + the currently defunct config command
-        //this is currently fine but might change in the future
         mainBotHelp(guild, channel, invoker);
     }
 

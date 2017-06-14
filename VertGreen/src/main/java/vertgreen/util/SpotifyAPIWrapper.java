@@ -1,27 +1,3 @@
-/*
- * MIT License
- *
- * Copyright (c) 2017 Frederik Ar. Mikkelsen
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 package vertgreen.util;
 
 import com.mashape.unirest.http.HttpResponse;
@@ -42,13 +18,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by napster on 08.03.17.
- *
- * @author napster
- *
- * When expanding this class, make sure to call refreshTokenIfNecessary() before every request
- */
 public class SpotifyAPIWrapper {
     //https://regex101.com/r/FkknVc/1
     private static final Pattern PARAMETER_PATTERN = Pattern.compile("offset=([0-9]*)&limit=([0-9]*)$");
@@ -59,12 +28,6 @@ public class SpotifyAPIWrapper {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(SpotifyAPIWrapper.class);
     private static volatile SpotifyAPIWrapper SPOTIFYAPIWRAPPER;
 
-    /**
-     * This should be the only way to grab a handle on this class.
-     * //TODO is the Singleton pattern really a good idea for production, or does FredBoat need a different design?
-     *
-     * @return the singleton of the Spotify API
-     */
     public static SpotifyAPIWrapper getApi() {
         if (SPOTIFYAPIWRAPPER == null) {
             SPOTIFYAPIWRAPPER = new SpotifyAPIWrapper();
@@ -78,20 +41,12 @@ public class SpotifyAPIWrapper {
     private final String clientId;
     private final String clientSecret;
 
-    /**
-     * Do not call this.
-     * Get an instance of this class by using SpotifyAPIWrapper.getApi()
-     */
     private SpotifyAPIWrapper() {
         this.clientId = Config.CONFIG.getSpotifyId();
         this.clientSecret = Config.CONFIG.getSpotifySecret();
         refreshTokenIfNecessary();
     }
 
-    /**
-     * This is related to the client credentials flow.
-     * https://developer.spotify.com/web-api/authorization-guide/#client-credentials-flow
-     */
     private void refreshAccessToken() {
         String idSecret = clientId + ":" + clientSecret;
         String idSecretEncoded = new String(Base64.encodeBase64(idSecret.getBytes()));
@@ -112,9 +67,6 @@ public class SpotifyAPIWrapper {
         }
     }
 
-    /**
-     * Call this before doing any requests
-     */
     private void refreshTokenIfNecessary() {
         //refresh the token if it's too old
         if (System.currentTimeMillis() > this.accessTokenExpires) try {
@@ -124,13 +76,6 @@ public class SpotifyAPIWrapper {
         }
     }
 
-    /**
-     * Returns some data on a spotify playlist, currently it's name and tracks total.
-     *
-     * @param userId Spotify user id of the owner of the requested playlist
-     * @param playlistId Spotify playlist identifier
-     * @return an array containing information about the requested spotify playlist
-     */
     public PlaylistInfo getPlaylistDataBlocking(String userId, String playlistId) throws UnirestException, JSONException {
         refreshTokenIfNecessary();
 
@@ -147,11 +92,6 @@ public class SpotifyAPIWrapper {
         return new PlaylistInfo(tracks, name, PlaylistInfo.Source.SPOTIFY);
     }
 
-    /**
-     * @param userId Spotify user id of the owner of the requested playlist
-     * @param playlistId Spotify playlist identifier
-     * @return a string for each track on the requested playlist, containing track and artist names
-     */
     public List<String> getPlaylistTracksSearchTermsBlocking(String userId, String playlistId) throws UnirestException, JSONException {
         refreshTokenIfNecessary();
 

@@ -1,27 +1,3 @@
-/*
- * MIT License
- *
- * Copyright (c) 2017 Frederik Ar. Mikkelsen
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 package vertgreen.commandmeta.init;
 
 import vertgreen.command.music.control.SkipCommand;
@@ -40,7 +16,6 @@ import vertgreen.command.music.control.ShuffleCommand;
 import vertgreen.command.maintenance.AudioDebugCommand;
 import vertgreen.command.admin.AnnounceCommand;
 import vertgreen.command.admin.PlayerDebugCommand;
-import vertgreen.Config;
 import vertgreen.agent.VoiceChannelCleanupAgent;
 import vertgreen.command.config.ConfigCommand;
 import vertgreen.command.config.LanguageCommand;
@@ -55,7 +30,6 @@ import vertgreen.command.util.CommandsCommand;
 import vertgreen.command.util.HelpCommand;
 import vertgreen.command.util.MusicHelpCommand;
 import vertgreen.commandmeta.CommandRegistry;
-import vertgreen.util.DistributionEnum;
 import vertgreen.util.SearchUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,12 +82,8 @@ public class MusicCommandInitializer {
         CommandRegistry.registerCommand("rewind", new RewindCommand());
         CommandRegistry.registerAlias("rewind", "rew");
 
-        // The null check is to ensure we can run this in a test run
-        if (Config.CONFIG == null || Config.CONFIG.getDistribution() != DistributionEnum.PATRON) {
-            new VoiceChannelCleanupAgent().start();
-        } else {
-            log.info("Skipped setting up the VoiceChannelCleanupAgent since we are running as PATRON distribution.");
-        }
+        new VoiceChannelCleanupAgent().start();
+
     }
 
 }

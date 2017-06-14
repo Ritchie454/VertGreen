@@ -42,9 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * Created by midgard on 17/01/20.
- */
 public class UserInfoCommand extends Command implements IUtilCommand {
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
@@ -88,8 +85,6 @@ public class UserInfoCommand extends Command implements IUtilCommand {
         eb.addField(rb.getString("userinfoKnownServer"),knownServers.toString(),true); //Known Server
         eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
         eb.addField(rb.getString("userinfoCreationTime"),target.getUser().getCreationTime().format(dtf),true);
-        //eb.addField(rb.getString("userinfoAvatarUrl"),target.getUser().getAvatarUrl(),true);
-
         channel.sendMessage(eb.build()).queue();
 
     }

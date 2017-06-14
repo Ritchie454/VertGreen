@@ -4,13 +4,9 @@ import vertgreen.Config;
 import vertgreen.ProvideJDASingleton;
 import vertgreen.db.DatabaseManager;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Created by napster on 16.04.17.
- */
 class TestCommandTest extends ProvideJDASingleton {
 
 
@@ -19,10 +15,6 @@ class TestCommandTest extends ProvideJDASingleton {
         saveClassStats(TestCommandTest.class.getSimpleName());
     }
 
-
-    /**
-     * Run a small db test
-     */
     @Test
     void onInvoke() {
         Assumptions.assumeFalse(isTravisEnvironment(), () -> "Aborting test: Travis CI detected");

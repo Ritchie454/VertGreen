@@ -78,7 +78,7 @@ public class LanguageCommand extends Command implements IModerationCommand {
         List<String> keys = new ArrayList<>(I18n.LANGS.keySet());
         Collections.sort(keys);
         for (String key : keys) {
-            I18n.FredBoatLocale loc = I18n.LANGS.get(key);
+            I18n.VertGreenLocale loc = I18n.LANGS.get(key);
             eb.addField(loc.getNativeName(), loc.getCode(), true);
         }     
         eb.setFooter(" | Disclaimer | Translations may not be 100% accurate or complete.", "https://www.spiralscripts.co.uk/images/stories/warning-medium.png");

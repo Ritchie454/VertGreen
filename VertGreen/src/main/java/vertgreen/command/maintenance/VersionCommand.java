@@ -1,13 +1,10 @@
 package vertgreen.command.maintenance;
 
-import vertgreen.Config;
 import vertgreen.VertGreen;
-import vertgreen.audio.PlayerRegistry;
 import vertgreen.commandmeta.CommandManager;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IMaintenanceCommand;
 import vertgreen.feature.I18n;
-import vertgreen.util.DiscordUtil;
 import net.dv8tion.jda.core.JDAInfo;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
