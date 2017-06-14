@@ -31,6 +31,7 @@ import vertgreen.audio.queue.AudioTrackContext;
 import vertgreen.audio.queue.RepeatMode;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IMusicCommand;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import vertgreen.feature.I18n;
 import vertgreen.util.TextUtils;
 import net.dv8tion.jda.core.MessageBuilder;
