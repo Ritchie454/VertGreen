@@ -118,11 +118,11 @@ public abstract class VertGreen {
                 "\\ \\     / /          | |    / _____\\\n" +
                 " \\ \\   / / ___  _ __ | |_  / /   ___  _ __   ___   ___  _ ___\n" +
                 "  \\ \\ / / / _ \\| '__|| __|| |   |__ || '__| / _ \\ / _ \\| '_  |\n" +
-                "   \\ V / |  __/| |   | |_  \\ \\____/ /| |   |  __/|  __/| | | |\n" +
+                "   \\ v / |  __/| |   | |_  \\ \\____/ /| |   |  __/|  __/| | | |\n" +
                 "    \\_/   \\___||_|    \\__|  \\______/ |_|    \\___| \\___||_| |_|\n\n" +
                 "Distribution: " + BotConstants.BOT_RELEASE + "\n" +
                 "Version: " + BotConstants.BOT_VERSION + "\n"
-                "Git Commit ID: " + GITCOMMIT_ID);
+                "Git Commit ID: [ERROR] UNABLE TO RETRIEVE GIT COMMIT ID"/* + GITCOMMIT_ID*/);
 
         I18n.start();
 
@@ -136,7 +136,7 @@ public abstract class VertGreen {
         try {
             scope = Integer.parseInt(args[0]);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException ignored) {
-            log.info("Invalid scope, defaulting to scopes 0x111");
+            log.warn("Invalid scope, defaulting to scopes 0x111");
             scope = 0x111;
         }
 
@@ -152,7 +152,7 @@ public abstract class VertGreen {
         try {
             API.start();
         } catch (Exception e) {
-            log.info("Failed to ignite Spark, API unavailable", e);
+            log.warn("Failed to ignite Spark, API unavailable", e);
         }
 
         if (!Config.CONFIG.getJdbcUrl().equals("")) {
@@ -177,7 +177,7 @@ public abstract class VertGreen {
                 log.warn("No oauth secret found, skipped initialization of OAuth2 client");
             }
         } catch (Exception e) {
-            log.info("Failed to start OAuth2 client", e);
+            log.warn("Failed to start OAuth2 client", e);
         }
 
         //Initialise event listeners
@@ -212,7 +212,7 @@ public abstract class VertGreen {
         }
 
         if ((Config.CONFIG.getScope() & 0x001) != 0) {
-            log.error("Selfbot support has been removed.");
+            log.wwarn("Selfbot support has been removed.");
             //fbClient = new VertGreenClient();
         }
 
@@ -231,14 +231,21 @@ public abstract class VertGreen {
         boolean result = true;
         try {
             if (!Config.CONFIG.getCbUser().equals("") && !Config.CONFIG.getCbKey().equals("")) {
-                log.info("Starting CleverBot");
+                log.info("\n\n" +
+                "  ______  _                             _______         _\n" +
+                " / _____|| |                           |  ___  \\       | |__\n" +
+                "/ /      | |    ___ __    __ ___  _ __ | |___| |  ___  |  __|\n" +
+                "| |      | |   / _ \\\\ \\  / // _ \\| '__||  ___ <  / _ \\ | |\n" +
+                "\\ \_____ \\ \\_ |  __/ \\ \\/ /|  __/| |   | |___| || |_| || |__\n" +
+                " \\______| \\__| \\___|  \\__/  \\___||_|   |_______/ \\___/  \\___|\n\n" +
+                "Starting CleverBot");
                 jca = new JCABuilder().setKey(Config.CONFIG.getCbKey()).setUser(Config.CONFIG.getCbUser()).buildBlocking();
             } else {
                 log.warn("Credentials not found for cleverbot authentication. Skipping...");
                 result = false;
             }
         } catch (Exception e) {
-            log.error("Error when starting JCA", e);
+            log.warn("Error when starting JCA", e);
             result = false;
         }
         return result;
@@ -246,7 +253,7 @@ public abstract class VertGreen {
 
     private static boolean hasValidMALLogin() {
         if ("".equals(Config.CONFIG.getMalUser()) || "".equals(Config.CONFIG.getMalPassword())) {
-            log.info("MAL credentials not found. MAL related commands will not be available.");
+            log.warn("MAL credentials not found. MAL related commands will not be available.");
             return false;
         }
         try {
@@ -268,7 +275,7 @@ public abstract class VertGreen {
 
     private static boolean hasValidImgurCredentials() {
         if ("".equals(Config.CONFIG.getImgurClientId())) {
-            log.info("Imgur credentials not found. Commands relying on Imgur will not work properly.");
+            log.warn("Imgur credentials not found. Commands relying on Imgur will not work properly.");
             return false;
         }
         try {
