@@ -121,7 +121,7 @@ public abstract class VertGreen {
                 "   \\ v / |  __/| |   | |_  \\ \\____/ /| |   |  __/|  __/| | | |\n" +
                 "    \\_/   \\___||_|    \\__|  \\______/ |_|    \\___| \\___||_| |_|\n\n" +
                 "Distribution: " + BotConstants.BOT_RELEASE + "\n" +
-                "Version: " + BotConstants.BOT_VERSION + "\n"
+                "Version: " + BotConstants.BOT_VERSION + "\n" +
                 "Git Commit ID: [ERROR] UNABLE TO RETRIEVE GIT COMMIT ID");/* + GITCOMMIT_ID*/
 
         I18n.start();
