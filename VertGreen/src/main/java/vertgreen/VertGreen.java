@@ -212,7 +212,7 @@ public abstract class VertGreen {
         }
 
         if ((Config.CONFIG.getScope() & 0x001) != 0) {
-            log.wwarn("Selfbot support has been removed.");
+            log.warn("Selfbot support has been removed.");
             //fbClient = new VertGreenClient();
         }
 
