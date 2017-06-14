@@ -91,8 +91,8 @@ public abstract class VertGreen {
     ShardWatchdogListener shardWatchdogListener = null;
     private static AtomicInteger numShardsReady = new AtomicInteger(0);
     
-    GitRepoState gitRepoState = GitRepoState.getGitRepositoryState();
-    public static final String GITCOMMIT_ID = gitRepoState.describe;
+    //GitRepoState gitRepoState = GitRepoState.getGitRepositoryState();
+    //public static final String GITCOMMIT_ID = gitRepoState.describe;
 
     //For when we need to join a revived shard with it's old GuildPlayers
     final ArrayList<String> channelsToRejoin = new ArrayList<>();
