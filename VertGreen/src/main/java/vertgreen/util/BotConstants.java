@@ -25,6 +25,7 @@
 
 package vertgreen.util;
 
+import vertgreen.VertGreen;
 import java.awt.*;
 
 public class BotConstants {
@@ -38,7 +39,7 @@ public class BotConstants {
     public static final Color VERTGREEN_COLOR = new Color(2, 224, 9);
     public static final Color VERTYELLOW_COLOR = new Color(255, 246, 5);
     public static final Color VERTRED_COLOR = new Color(255, 5, 5);
-    public static final String BOT_VERSION = "1.8" + GIT_COMMIT;
+    public static final String BOT_VERSION = "1.8" + GITCOMMIT_ID;
     public static final String BOT_RELEASE = "RELEASE";
     private BotConstants() {
     }
