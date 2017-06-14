@@ -87,9 +87,9 @@ public class ListCommand extends Command implements IMusicCommand {
         int numberLength = Integer.toString(listEnd).length();
 
         List<AudioTrackContext> sublist = tracks.subList(i, listEnd);
-
+        String playmode = "";
         if (player.isShuffle()) {
-            eb.addField(I18n.get(guild).getString("listShowShuffled"), "", true);
+            playmode.append("|" + I18n.get(guild).getString("listShowShuffled"));
             //mb.append(I18n.get(guild).getString("listShowShuffled"));
             //mb.append("\n");
             if (player.getRepeatMode() == RepeatMode.OFF){
@@ -98,16 +98,16 @@ public class ListCommand extends Command implements IMusicCommand {
         }
         if (player.getRepeatMode() == RepeatMode.SINGLE) {
             //mb.append(I18n.get(guild).getString("listShowRepeatSingle"));
-            eb.addField(I18n.get(guild).getString("listShowRepeatSingle"), "", true);
+            playmode.append("|" + I18n.get(guild).getString("listShowRepeatSingle"));
             //mb.append("\n");
         } else if (player.getRepeatMode() == RepeatMode.ALL) {
             //mb.append(I18n.get(guild).getString("listShowRepeatAll"));
-            eb.addField(I18n.get(guild).getString("listShowRepeatAll"), "", true);
+            playmode.append("|" + I18n.get(guild).getString("listShowRepeatAll"));
             //mb.append("\n");
         }
-        
+        eb.setFooter(playmode, "https://img06.deviantart.net/76a5/i/2013/031/7/6/music_notes_stock_by_bassgeisha-d3h9mpv.jpg");
         //mb.append(MessageFormat.format(I18n.get(guild).getString("listPageNum"), page, maxPages));
-        eb.setTitle("Current Playlist, Page: " + page + "/" + maxPages);
+        eb.setTitle("Showing current Playlist, Page: " + page + "/" + maxPages);
         //mb.append("\n");
         //mb.append("\n");
 
