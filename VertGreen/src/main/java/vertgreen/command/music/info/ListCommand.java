@@ -63,7 +63,7 @@ public class ListCommand extends Command implements IMusicCommand {
 
         //MessageBuilder mb = new MessageBuilder();
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(BotConstants.VERTGREEN_COLOR);
+        eb.setColor(BotConstants.VERTRED_COLOR);
         int page = 1;
         if(args.length >= 2) {
             try {
@@ -115,6 +115,7 @@ public class ListCommand extends Command implements IMusicCommand {
             String status = " ";
             if (i == 0) {
                 status = player.isPlaying() ? " \\▶" : " \\\u23F8"; //Escaped play and pause emojis
+                eb.setThumbnail("https://i.ytimg.com/vi/" + atc.getIdentifier() + "/hqdefault.jpg")
             }
             //mb.append("[" +
             //        TextUtils.forceNDigits(i + 1, numberLength)
