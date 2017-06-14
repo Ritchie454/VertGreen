@@ -78,7 +78,7 @@ import vertgreen.util.BotConstants;
 public abstract class VertGreen {
 
     private static final Logger log = LoggerFactory.getLogger(VertGreen.class);
-
+    
     static final int SHARD_CREATION_SLEEP_INTERVAL = 5100;
 
     private static final ArrayList<VertGreen> shards = new ArrayList<>();
@@ -90,6 +90,9 @@ public abstract class VertGreen {
     static EventListenerVert listenerSelf;
     ShardWatchdogListener shardWatchdogListener = null;
     private static AtomicInteger numShardsReady = new AtomicInteger(0);
+    
+    GitRepoState gitRepoState = GitRepoState.getGitRepositoryState();
+    public static final String GITCOMMIT_ID = gitRepoState.describe;
 
     //For when we need to join a revived shard with it's old GuildPlayers
     final ArrayList<String> channelsToRejoin = new ArrayList<>();
@@ -109,8 +112,7 @@ public abstract class VertGreen {
 
     public static void main(String[] args) throws LoginException, IllegalArgumentException, InterruptedException, IOException, UnirestException {
         Runtime.getRuntime().addShutdownHook(new Thread(ON_SHUTDOWN, "Vert main shutdownhook"));
-        GitRepoState gitRepoState = GitRepoState.getGitRepositoryState();
-        public static final String GITCOMMIT_ID = gitRepoState.describe;
+        
         log.info("\n\n" +
                 "__       __           _      ______\n" +
                 "\\ \\     / /          | |    / _____\\\n" +
