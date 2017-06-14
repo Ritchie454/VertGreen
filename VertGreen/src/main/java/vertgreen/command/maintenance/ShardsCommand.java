@@ -1,6 +1,5 @@
 package vertgreen.command.maintenance;
 
-import vertgreen.Config;
 import vertgreen.VertGreen;
 import vertgreen.audio.PlayerRegistry;
 import vertgreen.commandmeta.CommandManager;
@@ -8,7 +7,6 @@ import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IMaintenanceCommand;
 import vertgreen.feature.I18n;
 import vertgreen.util.DiscordUtil;
-import net.dv8tion.jda.core.JDAInfo;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
@@ -33,15 +31,20 @@ public class ShardsCommand extends Command implements IMaintenanceCommand {
                 days, hours, mins, secs, CommandManager.commandsExecuted - 1)
                 + "\n";
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(BotConstants.VERTGREEN);
-        
         if(DiscordUtil.isMusicBot()){
             eb.addField("Shard Info","Sharding: " + VertGreen.getInstance(guild.getJDA()).getShardInfo().getShardString() + "\n" + "Players playing: " + PlayerRegistry.getPlayingPlayers().size() + "\n" + "Known servers: " + VertGreen.getAllGuilds().size() + "\n" + "Known users in servers: " + VertGreen.getAllUsersAsMap().size() + "\n" , true);
         }
         else {
             eb.addField("Shard Info","Sharding: " + VertGreen.getInstance(guild.getJDA()).getShardInfo().getShardString() + "\n" + "Known servers: " + VertGreen.getAllGuilds().size() + "\n" + "Known users in servers: " + VertGreen.getAllUsersAsMap().size() + "\n" , true);
         }
-        
+        if (!PlayerRegistry.getPlayingPlayers().isEmpty()){
+            eb.setColor(BotConstants.VERTYELLOW);
+            eb.setFooter(" | Player currently not playing", "http://www.debscrossstitch.co.uk/ekmps/shops/debscrossstitch/images/bright-blue-square-aperture-card-envelope-4-x-6-a6-bright-blue-square-aperture-4-x-6-5-x-cards-envelopes-1.85-2050-p.jpg");
+        }
+        else {
+            eb.setColor(BotConstants.VERTGREEN);
+            eb.setFooter(" | Player currently playing", "http://www.iconsdb.com/icons/preview/royal-blue/play-xxl.png");
+        }
         channel.sendMessage(eb.build()).queue();
     }
 

@@ -1,14 +1,10 @@
 package vertgreen.command.maintenance;
 
-import vertgreen.Config;
 import vertgreen.VertGreen;
-import vertgreen.audio.PlayerRegistry;
 import vertgreen.commandmeta.CommandManager;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IMaintenanceCommand;
 import vertgreen.feature.I18n;
-import vertgreen.util.DiscordUtil;
-import net.dv8tion.jda.core.JDAInfo;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
@@ -37,10 +33,10 @@ public class MemoryCommand extends Command implements IMaintenanceCommand {
         Long FreeMem = Runtime.getRuntime().freeMemory() / 1000000;
         Long MaxMem = Runtime.getRuntime().maxMemory() / 1000000;
         Long CurrMem = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000;
-        if (CurrMem > 500) {
+        if (CurrMem > 750) {
             eb.setFooter("Warning, High memory usage!", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Achtung.svg/1169px-Achtung.svg.png");
             eb.setColor(BotConstants.VERTRED);
-        } else if (CurrMem > 250) {
+        } else if (CurrMem > 500) {
             eb.setFooter("Moderate memory usage", "http://www.clker.com/cliparts/6/8/1/7/1242237019492940192Achtung-yellow.svg.hi.png");
             eb.setColor(BotConstants.VERTYELLOW);
         } else {

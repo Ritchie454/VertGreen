@@ -75,8 +75,7 @@ public class GitInfoCommand extends Command implements IMaintenanceCommand {
         embedBuilder.addField("Commit on Github", url, false);
 
         embedBuilder.addField("Version", BotConstants.VERSION, true);
-        embedBuilder.addField("Branch", gitRepoState.branch, true);
-        embedBuilder.addField("Built by", "Ritchie454 (@Kurozume Tennokouboshi#4452) <@!197063812027908097>", true);
+        embedBuilder.addField("Built by", gitRepoState.commitUserName + " <@!197063812027908097>", true);
 
         embedBuilder.setColor(new Color(240, 81, 51));//git-scm color
         embedBuilder.setThumbnail(octocats.getRandomImageUrl());//github octocat thumbnail

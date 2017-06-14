@@ -25,19 +25,15 @@
 
 package vertgreen.command.util;
 
-import vertgreen.Config;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IUtilCommand;
 import vertgreen.feature.I18n;
-import vertgreen.util.TextUtils;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.EmbedBuilder;
-import vertgreen.util.BotConstants;
 
-import java.text.MessageFormat;
 import vertgreen.util.ArgumentUtil;
 
 public class AvatarCommand extends Command implements IUtilCommand {
@@ -47,23 +43,18 @@ public class AvatarCommand extends Command implements IUtilCommand {
         EmbedBuilder eb = new EmbedBuilder();
         String msg;
         if (message.getMentionedUsers().isEmpty()) {
-            //String command = args[0].substring(Config.CONFIG.getPrefix().length());
-            //HelpCommand.sendFormattedCommandHelp(guild, channel, invoker, command);
             eb.setColor(invoker.getColor());
-            eb.addField("Avatar for: " + invoker.getEffectiveName(), invoker.getUser().getAvatarUrl(), true);
-            //msg = "Avatar for: " + invoker.getEffectiveName();
+            eb.addField("Avatar for: " + invoker.getEffectiveName(), "", true);
             eb.setImage(invoker.getUser().getAvatarUrl() + "?size=1024");
-            //eb.addField("Url", invoker.getUser().getAvatarUrl() + "?size=1024", true);
+            eb.setFooter(invoker.getUser().getAvatarUrl() + "?size=1024", invoker.getUser().getAvatarUrl());
         } else {
             Member target;
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
             eb.setColor(target.getColor());
-            eb.addField("Avatar for: " + target.getEffectiveName(), target.getUser().getAvatarUrl(), true);
-            //msg = "Avatar for: " + target.getEffectiveName();
+            eb.addField("Avatar for: " + target.getEffectiveName(), "", true);
             eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");    
-            //eb.addField("Url", target.getUser().getAvatarUrl() + "?size=1024", true);
+            eb.setFooter(target.getUser().getAvatarUrl() + "?size=1024", target.getUser().getAvatarUrl());
         }
-        //channel.sendMessage(msg).queue();
         channel.sendMessage(eb.build()).queue();
     }
 

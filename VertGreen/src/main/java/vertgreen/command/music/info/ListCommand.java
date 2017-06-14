@@ -25,16 +25,15 @@
 
 package vertgreen.command.music.info;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import vertgreen.audio.GuildPlayer;
 import vertgreen.audio.PlayerRegistry;
 import vertgreen.audio.queue.AudioTrackContext;
 import vertgreen.audio.queue.RepeatMode;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IMusicCommand;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import vertgreen.feature.I18n;
 import vertgreen.util.TextUtils;
-import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
@@ -42,10 +41,10 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import org.slf4j.LoggerFactory;
 import net.dv8tion.jda.core.EmbedBuilder;
 import vertgreen.util.BotConstants;
-import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioTrack;
 
 import java.text.MessageFormat;
 import java.util.List;
+import vertgreen.commandmeta.MessagingException;
 
 public class ListCommand extends Command implements IMusicCommand {
 
@@ -91,45 +90,26 @@ public class ListCommand extends Command implements IMusicCommand {
         String playmode = "";
         if (player.isShuffle()) {
             playmode = playmode + " | " + I18n.get(guild).getString("listShowShuffled").replace(".", "");
-            //mb.append(I18n.get(guild).getString("listShowShuffled"));
-            //mb.append("\n");
             if (player.getRepeatMode() == RepeatMode.OFF){
-                //mb.append("\n");
             }
         }
         if (player.getRepeatMode() == RepeatMode.SINGLE) {
-            //mb.append(I18n.get(guild).getString("listShowRepeatSingle"));
             playmode = playmode + " | " + I18n.get(guild).getString("listShowRepeatSingle").replace(".", "");
-            //mb.append("\n");
         } else if (player.getRepeatMode() == RepeatMode.ALL) {
-            //mb.append(I18n.get(guild).getString("listShowRepeatAll"));
             playmode = playmode + " | " + I18n.get(guild).getString("listShowRepeatAll").replace(".", "");
-            //mb.append("\n");
         }
         eb.setFooter(playmode, "http://www.thestarbiz.com/wp-content/uploads/2016/05/icon-m.png");
-        //mb.append(MessageFormat.format(I18n.get(guild).getString("listPageNum"), page, maxPages));
         eb.setTitle("Showing current Playlist, Page: " + page + "/" + maxPages);
-        //mb.append("\n");
-        //mb.append("\n");
-
+        String HList = "";
         for (AudioTrackContext atc : sublist) {
             String status = " ";
             if (i == 0) {
                 status = player.isPlaying() ? " \\▶" : " \\\u23F8"; //Escaped play and pause emojis
-                //if (at instanceof YoutubeAudioTrack) {
-                //    eb.setThumbnail("https://i.ytimg.com/vi/" + at.getIdentifier() + "/hqdefault.jpg");
-                //}
+                
             }
-            //mb.append("[" +
-            //        TextUtils.forceNDigits(i + 1, numberLength)
-            //        + "]", MessageBuilder.Formatting.BLOCK)
-            //        .append(status)
-            //        .append(MessageFormat.format(I18n.get(guild).getString("listAddedBy"), atc.getEffectiveTitle(), atc.getMember().getEffectiveName()))
-            //        .append("\n");
-            String name  = atc.getTrack().getSourceManager().getSourceName(); 
-            name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
-            eb.addField("[" + TextUtils.forceNDigits(i + 1, numberLength) + "]" + status + atc.getEffectiveTitle(), "Added By: " + atc.getMember().getEffectiveName() + "\nAudio provided by: " + name, true);
-            //eb.addField("", "", false);
+
+            eb.addField("[" + TextUtils.forceNDigits(i + 1, numberLength) + "]" + status + atc.getEffectiveTitle(), "Added By: " + atc.getMember().getEffectiveName(), true);
+            HList = HList + "\n" + "[" + TextUtils.forceNDigits(i + 1, numberLength) + "]" + status + atc.getEffectiveTitle() + "\n" + "Added By: " + atc.getMember().getEffectiveName();
             if (i == listEnd) {
                 break;
             }
@@ -163,7 +143,13 @@ public class ListCommand extends Command implements IMusicCommand {
         //mb.append("\n").append(desc);
         eb.addField(desc, "", true);
         channel.sendMessage(eb.build()).queue();
-
+        try {
+            String comurl = TextUtils.postToHastebin("Current Playlist\n------------------\n" + HList, true) + ".vertcurrplist";
+            channel.sendMessage("If you cant see embeds, you can find the current playlist here!\n" + comurl).queue();
+        }
+        catch (UnirestException ex) {
+            throw new MessagingException("Export Failed");
+        } 
     }
 
     @Override
