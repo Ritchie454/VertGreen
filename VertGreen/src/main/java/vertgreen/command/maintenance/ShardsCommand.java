@@ -37,7 +37,7 @@ public class ShardsCommand extends Command implements IMaintenanceCommand {
         else {
             eb.addField("Shard Info","Sharding: " + VertGreen.getInstance(guild.getJDA()).getShardInfo().getShardString() + "\n" + "Known servers: " + VertGreen.getAllGuilds().size() + "\n" + "Known users in servers: " + VertGreen.getAllUsersAsMap().size() + "\n" , true);
         }
-        if (!PlayerRegistry.getPlayingPlayers().isEmpty()){
+        if (PlayerRegistry.getPlayingPlayers().isEmpty()){
             eb.setColor(BotConstants.VERTYELLOW);
             eb.setFooter(" | Player currently not playing", "http://www.debscrossstitch.co.uk/ekmps/shops/debscrossstitch/images/bright-blue-square-aperture-card-envelope-4-x-6-a6-bright-blue-square-aperture-4-x-6-5-x-cards-envelopes-1.85-2050-p.jpg");
         }
