@@ -23,7 +23,7 @@ public class I18nTest extends ProvideJDASingleton {
     public void testTranslatedStrings() {
         I18n.start();
 
-        ResourceBundle id_ID = I18n.LANGS.get("id_ID").getProps();
+        ResourceBundle id_ID = I18n.LANGS.get("en_US").getProps();
         for(String key :  I18n.DEFAULT.getProps().keySet()){
             Assertions.assertNotNull(id_ID.getString(key), () -> key + " prop missing in language files");
         }
