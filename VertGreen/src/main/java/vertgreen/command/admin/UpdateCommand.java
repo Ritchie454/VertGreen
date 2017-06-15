@@ -88,6 +88,6 @@ public class UpdateCommand extends Command implements ICommandOwnerRestricted {
 
     @Override
     public String help(Guild guild) {
-        return "{0}{1} [branch [repo]]\n#Update the bot by checking out the provided branch from the provided github repo and compiling it. Does not restart the bot.";
+        return "{0}{1} [branch [repo]]\n#Update the bot by checking out the provided branch from the provided github repo and compiling it.";
     }
 }
