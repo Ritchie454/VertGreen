@@ -1,5 +1,5 @@
 ## VertGreen
-VertGreen is a selfhosted and highly modified version of the discord bot FredBoat (A music bot), It is designed to be completely lag free however I cannot guarantee this since It is hosted on a 2.50 euro server :D and I am currently not set up with patron donations etc.
+VertGreen is a selfhosted and highly modified version of the discord bot FredBoat (A music bot), It is designed to be completely lag free however I cannot guarantee this since It is hosted on a 2.50 euro server :D, You can donate on Patron here! https://www.patreon.com/VertGreen
 ## Discord Stuff
 
 You can invite the bot to your server using this link:
