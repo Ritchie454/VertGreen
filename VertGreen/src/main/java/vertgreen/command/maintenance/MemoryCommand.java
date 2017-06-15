@@ -29,10 +29,10 @@ public class MemoryCommand extends Command implements IMaintenanceCommand {
                 days, hours, mins, secs, CommandManager.commandsExecuted - 1)
                 + "\n";
         EmbedBuilder eb = new EmbedBuilder();
-        Long TotMem = Runtime.getRuntime().totalMemory() / 1000000;
-        Long FreeMem = Runtime.getRuntime().freeMemory() / 1000000;
-        Long MaxMem = Runtime.getRuntime().maxMemory() / 1000000;
-        Long CurrMem = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000;
+        Long TotMem = Runtime.getRuntime().totalMemory() / (1024.0 * 1024.0 * 1024.0);
+        Long FreeMem = Runtime.getRuntime().freeMemory() / (1024.0 * 1024.0 * 1024.0);
+        Long MaxMem = Runtime.getRuntime().maxMemory() / (1024.0 * 1024.0 * 1024.0);
+        Long CurrMem = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024.0 * 1024.0 * 1024.0);
         if (CurrMem > 750) {
             eb.setFooter("Warning, High memory usage!", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Achtung.svg/1169px-Achtung.svg.png");
             eb.setColor(BotConstants.VERTRED);
