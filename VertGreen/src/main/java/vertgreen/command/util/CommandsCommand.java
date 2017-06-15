@@ -100,18 +100,22 @@ public class CommandsCommand extends Command implements IUtilCommand {
         eb.setTitle("__Commands__");
         eb.addField("Fun", fun.replace("Fun", ""), true);
         eb.addField("Utility", util.replace("Utility", ""), true);
+        String mods = "";
+        String owners = "";
         if (invoker.hasPermission(Permission.MESSAGE_MANAGE)) {
             eb.addField("Moderation", mod.replace("Moderation", ""), true);
+            mods = "\n-Moderation---------------------------------\n" + mod.replace("Moderation", "");
         }
 
         if (DiscordUtil.isUserBotOwner(invoker.getUser())) {
             eb.addField("Maintenance", maint.replace("Maintenance", ""), true);
             eb.addField("Bot Owner", owner.replace("Bot owner", ""), true);
+            owners = "\n-Owner--------------------------------------\n" + owner.replace("Bot owner", "");
         }
         eb.addField(MessageFormat.format(I18n.get(guild).getString("commandsMoreHelp"), "`" + Config.CONFIG.getPrefix() + "help <command>`"), "", true);
         channel.sendMessage(eb.build()).queue();
         try {
-        String comurl = TextUtils.postToHastebin("-Fun----------------------------------------\n" + fun.replace("Fun", "") + "\n-Utility------------------------------------\n" + util.replace("Utility", "") + "\n-Moderation---------------------------------\n" + mod.replace("Moderation", ""), true) + ".vertcmds";
+        String comurl = TextUtils.postToHastebin("VERTBOT COMMANDS\n--------------------------------------------\n" + "-Fun----------------------------------------\n" + fun.replace("Fun", "") + "\n-Utility------------------------------------\n" + util.replace("Utility", "") + mods + owners, true) + ".vertcmds";
         channel.sendMessage("If you can't see embeds, you can use this handy link instead!\n" + comurl).queue();
         }
         catch (UnirestException ex) {
