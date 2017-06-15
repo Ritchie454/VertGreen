@@ -59,7 +59,7 @@ public class UpdateCommand extends Command implements ICommandOwnerRestricted {
                 throw new RuntimeException("Bad response code");
             }
 
-            msg = msg.editMessage(msg.getRawContent() + "👌🏽\n\nRunning `mvn package shade:shade`... ").complete(true);
+            msg = msg.editMessage(msg.getRawContent() + ":ok_hand:\n\nRunning `mvn package shade:shade`... ").complete(true);
             File updateDir = new File("update/VertGreen");
 
             Process mvnBuild = rt.exec("mvn -f " + updateDir.getAbsolutePath() + "/pom.xml package shade:shade");
@@ -74,7 +74,7 @@ public class UpdateCommand extends Command implements ICommandOwnerRestricted {
                 throw new RuntimeException("Bad response code");
             }
 
-            msg.editMessage(msg.getRawContent() + "👌🏽").queue();
+            msg.editMessage(msg.getRawContent() + ":ok_hand:").queue();
 
             if(!new File("./update/VertGreen/target/VertGreen-1.0.jar").renameTo(new File(System.getProperty("user.home") + "/VertGreen-1.0.jar"))){
                 throw new RuntimeException("Failed to move jar to home");

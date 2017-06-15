@@ -5,6 +5,7 @@ import vertgreen.command.util.InviteCommand;
 import vertgreen.command.util.HelpCommand;
 import vertgreen.command.util.CommandsCommand;
 import vertgreen.command.util.MALCommand;
+import vertgreen.command.util.DonateCommand;
 import vertgreen.command.maintenance.GitInfoCommand;
 import vertgreen.command.maintenance.StatsCommand;
 import vertgreen.command.maintenance.VersionCommand;
@@ -53,6 +54,9 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("hardban", new HardbanCommand());
         CommandRegistry.registerCommand("kick", new KickCommand());
         CommandRegistry.registerCommand("softban", new SoftbanCommand());
+        CommandRegistry.registerCommand("donate", new DonateCommand());
+        CommandRegistry.registerAlias("donate", "patron");
+        CommandRegistry.registerAlias("donate", "patreon");
 
     }
 
