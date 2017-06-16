@@ -33,16 +33,16 @@ public class PermissionsCommand extends Command implements IUtilCommand {
         catch (UnirestException ex) {
             throw new MessagingException("Couldn't upload permissions to hastebin :(");
         }
-        eb.setTitle("Permissions for" + target.getEffectiveName());
+        //eb.setTitle("Permissions for" + target.getEffectiveName());
         eb.setColor(target.getColor());
-        eb.addField(target.getPermissions().toString(), "", true);
+        eb.addField("Permissions for" + target.getEffectiveName(), target.getPermissions().toString().replace("_", " ").replace("["," ").replace("]", " "), true);
         eb.setFooter(permurl, target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
     }
 
     @Override
     public String help(Guild guild) {
-        String usage = "<<perms @<username>\n#";
+        String usage = "{0} {1} @<username>\n#";
         return usage + "Get permissions for the mentionned user";
     }
 }
