@@ -75,7 +75,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             }
         }
         String game;
-        if (target.getGame().getName() == null){
+        if (target.getGame() == null){
             game = "Not currently in game..";
         } else {
             game = target.getGame().getName();
