@@ -84,7 +84,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
         eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
         eb.addField(rb.getString("userinfoCreationTime"),target.getUser().getCreationTime().format(dtf),true);
         eb.addField("Highest Role", target.getRoles().get(0).getName(), true);
-        eb.addField("Current Game", target.getGame().getName(), true);
+        eb.addField("Current Game", target.getGame().toString(), true);
         eb.setFooter(target.getUser().getName() + "#" + target.getUser().getDiscriminator(), target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
 
