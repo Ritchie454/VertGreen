@@ -26,7 +26,7 @@ public class RolesCommand extends Command implements IUtilCommand {
         } else {
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
         }
-        String roleurl = target.getRoles().toString(); 
+        String roleurl = target.getRoles().get(0).getName(); 
         //Collections.sort(roleurl);
         //String sortperms = permurl.toString();
         try {
