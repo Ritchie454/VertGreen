@@ -33,16 +33,16 @@ public class PermissionsCommand extends Command implements IUtilCommand {
         }
         List<Permission> permurl = target.getPermissions(); 
         Collections.sort(permurl);
-        List<Permission> sortperms = permurl;
+        String sortperms = permurl.toString();
         try {
-             hasteurl = TextUtils.postToHastebin(sortperms.toString().replace("_", " ").replace("["," ").replace("]", " ").toLowerCase(), true) + ".perms";
+             hasteurl = TextUtils.postToHastebin(sortperms.replace("_", " ").replace("["," ").replace("]", " ").toLowerCase(), true) + ".perms";
         }
         catch (UnirestException ex) {
             throw new MessagingException("Couldn't upload permissions to hastebin :(");
         }
         //eb.setTitle("Permissions for" + target.getEffectiveName());
         eb.setColor(target.getColor());
-        eb.addField("Permissions for" + target.getEffectiveName(), sortperms.toString().replace("_", " ").replace("["," ").replace("]", " ").toLowerCase(), true);
+        eb.addField("Permissions for" + target.getEffectiveName(), sortperms.replace("_", " ").replace("["," ").replace("]", " ").toLowerCase(), true);
         eb.setFooter(hasteurl, target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
     }
