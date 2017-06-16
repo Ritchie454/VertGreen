@@ -38,7 +38,7 @@ public class RolesCommand extends Command implements IUtilCommand {
         //eb.setTitle("Permissions for" + target.getEffectiveName());
         eb.setColor(target.getColor());
         eb.setThumbnail(target.getUser().getAvatarUrl());
-        eb.addField("Roles for " + target.getEffectiveName(), " " + hasteurl, true);
+        eb.addField("Roles for " + target.getEffectiveName(), " " + roleurl, true);
         //eb.setFooter("", target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
         channel.sendMessage("If you can't see embeds, view your roles here:\n" + hasteurl).queue();

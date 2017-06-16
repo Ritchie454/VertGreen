@@ -34,8 +34,9 @@ public class PermissionsCommand extends Command implements IUtilCommand {
         List<Permission> permurl = new ArrayList<>(target.getPermissions()); 
         Collections.sort(permurl);
         String sortperms = permurl.toString();
+        String sortedperms = " - " + sortperms.replace("_", " ").replace("["," ").replace("]", " ").replace(",", "\n - ").toLowerCase();
         try {
-             hasteurl = TextUtils.postToHastebin( " - " + sortperms.replace("_", " ").replace("["," ").replace("]", " ").replace(",", "\n - ").toLowerCase(), true) + ".perms";
+             hasteurl = TextUtils.postToHastebin(sortedperms, true) + ".perms";
         }
         catch (UnirestException ex) {
             throw new MessagingException("Couldn't upload permissions to hastebin :(");
@@ -43,7 +44,7 @@ public class PermissionsCommand extends Command implements IUtilCommand {
         //eb.setTitle("Permissions for" + target.getEffectiveName());
         eb.setColor(target.getColor());
         eb.setThumbnail(target.getUser().getAvatarUrl());
-        eb.addField("Permissions for " + target.getEffectiveName(), " " + hasteurl, true);
+        eb.addField("Permissions for " + target.getEffectiveName(), " " + sortedperms, true);
         //eb.setFooter("", target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
         channel.sendMessage("If you can't see embeds, view your permissions here:\n" + hasteurl).queue();
