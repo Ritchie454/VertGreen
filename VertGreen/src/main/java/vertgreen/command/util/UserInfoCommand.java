@@ -75,10 +75,10 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             }
         }
         String game;
-        if (target.getGame().getName() != null){
-            game = target.getGame().getName();
-        } else {
+        if (target.getGame().getName() == null){
             game = "Not currently in game..";
+        } else {
+            game = target.getGame().getName();
         }
         //DMify if I can
         EmbedBuilder eb = new EmbedBuilder();
