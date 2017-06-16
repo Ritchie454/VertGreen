@@ -47,7 +47,7 @@ public class PermissionsCommand extends Command implements IUtilCommand {
         //eb.setFooter("", target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
         channel.sendMessage("If you can't see embeds, view your permissions here:\n" + hasteurl).queue();
-    }
+    }//.
 
     @Override
     public String help(Guild guild) {
