@@ -28,22 +28,21 @@ public class RolesCommand extends Command implements IUtilCommand {
         } else {
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
         }
-        List<Role> roles = target.getRoles();
-        for (i = 0; roles in Role) {
-            
+        List<Role> roles = new ArrayList<>(target.getRoles());
+        Collections.sort(roles);
+        String sortroles = roles.toString();
+        String formroles = sortroles.replace("R:", "**").replace("[", "").replace("(", "**--").replace("),", "\n").replace("]", "").replace(")", "");
+        
+        try {
+            hasteurl = TextUtils.postToHastebin(formroles, true) + ".roles";
         }
-        //Collections.sort(roleurl);
-        //String sortperms = permurl.toString();
-        //try {
-            // hasteurl = TextUtils.postToHastebin(roleurl, true) + ".roles";
-        //}
         catch (UnirestException ex) {
             throw new MessagingException("Couldn't upload roles to hastebin :(");
         }
         //eb.setTitle("Permissions for" + target.getEffectiveName());
         eb.setColor(target.getColor());
         eb.setThumbnail(target.getUser().getAvatarUrl());
-        eb.addField("Roles for " + target.getEffectiveName(), " " + roleurl, true);
+        eb.addField("Roles for " + target.getEffectiveName(), " " + formroles, true);
         //eb.setFooter("", target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
         channel.sendMessage("If you can't see embeds, view your roles here:\n" + hasteurl).queue();

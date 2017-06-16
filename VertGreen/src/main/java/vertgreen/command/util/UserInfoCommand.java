@@ -79,13 +79,13 @@ public class UserInfoCommand extends Command implements IUtilCommand {
         eb.setColor(target.getColor());
         eb.setThumbnail(target.getUser().getAvatarUrl());
         eb.setTitle(MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
-        eb.addField(rb.getString("userinfoUsername"),target.getUser().getName() + "#" + target.getUser().getDiscriminator(),true);
-        eb.addField(rb.getString("userinfoId"),target.getUser().getId(),true);
-        eb.addField(rb.getString("userinfoNick"),target.getEffectiveName(),true); //Known Nickname
+        eb.addField("Nickname",target.getEffectiveName()+ "\n" + target.getUser().getAsMention(),true);
         eb.addField(rb.getString("userinfoKnownServer"),knownServers.toString(),true); //Known Server
         eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
         eb.addField(rb.getString("userinfoCreationTime"),target.getUser().getCreationTime().format(dtf),true);
-        eb.setFooter(target.getEffectiveName(), target.getUser().getAvatarUrl());
+        eb.addField("Highest Role", target.getRoles().get(0).getName(), true);
+        eb.addField("Current Game", target.getGame().getName(), true);
+        eb.setFooter(target.getUser().getName() + "#" + target.getUser().getDiscriminator(), target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
 
     }
