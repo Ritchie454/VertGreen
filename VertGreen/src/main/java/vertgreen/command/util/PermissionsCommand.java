@@ -42,9 +42,11 @@ public class PermissionsCommand extends Command implements IUtilCommand {
         }
         //eb.setTitle("Permissions for" + target.getEffectiveName());
         eb.setColor(target.getColor());
-        eb.addField("Permissions for " + target.getEffectiveName(), sortperms.replace("_", " ").replace("["," ").replace("]", " ").replace(",", "\n").toLowerCase(), true);
-        eb.setFooter(hasteurl, target.getUser().getAvatarUrl());
+        eb.setThumbnail(target.getUser().getAvatarUrl());
+        eb.addField("Permissions for " + target.getEffectiveName(), sortperms.replace("_", " ").replace("["," - ").replace("]", " ").replace(",", "\n").toLowerCase(), true);
+        //eb.setFooter("", target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
+        channel.sendMessage("If you can't see embeds, view your permissions here:\n" + hasteurl).queue();
     }
 
     @Override
