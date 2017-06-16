@@ -31,7 +31,7 @@ public class PermissionsCommand extends Command implements IUtilCommand {
         } else {
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
         }
-        List<Permission> permurl = target.getPermissions(); 
+        List<Permission> permurl = new ArrayList<>(target.getPermissions()); 
         Collections.sort(permurl);
         String sortperms = permurl.toString();
         try {
