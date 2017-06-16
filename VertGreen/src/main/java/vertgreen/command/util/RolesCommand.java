@@ -7,9 +7,11 @@ import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IUtilCommand;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
+import java.util.*;
 
 import vertgreen.util.ArgumentUtil;
 import vertgreen.util.TextUtils;
@@ -26,12 +28,15 @@ public class RolesCommand extends Command implements IUtilCommand {
         } else {
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
         }
-        String roleurl = target.getRoles().get(0).getName(); 
+        List<Role> roles = target.getRoles();
+        for (i = 0; roles in Role) {
+            
+        }
         //Collections.sort(roleurl);
         //String sortperms = permurl.toString();
-        try {
-             hasteurl = TextUtils.postToHastebin(roleurl, true) + ".roles";
-        }
+        //try {
+            // hasteurl = TextUtils.postToHastebin(roleurl, true) + ".roles";
+        //}
         catch (UnirestException ex) {
             throw new MessagingException("Couldn't upload roles to hastebin :(");
         }
