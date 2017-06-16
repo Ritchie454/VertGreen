@@ -1,6 +1,7 @@
 package vertgreen.command.util;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import java.util.Collections;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IUtilCommand;
 import vertgreen.feature.I18n;
@@ -10,6 +11,10 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.EmbedBuilder;
 import vertgreen.commandmeta.MessagingException;
+import vertgreen.util.BotConstants;
+import java.text.MessageFormat;
+import java.util.*;
+import net.dv8tion.jda.core.Permission;
 
 import vertgreen.util.ArgumentUtil;
 import vertgreen.util.TextUtils;
@@ -20,23 +25,24 @@ public class PermissionsCommand extends Command implements IUtilCommand {
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         EmbedBuilder eb = new EmbedBuilder();
         Member target;
-        String permurl;
+        String hasteurl;
         if (message.getMentionedUsers().isEmpty()) {
             target = invoker;
         } else {
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
-
         }
+        List<Permission> permurl = target.getPermissions(); 
+        Collections.sort(permurl);
         try {
-            permurl = TextUtils.postToHastebin(target.getPermissions().toString(), true) + ".perms";
+             hasteurl = TextUtils.postToHastebin(permurl.toString().replace("_", " ").replace("["," ").replace("]", " ").toLowerCase(), true) + ".perms";
         }
         catch (UnirestException ex) {
             throw new MessagingException("Couldn't upload permissions to hastebin :(");
         }
         //eb.setTitle("Permissions for" + target.getEffectiveName());
         eb.setColor(target.getColor());
-        eb.addField("Permissions for" + target.getEffectiveName(), target.getPermissions().toString().replace("_", " ").replace("["," ").replace("]", " "), true);
-        eb.setFooter(permurl, target.getUser().getAvatarUrl());
+        eb.addField("Permissions for" + target.getEffectiveName(), permurl.toString().replace("_", " ").replace("["," ").replace("]", " ").toLowerCase(), true);
+        eb.setFooter(hasteurl, target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
     }
 
