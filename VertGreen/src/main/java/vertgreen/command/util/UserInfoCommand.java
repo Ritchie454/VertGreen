@@ -74,6 +74,12 @@ public class UserInfoCommand extends Command implements IUtilCommand {
 
             }
         }
+        String game;
+        if (target.getGame().getName() != null){
+            game = target.getGame().getName();
+        } else {
+            game = "Not currently in game..";
+        }
         //DMify if I can
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(target.getColor());
@@ -84,7 +90,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
         eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
         eb.addField(rb.getString("userinfoCreationTime"),target.getUser().getCreationTime().format(dtf),true);
         eb.addField("Highest Role", target.getRoles().get(0).getName(), true);
-        eb.addField("Current Game", target.getGame().toString(), true);
+        eb.addField("Current Game", game, true);
         eb.setFooter(target.getUser().getName() + "#" + target.getUser().getDiscriminator(), target.getUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
 
