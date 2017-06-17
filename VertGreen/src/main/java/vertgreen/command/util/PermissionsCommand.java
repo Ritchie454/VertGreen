@@ -26,7 +26,7 @@ public class PermissionsCommand extends Command implements IUtilCommand {
         EmbedBuilder eb = new EmbedBuilder();
         Member target;
         String hasteurl;
-        if (message.getMentionedUsers().isEmpty()) {
+        if (args.length == 1) {
             target = invoker;
         } else {
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);

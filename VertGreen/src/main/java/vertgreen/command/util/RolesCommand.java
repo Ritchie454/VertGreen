@@ -23,14 +23,19 @@ public class RolesCommand extends Command implements IUtilCommand {
         EmbedBuilder eb = new EmbedBuilder();
         Member target;
         String hasteurl;
-        if (message.getMentionedUsers().isEmpty()) {
+        String sortroles;
+        if (args.length == 1) {
             target = invoker;
         } else {
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
         }
-        List<Role> roles = new ArrayList<>(target.getRoles());
-        Collections.sort(roles);
-        String sortroles = roles.toString();
+        if (target.getRoles() == null){
+            sortroles = "everyone";
+        } else {     
+            List<Role> roles = new ArrayList<>(target.getRoles());
+            Collections.sort(roles);
+            sortroles = roles.toString();
+        }
         String formroles = sortroles.replace("R:", "**").replace("[", "").replace("(", "**--").replace("),", "\n").replace("]", "").replace(")", "");
         
         try {

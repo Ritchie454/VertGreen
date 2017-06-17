@@ -20,7 +20,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         EmbedBuilder eb = new EmbedBuilder();
         String msg;
-        if (message.getMentionedUsers().isEmpty()) {
+        if (args.length == 1) {
             eb.setColor(invoker.getColor());
             eb.setTitle("Avatar for " + invoker.getEffectiveName());
             eb.setImage(invoker.getUser().getAvatarUrl() + "?size=1024");    
