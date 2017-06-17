@@ -26,33 +26,29 @@ public class AvatarCommand extends Command implements IUtilCommand {
             eb.setColor(invoker.getColor());
             eb.setTitle("Avatar for " + invoker.getEffectiveName());
             eb.setImage(invoker.getUser().getAvatarUrl() + "?size=1024");    
-        try {
-            String comurl = TextUtils.postToHastebin(invoker.getUser().getAvatarUrl() + "?size=1024", true) + ".avatar";
-            eb.setFooter(comurl, invoker.getUser().getAvatarUrl());
-        }
-        catch (UnirestException ex) {
-            throw new MessagingException("Couldn't upload avatar to hastebin :(");
-        }
+            try {
+                String comurl = TextUtils.postToHastebin(invoker.getUser().getAvatarUrl() + "?size=1024", true) + ".avatar";
+                eb.setFooter(comurl, invoker.getUser().getAvatarUrl());
+            }
+            catch (UnirestException ex) {
+                throw new MessagingException("Couldn't upload avatar to hastebin :(");
+            }
+            channel.sendMessage(eb.build()).queue();
         } else {
-            List<Member> list = fuzzyMemberSearch(channel.getGuild(), msg);
             Member target;
-            if (list.isEmpty()){
-                target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
-                eb.setColor(target.getColor());
-                eb.setTitle("Avatar for " + target.getEffectiveName());
-                eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");
-                try {
-                    String comurl = TextUtils.postToHastebin(target.getUser().getAvatarUrl() + "?size=1024", true) + ".avatar";
-                    eb.setFooter(comurl, target.getUser().getAvatarUrl());
-                }
-                catch (UnirestException ex) {
-                    throw new MessagingException("Couldn't upload avatar to hastebin :(");
-                }
-                channel.sendMessage(eb.build()).queue();
+            List<Member> list = fuzzyMemberSearch(channel.getGuild(), msg);
+            target = list.get(0);
+            eb.setColor(target.getColor());
+            eb.setTitle("Avatar for " + target.getEffectiveName());
+            eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");
+            try {
+                String comurl = TextUtils.postToHastebin(target.getUser().getAvatarUrl() + "?size=1024", true) + ".avatar";
+                eb.setFooter(comurl, target.getUser().getAvatarUrl());
             }
-            else {
-                ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
+            catch (UnirestException ex) {
+                throw new MessagingException("Couldn't upload avatar to hastebin :(");
             }
+            channel.sendMessage(eb.build()).queue();
         }
         
     }
