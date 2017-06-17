@@ -36,22 +36,22 @@ public class AvatarCommand extends Command implements IUtilCommand {
         } else {
             List<Member> list = fuzzyMemberSearch(channel.getGuild(), msg);
             Member target;
-            target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
             if (list.size() > 1){
                 ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
             }
             else {
-            eb.setColor(target.getColor());
-            eb.setTitle("Avatar for " + target.getEffectiveName());
-            eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");
-            try {
-                String comurl = TextUtils.postToHastebin(target.getUser().getAvatarUrl() + "?size=1024", true) + ".avatar";
-                eb.setFooter(comurl, target.getUser().getAvatarUrl());
+                target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
+                eb.setColor(target.getColor());
+                eb.setTitle("Avatar for " + target.getEffectiveName());
+                eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");
+                try {
+                    String comurl = TextUtils.postToHastebin(target.getUser().getAvatarUrl() + "?size=1024", true) + ".avatar";
+                    eb.setFooter(comurl, target.getUser().getAvatarUrl());
+                }
+                catch (UnirestException ex) {
+                    throw new MessagingException("Couldn't upload avatar to hastebin :(");
+                }
             }
-            catch (UnirestException ex) {
-                throw new MessagingException("Couldn't upload avatar to hastebin :(");
-            }
-        }
         }
         channel.sendMessage(eb.build()).queue();
     }
