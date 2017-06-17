@@ -1,6 +1,7 @@
 package vertgreen.command.util;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import java.util.List;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IUtilCommand;
 import vertgreen.feature.I18n;
@@ -12,6 +13,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import vertgreen.commandmeta.MessagingException;
 
 import vertgreen.util.ArgumentUtil;
+import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 import vertgreen.util.TextUtils;
 
 public class AvatarCommand extends Command implements IUtilCommand {
@@ -19,7 +21,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         EmbedBuilder eb = new EmbedBuilder();
-        String msg;
+        String msg = message.getRawContent();
         if (args.length == 1) {
             eb.setColor(invoker.getColor());
             eb.setTitle("Avatar for " + invoker.getEffectiveName());
@@ -32,8 +34,13 @@ public class AvatarCommand extends Command implements IUtilCommand {
             throw new MessagingException("Couldn't upload avatar to hastebin :(");
         }
         } else {
+            List<Member> list = fuzzyMemberSearch(channel.getGuild(), msg);
             Member target;
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
+            if (list.size() > 1){
+                ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
+            }
+            else {
             eb.setColor(target.getColor());
             eb.setTitle("Avatar for " + target.getEffectiveName());
             eb.setImage(target.getUser().getAvatarUrl() + "?size=1024");
@@ -44,6 +51,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
             catch (UnirestException ex) {
                 throw new MessagingException("Couldn't upload avatar to hastebin :(");
             }
+        }
         }
         channel.sendMessage(eb.build()).queue();
     }
