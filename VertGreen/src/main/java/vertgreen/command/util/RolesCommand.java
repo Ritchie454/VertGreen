@@ -35,22 +35,16 @@ public class RolesCommand extends Command implements IUtilCommand {
                 Collections.sort(roles);
                 sortroles = roles.toString();
                 formroles = sortroles.replace("R:", "**").replace("[", "").replace("(", "**--").replace("),", "\n").replace("]", "").replace(")", "");
-                eb.addField("Roles for " + invoker.getEffectiveName(), " " + formroles, true);
-                try {
-                    hasteurl = TextUtils.postToHastebin(formroles, true) + ".roles";
-                }
-                catch (UnirestException ex) {
-                    throw new MessagingException("Couldn't upload roles to hastebin :(");
-                }
             } else {
-                sortroles = "everyone";
-                try {
-                    hasteurl = TextUtils.postToHastebin(sortroles, true) + ".roles";
-                }
-                catch (UnirestException ex) {
-                    throw new MessagingException("Couldn't upload roles to hastebin :(");
-                }
+                formroles = "everyone";
             }
+            try {
+                hasteurl = TextUtils.postToHastebin(formroles, true) + ".roles";
+            }
+           catch (UnirestException ex) {
+                throw new MessagingException("Couldn't upload roles to hastebin :(");
+            }
+            eb.addField("Roles for " + invoker.getEffectiveName(), " " + formroles, true);
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.setColor(invoker.getColor());
             channel.sendMessage(eb.build()).queue();
