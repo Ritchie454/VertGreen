@@ -36,10 +36,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
         } else {
             List<Member> list = fuzzyMemberSearch(channel.getGuild(), msg);
             Member target;
-            if (list.size() > 1){
-                ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
-            }
-            else {
+            if (list.size() <= 1){
                 target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
                 eb.setColor(target.getColor());
                 eb.setTitle("Avatar for " + target.getEffectiveName());
@@ -52,6 +49,9 @@ public class AvatarCommand extends Command implements IUtilCommand {
                     throw new MessagingException("Couldn't upload avatar to hastebin :(");
                 }
                 channel.sendMessage(eb.build()).queue();
+            }
+            else {
+                ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
             }
         }
         
