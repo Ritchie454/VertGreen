@@ -51,9 +51,10 @@ public class AvatarCommand extends Command implements IUtilCommand {
                 catch (UnirestException ex) {
                     throw new MessagingException("Couldn't upload avatar to hastebin :(");
                 }
+                channel.sendMessage(eb.build()).queue();
             }
         }
-        channel.sendMessage(eb.build()).queue();
+        
     }
 
     @Override
