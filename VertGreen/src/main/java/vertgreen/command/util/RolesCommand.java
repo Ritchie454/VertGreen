@@ -29,12 +29,12 @@ public class RolesCommand extends Command implements IUtilCommand {
         } else {
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
         }
-        if (target.getRoles() == null){
-            sortroles = "everyone";
-        } else {     
+        if (target.getRoles() != null){     
             List<Role> roles = new ArrayList<>(target.getRoles());
             Collections.sort(roles);
             sortroles = roles.toString();
+        } else {
+            sortroles = "everyone";
         }
         String formroles = sortroles.replace("R:", "**").replace("[", "").replace("(", "**--").replace("),", "\n").replace("]", "").replace(")", "");
         

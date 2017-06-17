@@ -81,10 +81,10 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             game = target.getGame().getName();
         }
         String role;
-        if (target.getRoles() == null){
-            role = "everyone";
+        if (target.getRoles() != null){
+            role = target.getRoles().get(0).getName().toString();
         } else {
-            role = target.getRoles().get(0).getName();
+            role = "everyone";
         }
         //DMify if I can
         EmbedBuilder eb = new EmbedBuilder();
