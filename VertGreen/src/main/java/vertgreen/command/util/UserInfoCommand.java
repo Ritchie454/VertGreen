@@ -1,30 +1,6 @@
-/*
- * MIT License
- *
- * Copyright (c) 2017 Frederik Ar. Mikkelsen
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- */
-
 package vertgreen.command.util;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import vertgreen.VertGreen;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IUtilCommand;
@@ -41,21 +17,36 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import vertgreen.Config;
+import vertgreen.commandmeta.MessagingException;
+import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
+import vertgreen.util.TextUtils;
 
 public class UserInfoCommand extends Command implements IUtilCommand {
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         ResourceBundle rb =I18n.get(guild);
         Member target;
+        String msgcontent = message.getRawContent();
+        EmbedBuilder eb = new EmbedBuilder();
         StringBuilder knownServers = new StringBuilder();
         List<Guild> matchguild = new ArrayList<>();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+        String game;
+        String role;
         if(args.length == 1) {
             target = invoker;
-        } else {
-            target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
-        }
-        if (target == null) return;
+            if (target.getGame() == null){
+                game = "Not currently in game..";
+            } else {
+                game = target.getGame().getName();
+            }
+            if (target.getRoles().size() >= 1){
+                role = target.getRoles().get(0).getName();
+            } else {
+                role = "everyone";
+            }
+            if (target == null) return;
         for(Guild g: VertGreen.getAllGuilds()) {
             if(g.getMemberById(target.getUser().getId()) != null) {
                 matchguild.add(g);
@@ -71,35 +62,80 @@ public class UserInfoCommand extends Command implements IUtilCommand {
                 if(i < matchguild.size()) {
                     knownServers.append(",\n");
                 }
-
             }
         }
-        String game;
-        if (target.getGame() == null){
-            game = "Not currently in game..";
+            eb.setColor(target.getColor());
+            eb.setThumbnail(target.getUser().getAvatarUrl());
+            eb.setTitle(MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
+            eb.addField("Nickname",target.getEffectiveName()+ "\n" + target.getUser().getAsMention(),true);
+            eb.addField(rb.getString("userinfoKnownServer"),knownServers.toString(),true); //Known Server
+            eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
+            eb.addField(rb.getString("userinfoCreationTime"),target.getUser().getCreationTime().format(dtf),true);
+            eb.addField("Highest Role", role, true);
+            eb.addField("Current Game", game, true);
+            eb.setFooter(target.getUser().getName() + "#" + target.getUser().getDiscriminator(), target.getUser().getAvatarUrl());
+            channel.sendMessage(eb.build()).queue();
         } else {
-            game = target.getGame().getName();
+            String searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "userinfo ", "");
+            searchterm = searchterm.toLowerCase();
+            List<Member> list = fuzzyMemberSearch(channel.getGuild(), searchterm);
+            if (list.size() == 0) {
+               channel.sendMessage("No members found for `" + searchterm + "`.").queue();
+            } else if (list.size() == 1){
+                target = list.get(0);
+            if (target.getGame() == null){
+                game = "Not currently in game..";
+            } else {
+                game = target.getGame().getName();
+            }
+            if (target.getRoles().size() >= 1){
+                role = target.getRoles().get(0).getName();
+            } else {
+                role = "everyone";
+            }
+            if (target == null) return;
+        for(Guild g: VertGreen.getAllGuilds()) {
+            if(g.getMemberById(target.getUser().getId()) != null) {
+                matchguild.add(g);
+            }
         }
-        String role;
-        if (target.getRoles().size() > 1){
-            role = target.getRoles().get(0).getName().toString();
+        if(matchguild.size() >= 30) {
+            knownServers.append(matchguild.size());
         } else {
-            role = "everyone";
+            int i = 0;
+            for(Guild g: matchguild) {
+                i++;
+                knownServers.append(g.getName());
+                if(i < matchguild.size()) {
+                    knownServers.append(",\n");
+                }
+            }
         }
-        //DMify if I can
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(target.getColor());
-        eb.setThumbnail(target.getUser().getAvatarUrl());
-        eb.setTitle(MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
-        eb.addField("Nickname",target.getEffectiveName()+ "\n" + target.getUser().getAsMention(),true);
-        eb.addField(rb.getString("userinfoKnownServer"),knownServers.toString(),true); //Known Server
-        eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
-        eb.addField(rb.getString("userinfoCreationTime"),target.getUser().getCreationTime().format(dtf),true);
-        eb.addField("Highest Role", role, true);
-        eb.addField("Current Game", game, true);
-        eb.setFooter(target.getUser().getName() + "#" + target.getUser().getDiscriminator(), target.getUser().getAvatarUrl());
-        channel.sendMessage(eb.build()).queue();
+            eb.setColor(target.getColor());
+            eb.setThumbnail(target.getUser().getAvatarUrl());
+            eb.setTitle(MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
+            eb.addField("Nickname",target.getEffectiveName()+ "\n" + target.getUser().getAsMention(),true);
+            eb.addField(rb.getString("userinfoKnownServer"),knownServers.toString(),true); //Known Server
+            eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
+            eb.addField(rb.getString("userinfoCreationTime"),target.getUser().getCreationTime().format(dtf),true);
+            eb.addField("Highest Role", role, true);
+            eb.addField("Current Game", game, true);
+            eb.setFooter(target.getUser().getName() + "#" + target.getUser().getDiscriminator(), target.getUser().getAvatarUrl());
+            channel.sendMessage(eb.build()).queue();
+            } else if (list.size() >= 2){
+                String msg = "Multiple users were found. Did you mean any of these users?\n```";
 
+                for (int i = 0; i < 5; i++){
+                    if(list.size() == i) break;
+                    msg = msg + "\n" + list.get(i).getUser().getName() + "#" + list.get(i).getUser().getDiscriminator();
+                }
+
+                msg = list.size() > 5 ? msg + "\n[...]" : msg;
+                msg = msg + "```";
+
+                channel.sendMessage(msg).queue();
+            } 
+        }
     }
 
     @Override

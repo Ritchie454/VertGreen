@@ -42,7 +42,6 @@ public class MainCommandInitializer {
         CommandRegistry.registerAlias("serverinfo", "guildinfo");
         CommandRegistry.registerCommand("invite", new InviteCommand());
         CommandRegistry.registerCommand("userinfo", new vertgreen.command.util.UserInfoCommand());
-        CommandRegistry.registerAlias("userinfo", "memberinfo");
         CommandRegistry.registerCommand("gitinfo", new GitInfoCommand());
         CommandRegistry.registerAlias("gitinfo", "git");
         CommandRegistry.registerCommand("exit", new ExitCommand());
@@ -60,9 +59,7 @@ public class MainCommandInitializer {
         CommandRegistry.registerAlias("donate", "patron");
         CommandRegistry.registerAlias("donate", "patreon");
         CommandRegistry.registerCommand("perms", new PermissionsCommand());
-        CommandRegistry.registerAlias("perms", "permissioms");
         CommandRegistry.registerCommand("roles", new RolesCommand());
-        CommandRegistry.registerAlias("roles", "role");
         
     }
 
