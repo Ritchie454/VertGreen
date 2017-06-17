@@ -36,7 +36,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
         } else {
             List<Member> list = fuzzyMemberSearch(channel.getGuild(), msg);
             Member target;
-            if (list.size() <= 1){
+            if (list.isEmpty()){
                 target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
                 eb.setColor(target.getColor());
                 eb.setTitle("Avatar for " + target.getEffectiveName());
