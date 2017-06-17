@@ -81,7 +81,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             game = target.getGame().getName();
         }
         String role;
-        if (target.getRoles() != null){
+        if (target.getRoles().size() > 1){
             role = target.getRoles().get(0).getName().toString();
         } else {
             role = "everyone";

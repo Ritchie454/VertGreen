@@ -29,7 +29,7 @@ public class RolesCommand extends Command implements IUtilCommand {
         } else {
             target = ArgumentUtil.checkSingleFuzzySearchResult(channel,args[1]);
         }
-        if (target.getRoles() != null){     
+        if (target.getRoles().size() > 1){     
             List<Role> roles = new ArrayList<>(target.getRoles());
             Collections.sort(roles);
             sortroles = roles.toString();
