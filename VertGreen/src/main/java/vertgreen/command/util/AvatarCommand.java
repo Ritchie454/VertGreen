@@ -29,19 +29,15 @@ public class AvatarCommand extends Command implements IUtilCommand {
         if (args.length == 1) {
             getAvatarSelf(channel, invoker);
             sendToSite(channel);
-            list.clear();
         } else {
             if (list.size() == 0) {
-               searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "userinfo ", "");
+               searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "avatar ", "");
                channel.sendMessage("No members found for `" + searchterm + "`.").queue();
-               list.clear();
             } else if (list.size() == 1){
                 getAvatarTarget(channel);
                 sendToSite(channel);
-                list.clear();
             } else if (list.size() >= 2){
                 multiFuzzyResults(channel);
-                list.clear();
             } 
         }
     }
