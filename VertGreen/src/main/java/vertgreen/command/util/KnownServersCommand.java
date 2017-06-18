@@ -30,15 +30,19 @@ public class KnownServersCommand extends Command implements IUtilCommand {
         msgcontent = message.getRawContent();
         if(args.length == 1) {
             knownServersSelf(channel, invoker);
+            list.clear();
         } else {
             getFuzzyResult(channel, message);
             if (list.size() == 0) {
                searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
                channel.sendMessage("No members found for `" + searchterm + "`.").queue();
+               list.clear();
             } else if (list.size() == 1){
                 knownServersTarget(channel);
+                list.clear();
             } else if (list.size() >= 2){
                 multiFuzzyResult(channel);
+                list.clear();
             } 
         }
     }

@@ -34,16 +34,20 @@ public class RolesCommand extends Command implements IUtilCommand {
         if (args.length == 1) {
             getSelfRoles(channel, invoker);
             postToWeb(channel);
+            list.clear();
         } else {
             getFuzzyResult(channel);
             if (list.size() == 0) {
                 searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "roles ", "");
                 channel.sendMessage("No members found for `" + searchterm + "`.").queue();
+                list.clear();
             } else if (list.size() == 1){
                 getRolesTarget(channel);
                 postToWeb(channel);
+                list.clear();
             } else if (list.size() >= 2){
                 fuzzyMultiResult(channel);
+                list.clear();
             } 
         }   
     }

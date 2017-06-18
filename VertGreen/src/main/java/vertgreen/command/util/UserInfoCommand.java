@@ -37,14 +37,18 @@ public class UserInfoCommand extends Command implements IUtilCommand {
         msgcontent = message.getRawContent();
         if(args.length == 1) {
             userInfoSelf(channel, invoker);
+            list.clear();
         } else {
             getFuzzyResult(channel);
             if (list.size() == 0) {
                channel.sendMessage("No members found for `" + searchterm + "`.").queue();
+               list.clear();
             } else if (list.size() == 1){
                userInfoTarget(channel);
+               list.clear();
             } else if (list.size() >= 2){
                fuzzyMultiResult(channel);
+               list.clear();
             } 
         }
     }

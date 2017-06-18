@@ -34,16 +34,20 @@ public class PermissionsCommand extends Command implements IUtilCommand {
         if (args.length == 1) {
             getPermissionsSelf(channel, invoker);
             postToWeb(channel);
+            list.clear();
         } else {
             getFuzzyResult(channel, message);
             if (list.size() == 0) {
                searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "userinfo ", "");
                channel.sendMessage("No members found for `" + searchterm + "`.").queue();
+               list.clear();
             } else if (list.size() == 1){
                 getPermissionsTarget(channel);
                 postToWeb(channel);
+                list.clear();
             } else if (list.size() >= 2){
                 fuzzyMultiResult(channel);
+                list.clear();
             } 
         }       
     }
