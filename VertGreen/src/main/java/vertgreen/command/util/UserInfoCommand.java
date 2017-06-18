@@ -104,7 +104,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
         } else {
             int i = 0;
             for(Guild g: matchguild) {
-                if (i == 5) break;
+                //if (i == 5) break;
                 i++;
                 knownServers.append(g.getName());
                 if(i < matchguild.size()) {
