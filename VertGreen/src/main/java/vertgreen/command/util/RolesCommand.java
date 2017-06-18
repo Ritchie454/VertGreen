@@ -27,12 +27,20 @@ public class RolesCommand extends Command implements IUtilCommand {
         String hasteurl;
         String sortroles;
         String formroles;
+        String shortroles = "";
         String msgcontent = message.getRawContent();
         if (args.length == 1) {
             target = invoker;
             if (target.getRoles().size() >= 1){     
                 List<Role> roles = new ArrayList<>(target.getRoles());
                 Collections.sort(roles);
+                for (int i = 0; i < 10; i++){
+                    if(roles.size() == i) break;
+                    shortroles = shortroles + "**" + roles.get(i).getName() + "**" + "-" + roles.get(i).getId() + "\n";
+                }
+
+                shortroles = roles.size() > 10 ? shortroles + "\nYou have more than 10 roles, please click the hastebin link for a full list" : shortroles;
+                
                 sortroles = roles.toString();
                 formroles = sortroles.replace("R:", "**").replace("[", "").replace("(", "**--").replace("),", "\n").replace("]", "").replace(")", "");
             } else {
@@ -44,7 +52,7 @@ public class RolesCommand extends Command implements IUtilCommand {
            catch (UnirestException ex) {
                 throw new MessagingException("Couldn't upload roles to hastebin :(");
             }
-            eb.addField("Roles for " + invoker.getEffectiveName(), " " + formroles, true);
+            eb.addField("Roles for " + invoker.getEffectiveName(), " " + shortroles, true);
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.setColor(invoker.getColor());
             channel.sendMessage(eb.build()).queue();
@@ -57,21 +65,32 @@ public class RolesCommand extends Command implements IUtilCommand {
                channel.sendMessage("No members found for `" + searchterm + "`.").queue();
             } else if (list.size() == 1){
                 target = list.get(0);
-                eb.setColor(target.getColor());
-                eb.setThumbnail(target.getUser().getAvatarUrl());
+                if (target.getRoles().size() >= 1){     
                 List<Role> roles = new ArrayList<>(target.getRoles());
                 Collections.sort(roles);
+                for (int i = 0; i < 10; i++){
+                    if(roles.size() == i) break;
+                    shortroles = shortroles + "**" + roles.get(i).getName() + "**" + "-" + roles.get(i).getId() + "\n";
+                }
+
+                shortroles = roles.size() > 10 ? shortroles + "\nYou have more than 10 roles, please click the hastebin link for a full list" : shortroles;
+                
                 sortroles = roles.toString();
                 formroles = sortroles.replace("R:", "**").replace("[", "").replace("(", "**--").replace("),", "\n").replace("]", "").replace(")", "");
-                eb.addField("Roles for " + invoker.getEffectiveName(), " " + formroles, true);
-                try {
-                    hasteurl = TextUtils.postToHastebin(formroles, true) + ".roles";
-                }
-                catch (UnirestException ex) {
-                    throw new MessagingException("Couldn't upload roles to hastebin :(");
-                }
-                channel.sendMessage(eb.build()).queue();
-                channel.sendMessage("If you can't see embeds, view your roles here:\n" + hasteurl).queue();
+            } else {
+                formroles = "everyone";
+            }
+            try {
+                hasteurl = TextUtils.postToHastebin(formroles, true) + ".roles";
+            }
+           catch (UnirestException ex) {
+                throw new MessagingException("Couldn't upload roles to hastebin :(");
+            }
+            eb.addField("Roles for " + target.getEffectiveName(), " " + shortroles, true);
+            eb.setThumbnail(target.getUser().getAvatarUrl());
+            eb.setColor(target.getColor());
+            channel.sendMessage(eb.build()).queue();
+            channel.sendMessage("If you can't see embeds, view your roles here:\n" + hasteurl).queue();
             } else if (list.size() >= 2){
                 String msg = "Multiple users were found. Did you mean any of these users?\n```";
 
