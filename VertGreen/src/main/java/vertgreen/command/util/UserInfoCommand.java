@@ -1,11 +1,9 @@
 package vertgreen.command.util;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import vertgreen.VertGreen;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IUtilCommand;
 import vertgreen.feature.I18n;
-import vertgreen.util.ArgumentUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
@@ -21,19 +19,37 @@ import vertgreen.Config;
 import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 
 public class UserInfoCommand extends Command implements IUtilCommand {
+    EmbedBuilder eb = new EmbedBuilder();
+    StringBuilder knownServers = new StringBuilder();
+    List<Guild> matchguild = new ArrayList<>();
+    Member target;
+    String msgcontent;
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    String game;
+    String role;
+    ResourceBundle rb;
+    String searchterm;
+    List<Member> list;
+    
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
-        ResourceBundle rb =I18n.get(guild);
-        Member target;
-        String msgcontent = message.getRawContent();
-        EmbedBuilder eb = new EmbedBuilder();
-        StringBuilder knownServers = new StringBuilder();
-        List<Guild> matchguild = new ArrayList<>();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-        String game;
-        String role;
+        rb = I18n.get(guild);
+        msgcontent = message.getRawContent();
         if(args.length == 1) {
-            target = invoker;
+            userInfoSelf(channel, invoker);
+        } else {
+            getFuzzyResult(channel);
+            if (list.isEmpty()) {
+               channel.sendMessage("No members found for `" + searchterm + "`.").queue();
+            } else if (list.size() == 1){
+               userInfoTarget(channel);
+            } else if (list.size() >= 2){
+               fuzzyMultiResult(channel);
+            } 
+        }
+    }
+    private void userInfoSelf(TextChannel channel, Member invoker){
+        target = invoker;
             if (target.getGame() == null){
                 game = "Not currently in game..";
             } else {
@@ -62,14 +78,10 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             eb.addField("Current Game", game, true);
             eb.setFooter(target.getUser().getName() + "#" + target.getUser().getDiscriminator(), target.getUser().getAvatarUrl());
             channel.sendMessage(eb.build()).queue();
-        } else {
-            String searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "userinfo ", "");
-            searchterm = searchterm.toLowerCase();
-            List<Member> list = fuzzyMemberSearch(channel.getGuild(), searchterm);
-            if (list.size() == 0) {
-               channel.sendMessage("No members found for `" + searchterm + "`.").queue();
-            } else if (list.size() == 1){
-                target = list.get(0);
+    }
+    
+    private void userInfoTarget(TextChannel channel){
+        target = list.get(0);
                             if (target.getGame() == null){
                 game = "Not currently in game..";
             } else {
@@ -98,22 +110,25 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             eb.addField("Current Game", game, true);
             eb.setFooter(target.getUser().getName() + "#" + target.getUser().getDiscriminator(), target.getUser().getAvatarUrl());
             channel.sendMessage(eb.build()).queue();
-            } else if (list.size() >= 2){
-                String msg = "Multiple users were found. Did you mean any of these users?\n```";
-
-                for (int i = 0; i < 5; i++){
-                    if(list.size() == i) break;
-                    msg = msg + "\n" + list.get(i).getUser().getName() + "#" + list.get(i).getUser().getDiscriminator();
-                }
-
-                msg = list.size() > 5 ? msg + "\n[...]" : msg;
-                msg = msg + "```";
-
-                channel.sendMessage(msg).queue();
-            } 
-        }
     }
-
+    
+    private void getFuzzyResult(TextChannel channel){
+        searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "userinfo ", "");
+        searchterm = searchterm.toLowerCase();
+        list = fuzzyMemberSearch(channel.getGuild(), searchterm);
+    }
+    
+    private void fuzzyMultiResult(TextChannel channel){
+        String msg = "Multiple users were found. Did you mean any of these users?\n```";
+        for (int i = 0; i < 5; i++){
+            if(list.size() == i) break;
+            msg = msg + "\n" + list.get(i).getUser().getName() + "#" + list.get(i).getUser().getDiscriminator();
+        }
+        msg = list.size() > 5 ? msg + "\n[...]" : msg;
+        msg = msg + "```";
+        channel.sendMessage(msg).queue();
+    }
+    
     @Override
     public String help(Guild guild) {
         String usage = "{0}{1} OR {0}{1} <user>\n#";
