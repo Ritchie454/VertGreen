@@ -18,9 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import vertgreen.Config;
-import vertgreen.commandmeta.MessagingException;
 import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
-import vertgreen.util.TextUtils;
 
 public class UserInfoCommand extends Command implements IUtilCommand {
     @Override
@@ -52,23 +50,12 @@ public class UserInfoCommand extends Command implements IUtilCommand {
                 matchguild.add(g);
             }
         }
-        if(matchguild.size() >= 30) {
             knownServers.append(matchguild.size());
-        } else {
-            int i = 0;
-            for(Guild g: matchguild) {
-                i++;
-                knownServers.append(g.getName());
-                if(i < 5) {
-                    knownServers.append(",\n");
-                }
-            }
-        }
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.setTitle(MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
             eb.addField("Nickname",target.getEffectiveName()+ "\n" + target.getUser().getAsMention(),true);
-            eb.addField(rb.getString("userinfoKnownServer"),knownServers.toString(),true); //Known Server
+            eb.addField("Shared Servers",knownServers.toString(),true); //Known Server
             eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
             eb.addField(rb.getString("userinfoCreationTime"),target.getUser().getCreationTime().format(dtf),true);
             eb.addField("Highest Role", role, true);
@@ -93,24 +80,18 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             } else {
                 role = "everyone";
             }
-            if(matchguild.size() > 5) {
-            knownServers.append(matchguild.size()).append("\nMore than 5 guilds..");
-        } else {
-            int i = 0;
-            for(Guild g: matchguild) {
-                i++;
-                knownServers.append(g.getName());
-                if(i < matchguild.size()) {
-                    knownServers.append(",\n");
-                }
-
+            if (target == null) return;
+        for(Guild g: VertGreen.getAllGuilds()) {
+            if(g.getMemberById(target.getUser().getId()) != null) {
+                matchguild.add(g);
             }
         }
+            knownServers.append(matchguild.size());
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.setTitle(MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
             eb.addField("Nickname",target.getEffectiveName()+ "\n" + target.getUser().getAsMention(),true);
-            eb.addField(rb.getString("userinfoKnownServer"),knownServers.toString(),true); //Known Server
+            eb.addField("Shared Servers",knownServers.toString(),true); //Known Server
             eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
             eb.addField(rb.getString("userinfoCreationTime"),target.getUser().getCreationTime().format(dtf),true);
             eb.addField("Highest Role", role, true);
