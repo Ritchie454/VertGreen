@@ -93,8 +93,8 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             } else {
                 role = "everyone";
             }
-            if(matchguild.size() >= 30) {
-            knownServers.append(matchguild.size());
+            if(matchguild.size() > 5) {
+            knownServers.append(matchguild.size()).append("\nMore than 5 guilds..");
         } else {
             int i = 0;
             for(Guild g: matchguild) {
