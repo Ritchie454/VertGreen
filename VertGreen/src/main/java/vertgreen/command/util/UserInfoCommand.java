@@ -93,23 +93,17 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             } else {
                 role = "everyone";
             }
-            if (target == null) return;
-        for(Guild g: VertGreen.getAllGuilds()) {
-            if(g.getMemberById(target.getUser().getId()) != null) {
-                matchguild.add(g);
-            }
-        }
-        if(matchguild.size() >= 30) {
+            if(matchguild.size() >= 30) {
             knownServers.append(matchguild.size());
         } else {
             int i = 0;
             for(Guild g: matchguild) {
-                //if (i == 5) break;
                 i++;
                 knownServers.append(g.getName());
                 if(i < matchguild.size()) {
                     knownServers.append(",\n");
                 }
+
             }
         }
             eb.setColor(target.getColor());
