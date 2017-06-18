@@ -29,7 +29,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
             getAvatarSelf(channel, invoker);
             sendToSite(channel);
         } else {
-            if (list.isEmpty()) {
+            if (list.size() == 0) {
                searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "userinfo ", "");
                channel.sendMessage("No members found for `" + searchterm + "`.").queue();
             } else if (list.size() == 1){

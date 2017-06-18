@@ -8,6 +8,7 @@ import vertgreen.command.util.MALCommand;
 import vertgreen.command.util.DonateCommand;
 import vertgreen.command.util.PermissionsCommand;
 import vertgreen.command.util.RolesCommand;
+import vertgreen.command.util.KnownServersCommand;
 import vertgreen.command.maintenance.GitInfoCommand;
 import vertgreen.command.maintenance.StatsCommand;
 import vertgreen.command.maintenance.VersionCommand;
@@ -60,6 +61,7 @@ public class MainCommandInitializer {
         CommandRegistry.registerAlias("donate", "patreon");
         CommandRegistry.registerCommand("perms", new PermissionsCommand());
         CommandRegistry.registerCommand("roles", new RolesCommand());
+        CommandRegistry.registerCommand("kservers", new KnownServersCommand());
         
     }
 

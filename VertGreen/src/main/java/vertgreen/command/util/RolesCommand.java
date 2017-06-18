@@ -36,7 +36,7 @@ public class RolesCommand extends Command implements IUtilCommand {
             postToWeb(channel);
         } else {
             getFuzzyResult(channel);
-            if (list.isEmpty()) {
+            if (list.size() == 0) {
                 searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "roles ", "");
                 channel.sendMessage("No members found for `" + searchterm + "`.").queue();
             } else if (list.size() == 1){
