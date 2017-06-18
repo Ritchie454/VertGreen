@@ -52,14 +52,14 @@ public class UserInfoCommand extends Command implements IUtilCommand {
                 matchguild.add(g);
             }
         }
-        if(matchguild.size() >= 5) {
+        if(matchguild.size() >= 30) {
             knownServers.append(matchguild.size());
         } else {
             int i = 0;
             for(Guild g: matchguild) {
                 i++;
                 knownServers.append(g.getName());
-                if(i < matchguild.size()) {
+                if(i < 5) {
                     knownServers.append(",\n");
                 }
             }
@@ -106,7 +106,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             for(Guild g: matchguild) {
                 i++;
                 knownServers.append(g.getName());
-                if(i < matchguild.size()) {
+                if(i < 5) {
                     knownServers.append(",\n");
                 }
             }
