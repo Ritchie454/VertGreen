@@ -17,7 +17,7 @@ import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 import vertgreen.util.TextUtils;
 
 public class RolesCommand extends Command implements IUtilCommand {
-    EmbedBuilder eb = new EmbedBuilder();
+    EmbedBuilder eb;
     Member target;
     String hasteurl;
     String sortroles;
@@ -30,24 +30,21 @@ public class RolesCommand extends Command implements IUtilCommand {
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
+        eb = new EmbedBuilder();
         msgcontent = message.getRawContent();
         if (args.length == 1) {
             getSelfRoles(channel, invoker);
             postToWeb(channel);
-            list.clear();
         } else {
             getFuzzyResult(channel);
             if (list.size() == 0) {
                 searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "roles ", "");
                 channel.sendMessage("No members found for `" + searchterm + "`.").queue();
-                list.clear();
             } else if (list.size() == 1){
                 getRolesTarget(channel);
                 postToWeb(channel);
-                list.clear();
             } else if (list.size() >= 2){
                 fuzzyMultiResult(channel);
-                list.clear();
             } 
         }   
     }

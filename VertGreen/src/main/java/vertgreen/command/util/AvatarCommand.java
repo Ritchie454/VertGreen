@@ -20,10 +20,11 @@ public class AvatarCommand extends Command implements IUtilCommand {
     String msgcontent;
     String searchterm;
     List<Member> list;
-    EmbedBuilder eb = new EmbedBuilder();
+    EmbedBuilder eb;
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
+        eb = new EmbedBuilder();
         msgcontent = message.getRawContent();
         if (args.length == 1) {
             getAvatarSelf(channel, invoker);

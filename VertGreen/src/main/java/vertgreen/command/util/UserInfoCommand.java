@@ -19,7 +19,6 @@ import vertgreen.Config;
 import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 
 public class UserInfoCommand extends Command implements IUtilCommand {
-    EmbedBuilder eb = new EmbedBuilder();
     StringBuilder knownServers = new StringBuilder();
     List<Guild> matchguild = new ArrayList<>();
     Member target;
@@ -30,25 +29,23 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     ResourceBundle rb;
     String searchterm;
     List<Member> list;
+    EmbedBuilder eb;
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
+        eb = new EmbedBuilder();
         rb = I18n.get(guild);
         msgcontent = message.getRawContent();
         if(args.length == 1) {
             userInfoSelf(channel, invoker);
-            list.clear();
         } else {
             getFuzzyResult(channel);
             if (list.size() == 0) {
                channel.sendMessage("No members found for `" + searchterm + "`.").queue();
-               list.clear();
             } else if (list.size() == 1){
                userInfoTarget(channel);
-               list.clear();
             } else if (list.size() >= 2){
                fuzzyMultiResult(channel);
-               list.clear();
             } 
         }
     }

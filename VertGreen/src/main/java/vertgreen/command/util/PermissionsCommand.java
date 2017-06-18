@@ -18,7 +18,7 @@ import java.util.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class PermissionsCommand extends Command implements IUtilCommand {
-    EmbedBuilder eb = new EmbedBuilder();
+    EmbedBuilder eb;
     Member target;
     String hasteurl;
     String msgcontent;
@@ -30,24 +30,21 @@ public class PermissionsCommand extends Command implements IUtilCommand {
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
+        eb = new EmbedBuilder();
         msgcontent = message.getRawContent();
         if (args.length == 1) {
             getPermissionsSelf(channel, invoker);
             postToWeb(channel);
-            list.clear();
         } else {
             getFuzzyResult(channel, message);
             if (list.size() == 0) {
                searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "userinfo ", "");
                channel.sendMessage("No members found for `" + searchterm + "`.").queue();
-               list.clear();
             } else if (list.size() == 1){
                 getPermissionsTarget(channel);
                 postToWeb(channel);
-                list.clear();
             } else if (list.size() >= 2){
                 fuzzyMultiResult(channel);
-                list.clear();
             } 
         }       
     }
