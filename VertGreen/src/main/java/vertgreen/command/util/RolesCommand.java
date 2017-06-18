@@ -24,9 +24,9 @@ public class RolesCommand extends Command implements IUtilCommand {
     String formroles;
     String shortroles = "";
     String msgcontent;
-    List<Role> roles = new ArrayList<>();;
+    List<Role> roles;
     String searchterm;
-    List<Member> list = list = new ArrayList<>();;
+    List<Member> list = list = new ArrayList<>();
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
@@ -52,7 +52,7 @@ public class RolesCommand extends Command implements IUtilCommand {
     private void getSelfRoles(TextChannel channel, Member invoker){
             target = invoker;
             if (target.getRoles().size() >= 1){     
-                roles = target.getRoles();
+                roles = new ArrayList<>(target.getRoles());
                 Collections.sort(roles);
                 for (int i = 0; i < 10; i++){
                     if(roles.size() == i) break;
@@ -74,7 +74,7 @@ public class RolesCommand extends Command implements IUtilCommand {
     private void getRolesTarget(TextChannel channel){
             target = list.get(0);
             if (target.getRoles().size() >= 1){     
-                roles = target.getRoles();
+                roles = new ArrayList<>(target.getRoles());
                 Collections.sort(roles);
                 for (int i = 0; i < 10; i++){
                     if(roles.size() == i) break;

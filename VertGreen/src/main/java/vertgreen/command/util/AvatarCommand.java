@@ -1,6 +1,7 @@
 package vertgreen.command.util;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import java.util.ArrayList;
 import java.util.List;
 import vertgreen.commandmeta.abs.Command;
 import vertgreen.commandmeta.abs.IUtilCommand;
@@ -19,7 +20,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
     Member target;
     String msgcontent;
     String searchterm;
-    List<Member> list;
+    List<Member> list = new ArrayList<>();
     EmbedBuilder eb;
     
     @Override
@@ -45,7 +46,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
     private void getAvatarTarget(TextChannel channel){
         searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "avatar ", "");
         searchterm = searchterm.toLowerCase();
-        list = fuzzyMemberSearch(channel.getGuild(), searchterm);
+        list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
         target = list.get(0);
         eb.setColor(target.getColor());
         eb.setTitle("Avatar for " + target.getEffectiveName());
@@ -74,7 +75,7 @@ public class AvatarCommand extends Command implements IUtilCommand {
     private void multiFuzzyResults(TextChannel channel){
         searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "avatar ", "");
         searchterm = searchterm.toLowerCase();
-        list = fuzzyMemberSearch(channel.getGuild(), searchterm);        
+        list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));       
         String msg = "Multiple users were found. Did you mean any of these users?\n```";
         for (int i = 0; i < 5; i++){
             if(list.size() == i) break;

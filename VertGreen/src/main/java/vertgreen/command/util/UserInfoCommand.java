@@ -28,7 +28,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     String role;
     ResourceBundle rb;
     String searchterm;
-    List<Member> list = new ArrayList<>();;
+    List<Member> list;
     EmbedBuilder eb;
     
     @Override
@@ -116,7 +116,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     private void getFuzzyResult(TextChannel channel){
         searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "userinfo ", "");
         searchterm = searchterm.toLowerCase();
-        list = fuzzyMemberSearch(channel.getGuild(), searchterm);
+        list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
     }
     
     private void fuzzyMultiResult(TextChannel channel){
