@@ -108,8 +108,8 @@ public class UserInfoCommand extends Command implements IUtilCommand {
                 knownServers.append(g.getName());
                 if(i < matchguild.size()) {
                     knownServers.append(",\n");
-                    if (i == 5) break;
                 }
+                if (i == 5) break;
             }
         }
             eb.setColor(target.getColor());
