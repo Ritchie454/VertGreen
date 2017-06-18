@@ -22,11 +22,11 @@ public class RolesCommand extends Command implements IUtilCommand {
     String hasteurl;
     String sortroles;
     String formroles;
-    String shortroles;
+    String shortroles = "";
     String msgcontent;
-    List<Role> roles;
+    List<Role> roles = new ArrayList<>();;
     String searchterm;
-    List<Member> list;
+    List<Member> list = list = new ArrayList<>();;
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
@@ -52,7 +52,7 @@ public class RolesCommand extends Command implements IUtilCommand {
     private void getSelfRoles(TextChannel channel, Member invoker){
             target = invoker;
             if (target.getRoles().size() >= 1){     
-                roles = new ArrayList<>(target.getRoles());
+                roles = target.getRoles();
                 Collections.sort(roles);
                 for (int i = 0; i < 10; i++){
                     if(roles.size() == i) break;
@@ -64,7 +64,7 @@ public class RolesCommand extends Command implements IUtilCommand {
             } else {
                 formroles = "everyone";
             }
-            eb.addField("Roles for " + invoker.getEffectiveName(), " " + shortroles, true);
+            eb.addField("Roles for " + invoker.getEffectiveName(), "" + shortroles, true);
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.setColor(invoker.getColor());
             channel.sendMessage(eb.build()).queue();
@@ -74,7 +74,7 @@ public class RolesCommand extends Command implements IUtilCommand {
     private void getRolesTarget(TextChannel channel){
             target = list.get(0);
             if (target.getRoles().size() >= 1){     
-                roles = new ArrayList<>(target.getRoles());
+                roles = target.getRoles();
                 Collections.sort(roles);
                 for (int i = 0; i < 10; i++){
                     if(roles.size() == i) break;
@@ -86,7 +86,7 @@ public class RolesCommand extends Command implements IUtilCommand {
             } else {
                 formroles = "everyone";
             }
-            eb.addField("Roles for " + target.getEffectiveName(), " " + shortroles, true);
+            eb.addField("Roles for " + target.getEffectiveName(), "" + shortroles, true);
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.setColor(target.getColor());
             channel.sendMessage(eb.build()).queue();

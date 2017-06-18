@@ -24,8 +24,8 @@ public class PermissionsCommand extends Command implements IUtilCommand {
     String msgcontent;
     String sortperms;
     String sortedperms;
-    List<Permission> permurl;
-    List<Member> list;
+    List<Permission> permurl = new ArrayList<>();;
+    List<Member> list = new ArrayList<>();;
     String searchterm;
     
     @Override
@@ -53,7 +53,7 @@ public class PermissionsCommand extends Command implements IUtilCommand {
             target = invoker;
             eb.setColor(invoker.getColor());
             eb.setThumbnail(invoker.getUser().getAvatarUrl());
-            permurl = new ArrayList<>(target.getPermissions()); 
+            permurl = target.getPermissions(); 
             Collections.sort(permurl);
             sortperms = permurl.toString();
             sortedperms = " - " + sortperms.replace("_", " ").replace("["," ").replace("]", " ").replace(",", "\n - ").toLowerCase();
@@ -64,7 +64,7 @@ public class PermissionsCommand extends Command implements IUtilCommand {
     private void getPermissionsTarget(TextChannel channel){
             target = list.get(0);
             eb.setColor(target.getColor());
-            permurl = new ArrayList<>(target.getPermissions()); 
+            permurl = target.getPermissions(); 
             Collections.sort(permurl);
             sortperms = permurl.toString();
             sortedperms = " - " + sortperms.replace("_", " ").replace("["," ").replace("]", " ").replace(",", "\n - ").toLowerCase();              

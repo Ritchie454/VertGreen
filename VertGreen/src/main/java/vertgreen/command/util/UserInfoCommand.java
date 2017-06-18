@@ -28,7 +28,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     String role;
     ResourceBundle rb;
     String searchterm;
-    List<Member> list;
+    List<Member> list = new ArrayList<>();;
     EmbedBuilder eb;
     
     @Override
@@ -82,8 +82,8 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     }
     
     private void userInfoTarget(TextChannel channel){
-        target = list.get(0);
-                            if (target.getGame() == null){
+            target = list.get(0);
+            if (target.getGame() == null){
                 game = "Not currently in game..";
             } else {
                 game = target.getGame().getName();

@@ -22,7 +22,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     StringBuilder knownServers = new StringBuilder();
     List<Guild> matchguild = new ArrayList<>();
     String searchterm;
-    List<Member> list;
+    List<Member> list = new ArrayList<>();
     EmbedBuilder eb;
     
     @Override
