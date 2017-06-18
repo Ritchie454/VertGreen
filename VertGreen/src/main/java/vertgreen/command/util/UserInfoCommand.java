@@ -99,15 +99,16 @@ public class UserInfoCommand extends Command implements IUtilCommand {
                 matchguild.add(g);
             }
         }
-        if(matchguild.size() >= 30) {
+        if(matchguild.size() >= 5) {
             knownServers.append(matchguild.size());
         } else {
             int i = 0;
             for(Guild g: matchguild) {
                 i++;
                 knownServers.append(g.getName());
-                if(i < 5) {
+                if(i < matchguild.size()) {
                     knownServers.append(",\n");
+                    if (i == 5) break;
                 }
             }
         }
