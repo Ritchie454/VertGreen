@@ -143,10 +143,10 @@ public class KnownServersCommand extends Command implements IUtilCommand {
                 knownServers.append(g.getName()).append(",\n");
             }
             try {
-                hasteurl = TextUtils.postToHastebin(knownServers.toString(), true) + ".roles";
+                hasteurl = TextUtils.postToHastebin(knownServers.toString(), true) + ".kservers";
             }
             catch (UnirestException ex) {
-                throw new MessagingException("Couldn't upload roles to hastebin :(");
+                throw new MessagingException("Couldn't upload servers to hastebin :(");
             }
             channel.sendMessage("View the full list of known servers here:\n" + hasteurl).queue();
     }  
