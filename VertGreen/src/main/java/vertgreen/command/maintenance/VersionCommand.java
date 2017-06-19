@@ -33,9 +33,9 @@ public class VersionCommand extends Command implements IMaintenanceCommand {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(BotConstants.VERTGREEN);
         
-        eb.addField("Version Info", "Distribution: " + BotConstants.RELEASE + "\n" + "Bot Version:" + BotConstants.VERSION + "\n" + "JDA responses total: " + guild.getJDA().getResponseTotal() + "\n" + "JDA version: " + JDAInfo.VERSION + "\n", true);
+        eb.addField("<:partner:314068430556758017> Version Info", "Distribution: " + BotConstants.RELEASE + "\n" + "Bot Version:" + BotConstants.VERSION + "\n" + "JDA responses total: " + guild.getJDA().getResponseTotal() + "\n" + "JDA version: " + JDAInfo.VERSION + "\n", true);
         GitRepoState gitRepoState = GitRepoState.getGitRepositoryState();
-        eb.setFooter("Rev: " + gitRepoState.describe, "<:staff:314068430787706880>");
+        eb.setFooter("<:staff:314068430787706880>Rev: " + gitRepoState.describe, "");
         channel.sendMessage(eb.build()).queue();
     }
 
