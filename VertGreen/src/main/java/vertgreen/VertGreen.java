@@ -202,14 +202,7 @@ public abstract class VertGreen {
         boolean result = true;
         try {
             if (!Config.CONFIG.getCbUser().equals("") && !Config.CONFIG.getCbKey().equals("")) {
-                log.info("\n\n" +
-                "  ______  _                             _______         _\n" +
-                " / _____|| |                           |  ___  \\       | |__\n" +
-                "/ /      | |    ___ __    __ ___  _ __ | |___| |  ___  |  __|\n" +
-                "| |      | |   / _ \\\\ \\  / // _ \\| '__||  ___ <  / _ \\ | |\n" +
-                "\\ \\_____ \\ \\_ |  __/ \\ \\/ /|  __/| |   | |___| || |_| || |__\n" +
-                " \\______| \\__| \\___|  \\__/  \\___||_|   |_______/ \\___/  \\___|\n\n" +
-                "Starting CleverBot");
+                log.info("Starting CleverBot");
                 jca = new JCABuilder().setKey(Config.CONFIG.getCbKey()).setUser(Config.CONFIG.getCbUser()).buildBlocking();
             } else {
                 log.warn("Credentials not found for cleverbot authentication. Skipping...");

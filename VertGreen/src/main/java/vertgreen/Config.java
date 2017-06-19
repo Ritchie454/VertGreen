@@ -145,10 +145,7 @@ public class Config {
                 log.info("Not using lavaplayer nodes. Audio playback will be processed locally.");
             }
 
-            if(getDistribution() == DistributionEnum.DEVELOPMENT) {
-                log.info("Development distribution; forcing 2 shards");
-                numShards = 2;
-            } else {
+           
                 //this is the first request on start
                 //it sometimes fails cause network isn'T set up yet. wait 10 sec and try one more time in that case
                 try {
@@ -162,7 +159,6 @@ public class Config {
                     numShards = DiscordUtil.getRecommendedShardCount(getBotToken());
                 }
                 log.info("Discord recommends " + numShards + " shard(s)");
-            }
 
             //more database connections don't help with performance, so use a value based on available cores
             //http://www.dailymotion.com/video/x2s8uec_oltp-performance-concurrent-mid-tier-connections_tech

@@ -11,7 +11,7 @@ public class StatusCommand extends Command implements IMaintenanceCommand {
 
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
-        channel.sendMessage("All systems green").queue();
+        channel.sendMessage("<:online:313956277808005120> All systems green <:online:313956277808005120>").queue();
     }
 
     @Override
