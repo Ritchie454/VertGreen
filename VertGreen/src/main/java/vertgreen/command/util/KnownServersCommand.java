@@ -90,16 +90,13 @@ public class KnownServersCommand extends Command implements IUtilCommand {
                     matchguild.add(g);
                     }
                 }
-                if(matchguild.size() > 10) {
-                knownServers.append("\nMore than 10 servers, please see the link below for a full list\n");
-            } else {
                 int i = 0;
                 for(Guild g: matchguild) {
                     i++;
                     knownServers.append(g.getName()).append(",\n");
                     if(i == 10) {
+                        knownServers.append("\nMore than 10 servers, please see the link below for a full list\n");
                         break;
-                    }
                 }
             }
             eb.setColor(target.getColor());
@@ -151,7 +148,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
             catch (UnirestException ex) {
                 throw new MessagingException("Couldn't upload roles to hastebin :(");
             }
-            channel.sendMessage("If you can't see embeds, view your roles here:\n" + hasteurl).queue();
+            channel.sendMessage("View the full list of known servers here:\n" + hasteurl).queue();
     }  
     
     @Override
