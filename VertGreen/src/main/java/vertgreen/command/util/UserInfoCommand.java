@@ -38,7 +38,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
         msgcontent = message.getRawContent();
         searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
         searchterm = searchterm.toLowerCase();
-        List<Member> list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
+        list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
         if(args.length == 1) {
             userInfoSelf(channel, invoker);
         } else {

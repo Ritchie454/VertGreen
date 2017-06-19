@@ -23,17 +23,13 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     Member target;
     String msgcontent;
     String searchterm;
-    List<Member> list;
     EmbedBuilder eb;
     String hasteurl;
+    List<Member> list;
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         eb = new EmbedBuilder();
-        msgcontent = message.getRawContent();
-        searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
-        searchterm = searchterm.toLowerCase();
-        List<Member> list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
         if(args.length == 1) {
             knownServersSelf(channel, invoker);
             postToWeb(channel);
@@ -43,10 +39,10 @@ public class KnownServersCommand extends Command implements IUtilCommand {
                searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
                channel.sendMessage("No members found for `" + searchterm + "`.").queue();
             } else if (list.size() == 1){
-                knownServersTarget(channel);
+                knownServersTarget(channel, message);
                 postToWeb(channel);
             } else if (list.size() >= 2){
-                multiFuzzyResult(channel);
+                multiFuzzyResult(channel, message);
             } 
         }
     }
@@ -80,7 +76,11 @@ public class KnownServersCommand extends Command implements IUtilCommand {
             channel.sendMessage(eb.build()).queue();
     }
     
-    private void knownServersTarget(TextChannel channel){  
+    private void knownServersTarget(TextChannel channel, Message message){ 
+            msgcontent = message.getRawContent();
+            searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
+            searchterm = searchterm.toLowerCase();
+            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
             List<Guild> matchguild = new ArrayList<>();
             StringBuilder knownServers = new StringBuilder();
             target = list.get(0);
@@ -110,12 +110,17 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     }
     
     private void getFuzzyResult(TextChannel channel, Message message){
+            msgcontent = message.getRawContent();
             searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
             searchterm = searchterm.toLowerCase();
-            List<Member> list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
+            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
     }
     
-    private void multiFuzzyResult(TextChannel channel){
+    private void multiFuzzyResult(TextChannel channel, Message message){
+            msgcontent = message.getRawContent();
+            searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
+            searchterm = searchterm.toLowerCase();
+            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
             String msg = "Multiple users were found. Did you mean any of these users?\n```";
             for (int i = 0; i < 5; i++){
                 if(list.size() == i) break;

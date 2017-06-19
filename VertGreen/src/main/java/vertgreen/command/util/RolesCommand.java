@@ -31,7 +31,7 @@ public class RolesCommand extends Command implements IUtilCommand {
         msgcontent = message.getRawContent();
         searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
         searchterm = searchterm.toLowerCase();
-        List<Member> list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
+        list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
         if (args.length == 1) {
             getSelfRoles(channel, invoker);
             postToWeb(channel);
@@ -109,7 +109,7 @@ public class RolesCommand extends Command implements IUtilCommand {
     private void getFuzzyResult(TextChannel channel){
             searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "roles ", "");
             searchterm = searchterm.toLowerCase();
-            List<Member> list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
+            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
     }
     
     private void fuzzyMultiResult(TextChannel channel){
