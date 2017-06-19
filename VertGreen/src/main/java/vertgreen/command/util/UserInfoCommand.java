@@ -19,7 +19,7 @@ import vertgreen.Config;
 import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 
 public class UserInfoCommand extends Command implements IUtilCommand {
-    StringBuilder knownServers = new StringBuilder();
+    Integer knownServers;
     List<Guild> matchguild = new ArrayList<>();
     Member target;
     String msgcontent;
@@ -33,6 +33,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
+        list.clear();
         eb = new EmbedBuilder();
         rb = I18n.get(guild);
         msgcontent = message.getRawContent();
@@ -50,7 +51,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
         }
     }
     private void userInfoSelf(TextChannel channel, Member invoker){
-        target = invoker;
+            target = invoker;
             if (target.getGame() == null){
                 game = "Not currently in game..";
             } else {
@@ -67,7 +68,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
                 matchguild.add(g);
             }
         }
-            knownServers.append(matchguild.size());
+            knownServers = matchguild.size();
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.setTitle(MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
@@ -99,7 +100,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
                 matchguild.add(g);
             }
         }
-            knownServers.append(matchguild.size());
+            knownServers = matchguild.size();
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.setTitle(MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);

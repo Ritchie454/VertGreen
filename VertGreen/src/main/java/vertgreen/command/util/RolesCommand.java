@@ -26,10 +26,12 @@ public class RolesCommand extends Command implements IUtilCommand {
     String msgcontent;
     List<Role> roles;
     String searchterm;
-    List<Member> list = list = new ArrayList<>();
+    List<Member> list = new ArrayList<>();
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
+        list.clear();
+        roles.clear();
         eb = new EmbedBuilder();
         msgcontent = message.getRawContent();
         if (args.length == 1) {

@@ -27,6 +27,8 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
+        list.clear();
+        matchguild.clear();
         eb = new EmbedBuilder();
         msgcontent = message.getRawContent();
         if(args.length == 1) {
@@ -58,9 +60,9 @@ public class KnownServersCommand extends Command implements IUtilCommand {
                 int i = 0;
                 for(Guild g: matchguild) {
                     i++;
-                    knownServers.append(g.getName());
-                    if(i < 5) {
-                        knownServers.append(",\n");
+                    knownServers.append(g.getName()).append(",\n");
+                    if(i == 5) {
+                        break;
                     }
                 }
             }
