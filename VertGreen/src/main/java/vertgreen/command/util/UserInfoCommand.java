@@ -86,6 +86,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     }
     
     private void userInfoTarget(TextChannel channel){
+            matchguild = new ArrayList<>();
             target = list.get(0);
             if (target.getGame() == null){
                 game = "Not currently in game..";
