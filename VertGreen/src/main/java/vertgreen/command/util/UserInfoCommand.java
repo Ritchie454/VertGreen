@@ -53,27 +53,8 @@ public class UserInfoCommand extends Command implements IUtilCommand {
         }
     }
     private void userInfoSelf(TextChannel channel, Member invoker){
-            String status;
             matchguild = new ArrayList<>();
-            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
-            target = list.get(0);
-        switch (target.getOnlineStatus().name()) {
-            case "ONLINE":
-                status = "<:online:313956277808005120>";
-                break;
-            case "IDLE":
-                status = "<:away:313956277220802560>";
-                break;
-            case "DO_NOT_DISTURB":
-                status = "<:dnd:313956276893646850>";
-                break;
-            case "UNKNOWN":
-                status = "<:streaming:313956277132853248>";
-                break;
-            default:
-                status = "<:offline:313956277237710868>";
-                break;
-        }
+            target = invoker;
             if (target.getGame() == null){
                 game = "Not currently in game..";
             } else {
@@ -93,7 +74,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             knownServers = matchguild.size();
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
-            eb.setTitle(status + MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
+            eb.setTitle(MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
             eb.addField("Nickname",target.getEffectiveName()+ "\n" + target.getUser().getAsMention(),true);
             eb.addField("Shared Servers",knownServers.toString(),true); //Known Server
             eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
@@ -105,27 +86,8 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     }
     
     private void userInfoTarget(TextChannel channel){
-            String status;
             matchguild = new ArrayList<>();
-            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
             target = list.get(0);
-        switch (target.getOnlineStatus().name()) {
-            case "ONLINE":
-                status = "<:online:313956277808005120>";
-                break;
-            case "IDLE":
-                status = "<:away:313956277220802560>";
-                break;
-            case "DO_NOT_DISTURB":
-                status = "<:dnd:313956276893646850>";
-                break;
-            case "UNKNOWN":
-                status = "<:streaming:313956277132853248>";
-                break;
-            default:
-                status = "<:offline:313956277237710868>";
-                break;
-        }
             if (target.getGame() == null){
                 game = "Not currently in game..";
             } else {
@@ -145,7 +107,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             knownServers = matchguild.size();
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
-            eb.setTitle(status + MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
+            eb.setTitle(MessageFormat.format(rb.getString("userinfoTitle"),target.getUser().getName()), null);
             eb.addField("Nickname",target.getEffectiveName()+ "\n" + target.getUser().getAsMention(),true);
             eb.addField("Shared Servers",knownServers.toString(),true); //Known Server
             eb.addField(rb.getString("userinfoJoinDate"),target.getJoinDate().format(dtf),true);
