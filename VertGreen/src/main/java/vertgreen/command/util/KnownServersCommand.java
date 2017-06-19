@@ -1,5 +1,6 @@
 package vertgreen.command.util;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import vertgreen.Config;
 import vertgreen.VertGreen;
 import vertgreen.commandmeta.abs.Command;
@@ -13,8 +14,10 @@ import net.dv8tion.jda.core.entities.TextChannel;
 
 import java.util.ArrayList;
 import java.util.List;
+import vertgreen.commandmeta.MessagingException;
 
 import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
+import vertgreen.util.TextUtils;
 
 public class KnownServersCommand extends Command implements IUtilCommand {
     Member target;
@@ -22,6 +25,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     String searchterm;
     List<Member> list;
     EmbedBuilder eb;
+    String hasteurl;
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
@@ -52,14 +56,14 @@ public class KnownServersCommand extends Command implements IUtilCommand {
                     matchguild.add(g);
                 }
             }
-            if(matchguild.size() >= 30) {
-                knownServers.append(matchguild.size());
+            if(matchguild.size() > 10) {
+                knownServers.append("\nMore than 10 servers, please see the link below for a full list\n");
             } else {
                 int i = 0;
                 for(Guild g: matchguild) {
                     i++;
                     knownServers.append(g.getName()).append(",\n");
-                    if(i == 5) {
+                    if(i == 10) {
                         break;
                     }
                 }
@@ -67,8 +71,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
             knownServers.append(matchguild.size());
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
-            eb.setTitle("Shared servers with " + target.getEffectiveName(), null);
-            eb.addField("Shared Servers",knownServers.toString(),true); //Known Server
+            eb.addField("Shared servers with " + target.getEffectiveName() ,knownServers.toString(),true); //Known Server
             eb.setFooter(target.getUser().getName() + "#" + target.getUser().getDiscriminator(), target.getUser().getAvatarUrl());
             channel.sendMessage(eb.build()).queue();
     }
@@ -83,18 +86,18 @@ public class KnownServersCommand extends Command implements IUtilCommand {
                     matchguild.add(g);
                     }
                 }
-                if(matchguild.size() >= 30) {
-                    knownServers.append(matchguild.size());
-                } else {
-                    int i = 0;
-                    for(Guild g: matchguild) {
+                if(matchguild.size() > 10) {
+                knownServers.append("\nMore than 10 servers, please see the link below for a full list\n");
+            } else {
+                int i = 0;
+                for(Guild g: matchguild) {
                     i++;
-                    knownServers.append(g.getName());
-                    if(i < 5) {
-                        knownServers.append(",\n");
-                        }
+                    knownServers.append(g.getName()).append(",\n");
+                    if(i == 10) {
+                        break;
                     }
                 }
+            }
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.setTitle("Shared servers with " + target.getEffectiveName(), null);
@@ -119,6 +122,29 @@ public class KnownServersCommand extends Command implements IUtilCommand {
             msg = msg + "```";
             channel.sendMessage(msg).queue();
     }
+    
+    private void postToWeb(TextChannel channel){
+            List<Guild> matchguild = new ArrayList<>();
+            StringBuilder knownServers = new StringBuilder();
+            if (target == null) return;
+                for(Guild g: VertGreen.getAllGuilds()) {
+                    if(g.getMemberById(target.getUser().getId()) != null) {
+                    matchguild.add(g);
+                    }
+                }
+            int i = 0;
+            for(Guild g: matchguild) {
+                i++;
+                knownServers.append(g.getName()).append(",\n");
+            }
+            try {
+                hasteurl = TextUtils.postToHastebin(knownServers.toString(), true) + ".roles";
+            }
+            catch (UnirestException ex) {
+                throw new MessagingException("Couldn't upload roles to hastebin :(");
+            }
+            channel.sendMessage("If you can't see embeds, view your roles here:\n" + hasteurl).queue();
+    }  
     
     @Override
     public String help(Guild guild) {
