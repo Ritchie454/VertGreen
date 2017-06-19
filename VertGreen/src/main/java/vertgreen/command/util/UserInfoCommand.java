@@ -55,9 +55,10 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     private void userInfoSelf(TextChannel channel, Member invoker){
             matchguild = new ArrayList<>();
             target = invoker;
-            game = target.getGame().getName();
-            if (game == null){
+            if (target.getGame() == null){
                 game = "Not currently in game..";
+            } else {
+                game = target.getGame().getName();
             }
             if (target.getRoles().size() >= 1){
                 role = target.getRoles().get(0).getName();
@@ -87,9 +88,10 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     private void userInfoTarget(TextChannel channel){
             matchguild = new ArrayList<>();
             target = list.get(0);
-            game = target.getGame().getName();
-            if (game == null){
+            if (target.getGame() == null){
                 game = "Not currently in game..";
+            } else {
+                game = target.getGame().getName();
             }
             if (target.getRoles().size() >= 1){
                 role = target.getRoles().get(0).getName();
