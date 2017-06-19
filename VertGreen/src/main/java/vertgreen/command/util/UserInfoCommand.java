@@ -60,7 +60,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             } else {
                 game = target.getGame().getName();
             }
-            if (target.getRoles().size() > 1){
+            if (target.getRoles().size() >= 1){
                 role = target.getRoles().get(0).getName();
             } else {
                 role = "everyone";
@@ -93,7 +93,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             } else {
                 game = target.getGame().getName();
             }
-            if (target.getRoles().size() > 1){
+            if (target.getRoles().size() >= 1){
                 role = target.getRoles().get(0).getName();
             } else {
                 role = "everyone";
