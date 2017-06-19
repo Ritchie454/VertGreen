@@ -20,13 +20,16 @@ public class AvatarCommand extends Command implements IUtilCommand {
     Member target;
     String msgcontent;
     String searchterm;
-    List<Member> list = new ArrayList<>();
+    List<Member> list;
     EmbedBuilder eb;
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         eb = new EmbedBuilder();
         msgcontent = message.getRawContent();
+        searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
+        searchterm = searchterm.toLowerCase();
+        List<Member> list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
         if (args.length == 1) {
             getAvatarSelf(channel, invoker);
             sendToSite(channel);

@@ -29,6 +29,9 @@ public class RolesCommand extends Command implements IUtilCommand {
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         eb = new EmbedBuilder();
         msgcontent = message.getRawContent();
+        searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
+        searchterm = searchterm.toLowerCase();
+        List<Member> list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
         if (args.length == 1) {
             getSelfRoles(channel, invoker);
             postToWeb(channel);
