@@ -55,6 +55,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     private void userInfoSelf(TextChannel channel, Member invoker){
             String status;
             matchguild = new ArrayList<>();
+            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
             target = list.get(0);
         switch (target.getOnlineStatus().name()) {
             case "ONLINE":
@@ -106,6 +107,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     private void userInfoTarget(TextChannel channel){
             String status;
             matchguild = new ArrayList<>();
+            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
             target = list.get(0);
         switch (target.getOnlineStatus().name()) {
             case "ONLINE":

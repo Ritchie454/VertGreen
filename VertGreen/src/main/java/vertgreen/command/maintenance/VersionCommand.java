@@ -35,7 +35,7 @@ public class VersionCommand extends Command implements IMaintenanceCommand {
         
         eb.addField("<:partner:314068430556758017> Version Info", "Distribution: " + BotConstants.RELEASE + "\n" + "Bot Version:" + BotConstants.VERSION + "\n" + "JDA responses total: " + guild.getJDA().getResponseTotal() + "\n" + "JDA version: " + JDAInfo.VERSION + "\n", true);
         GitRepoState gitRepoState = GitRepoState.getGitRepositoryState();
-        eb.setFooter("<:staff:314068430787706880>Rev: " + gitRepoState.describe, "");
+        eb.setFooter("Rev: " + gitRepoState.describe, "https://cdn.discordapp.com/emojis/314068430787706880.png");
         channel.sendMessage(eb.build()).queue();
     }
 

@@ -34,13 +34,13 @@ public class MemoryCommand extends Command implements IMaintenanceCommand {
         Long MaxMem = Runtime.getRuntime().maxMemory() / 1000000;
         Long CurrMem = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576;
         if (CurrMem > 750) {
-            eb.setFooter("<:dnd:313956276893646850>Warning, High memory usage!", "");
+            eb.setFooter("Warning, High memory usage!", "https://cdn.discordapp.com/emojis/313956276893646850.png");
             eb.setColor(BotConstants.VERTRED);
         } else if (CurrMem > 500) {
-            eb.setFooter("<:away:313956277220802560>Moderate memory usage", "");
+            eb.setFooter("Moderate memory usage", "https://cdn.discordapp.com/emojis/313956277220802560.png");
             eb.setColor(BotConstants.VERTYELLOW);
         } else {
-            eb.setFooter("<:online:313956277808005120>Low memory usage", "");
+            eb.setFooter("Low memory usage", "https://cdn.discordapp.com/emojis/313956277808005120.png");
             eb.setColor(BotConstants.VERTGREEN);
         }
         eb.addField("<:stafftools:314348604095594498> Memory Stats", "Reserved memory: " + TotMem + "MB\n" + "-> Of which is used: " + CurrMem + "MB\n" + "-> Of which is free: " + FreeMem + "MB\n" + "Max reservable: " + MaxMem + "MB\n", true);
