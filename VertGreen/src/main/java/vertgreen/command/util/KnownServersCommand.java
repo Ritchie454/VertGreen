@@ -106,7 +106,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     private void getFuzzyResult(TextChannel channel, Message message){
             searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
             searchterm = searchterm.toLowerCase();
-            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
+            List<Member> list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
     }
     
     private void multiFuzzyResult(TextChannel channel){

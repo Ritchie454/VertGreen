@@ -104,7 +104,7 @@ public class RolesCommand extends Command implements IUtilCommand {
     private void getFuzzyResult(TextChannel channel){
             searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "roles ", "");
             searchterm = searchterm.toLowerCase();
-            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
+            List<Member> list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
     }
     
     private void fuzzyMultiResult(TextChannel channel){
