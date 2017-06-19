@@ -65,6 +65,12 @@ public class UserInfoCommand extends Command implements IUtilCommand {
             } else {
                 role = "everyone";
             }
+            if (target == null) return;
+        for(Guild g: VertGreen.getAllGuilds()) {
+            if(g.getMemberById(target.getUser().getId()) != null) {
+                matchguild.add(g);
+            }
+        }
             knownServers = matchguild.size();
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
@@ -92,6 +98,11 @@ public class UserInfoCommand extends Command implements IUtilCommand {
                 role = "everyone";
             }
             if (target == null) return;
+        for(Guild g: VertGreen.getAllGuilds()) {
+            if(g.getMemberById(target.getUser().getId()) != null) {
+                matchguild.add(g);
+            }
+        }
             knownServers = matchguild.size();
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
