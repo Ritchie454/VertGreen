@@ -25,7 +25,7 @@ public class PermissionsCommand extends Command implements IUtilCommand {
     String sortperms;
     String sortedperms;
     List<Permission> permurl;
-    List<Member> list = new ArrayList<>();
+    List<Member> list;
     String searchterm;
     
     @Override
@@ -76,7 +76,7 @@ public class PermissionsCommand extends Command implements IUtilCommand {
     private void getFuzzyResult(TextChannel channel, Message message){
             searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "perms ", "");
             searchterm = searchterm.toLowerCase();
-            list = fuzzyMemberSearch(channel.getGuild(), searchterm);
+            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
     }
     
     private void postToWeb(TextChannel channel){

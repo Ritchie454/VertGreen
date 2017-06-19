@@ -20,15 +20,13 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     Member target;
     String msgcontent;
     StringBuilder knownServers = new StringBuilder();
-    List<Guild> matchguild = new ArrayList<>();
+    List<Guild> matchguild;
     String searchterm;
-    List<Member> list = new ArrayList<>();
+    List<Member> list;
     EmbedBuilder eb;
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
-        list.clear();
-        matchguild.clear();
         eb = new EmbedBuilder();
         msgcontent = message.getRawContent();
         if(args.length == 1) {
@@ -47,6 +45,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     }
 
     private void knownServersSelf(TextChannel channel, Member invoker){
+            matchguild = new ArrayList<>();
             target = invoker;
             if (target == null) return;
             for(Guild g: VertGreen.getAllGuilds()) {
@@ -76,6 +75,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     }
     
     private void knownServersTarget(TextChannel channel){  
+            matchguild = new ArrayList<>();
             target = list.get(0);
             if (target == null) return;
                 for(Guild g: VertGreen.getAllGuilds()) {
@@ -107,7 +107,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     private void getFuzzyResult(TextChannel channel, Message message){
             searchterm = msgcontent.replace(Config.CONFIG.getPrefix() + "kservers ", "");
             searchterm = searchterm.toLowerCase();
-            list = fuzzyMemberSearch(channel.getGuild(), searchterm);
+            list = new ArrayList<>(fuzzyMemberSearch(channel.getGuild(), searchterm));
     }
     
     private void multiFuzzyResult(TextChannel channel){

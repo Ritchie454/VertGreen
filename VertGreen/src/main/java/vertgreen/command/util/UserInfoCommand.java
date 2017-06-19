@@ -20,7 +20,7 @@ import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 
 public class UserInfoCommand extends Command implements IUtilCommand {
     Integer knownServers;
-    List<Guild> matchguild = new ArrayList<>();
+    List<Guild> matchguild;
     Member target;
     String msgcontent;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
@@ -33,7 +33,6 @@ public class UserInfoCommand extends Command implements IUtilCommand {
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
-        list.clear();
         eb = new EmbedBuilder();
         rb = I18n.get(guild);
         msgcontent = message.getRawContent();
@@ -51,6 +50,7 @@ public class UserInfoCommand extends Command implements IUtilCommand {
         }
     }
     private void userInfoSelf(TextChannel channel, Member invoker){
+            matchguild = new ArrayList<>();
             target = invoker;
             if (target.getGame() == null){
                 game = "Not currently in game..";
