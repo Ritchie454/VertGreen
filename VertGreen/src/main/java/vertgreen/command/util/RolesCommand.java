@@ -20,12 +20,10 @@ public class RolesCommand extends Command implements IUtilCommand {
     EmbedBuilder eb;
     Member target;
     String hasteurl;
-    String sortroles;
-    String formroles;
-    String shortroles = "";
     String msgcontent;
     String searchterm;
     List<Member> list;
+    String formroles = "";
     
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
@@ -50,6 +48,8 @@ public class RolesCommand extends Command implements IUtilCommand {
 
     private void getSelfRoles(TextChannel channel, Member invoker){
             target = invoker;
+            String sortroles = "";
+            String shortroles = "";
             if (target.getRoles().size() >= 1){     
                 List<Role> roles = new ArrayList<>(target.getRoles());
                 Collections.sort(roles);
@@ -72,6 +72,8 @@ public class RolesCommand extends Command implements IUtilCommand {
     
     private void getRolesTarget(TextChannel channel){
             target = list.get(0);
+            String sortroles = "";
+            String shortroles = "";
             if (target.getRoles().size() >= 1){     
                 List<Role> roles = new ArrayList<>(target.getRoles());
                 Collections.sort(roles);

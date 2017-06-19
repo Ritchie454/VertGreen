@@ -19,7 +19,6 @@ import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 public class KnownServersCommand extends Command implements IUtilCommand {
     Member target;
     String msgcontent;
-    StringBuilder knownServers = new StringBuilder();
     String searchterm;
     List<Member> list;
     EmbedBuilder eb;
@@ -45,6 +44,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
 
     private void knownServersSelf(TextChannel channel, Member invoker){
             List<Guild> matchguild = new ArrayList<>();
+            StringBuilder knownServers = new StringBuilder();
             target = invoker;
             if (target == null) return;
             for(Guild g: VertGreen.getAllGuilds()) {
@@ -75,6 +75,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     
     private void knownServersTarget(TextChannel channel){  
             List<Guild> matchguild = new ArrayList<>();
+            StringBuilder knownServers = new StringBuilder();
             target = list.get(0);
             if (target == null) return;
                 for(Guild g: VertGreen.getAllGuilds()) {
@@ -94,7 +95,6 @@ public class KnownServersCommand extends Command implements IUtilCommand {
                         }
                     }
                 }
-            knownServers.append(matchguild.size());
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.setTitle("Shared servers with " + target.getEffectiveName(), null);
