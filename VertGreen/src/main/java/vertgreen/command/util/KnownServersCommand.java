@@ -33,6 +33,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
         msgcontent = message.getRawContent();
         if(args.length == 1) {
             knownServersSelf(channel, invoker);
+            postToWeb(channel);
         } else {
             getFuzzyResult(channel, message);
             if (list.size() == 0) {
@@ -40,6 +41,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
                channel.sendMessage("No members found for `" + searchterm + "`.").queue();
             } else if (list.size() == 1){
                 knownServersTarget(channel);
+                postToWeb(channel);
             } else if (list.size() >= 2){
                 multiFuzzyResult(channel);
             } 
@@ -68,7 +70,6 @@ public class KnownServersCommand extends Command implements IUtilCommand {
                     }
                 }
             }
-            knownServers.append(matchguild.size());
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
             eb.addField("Shared servers with " + target.getEffectiveName() ,knownServers.toString(),true); //Known Server
@@ -100,8 +101,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
             }
             eb.setColor(target.getColor());
             eb.setThumbnail(target.getUser().getAvatarUrl());
-            eb.setTitle("Shared servers with " + target.getEffectiveName(), null);
-            eb.addField("Shared Servers",knownServers.toString(),true); //Known Server
+            eb.addField("Shared servers with " + target.getEffectiveName() ,knownServers.toString(),true); //Known Server
             eb.setFooter(target.getUser().getName() + "#" + target.getUser().getDiscriminator(), target.getUser().getAvatarUrl());
             channel.sendMessage(eb.build()).queue();
     }
