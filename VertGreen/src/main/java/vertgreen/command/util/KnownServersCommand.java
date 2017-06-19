@@ -20,7 +20,6 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     Member target;
     String msgcontent;
     StringBuilder knownServers = new StringBuilder();
-    List<Guild> matchguild;
     String searchterm;
     List<Member> list;
     EmbedBuilder eb;
@@ -45,7 +44,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     }
 
     private void knownServersSelf(TextChannel channel, Member invoker){
-            matchguild = new ArrayList<>();
+            List<Guild> matchguild = new ArrayList<>();
             target = invoker;
             if (target == null) return;
             for(Guild g: VertGreen.getAllGuilds()) {
@@ -75,7 +74,7 @@ public class KnownServersCommand extends Command implements IUtilCommand {
     }
     
     private void knownServersTarget(TextChannel channel){  
-            matchguild = new ArrayList<>();
+            List<Guild> matchguild = new ArrayList<>();
             target = list.get(0);
             if (target == null) return;
                 for(Guild g: VertGreen.getAllGuilds()) {
