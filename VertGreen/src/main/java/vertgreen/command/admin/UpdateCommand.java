@@ -31,8 +31,11 @@ public class UpdateCommand extends Command implements ICommandOwnerRestricted {
             Message msg;
             EmbedBuilder eb = new EmbedBuilder();
             EmbedBuilder eb2 = new EmbedBuilder();
-            msg = channel.sendMessage("*Now updating...*\n\n<:update:264184209617321984>Running `git clone`... ").complete(true);
-
+            EmbedBuilder eb3 = new EmbedBuilder();
+            EmbedBuilder eb4 = new EmbedBuilder();
+            msg = channel.sendMessage("*Now updating...").complete(true);
+            eb.setTitle("<:update:264184209617321984>Running `git clone`...");
+            channel.sendMessage(eb.build()).queue();
             String branch = "master";
             if (args.length > 1) {
                 branch = args[1];
@@ -61,9 +64,10 @@ public class UpdateCommand extends Command implements ICommandOwnerRestricted {
                 msg = msg.editMessage(msg.getRawContent() + "[:anger: returned code " + gitClone.exitValue() + "]\n\n").complete(true);
                 throw new RuntimeException("Bad response code");
             }
-            eb.setTitle("<:check:314349398811475968>Succeeded pulling update from GitHub");
-            channel.sendMessage(eb.build()).queue();
-            channel.sendMessage("\n\n<:stafftools:314348604095594498>Running `mvn package shade:shade`... ").complete(true);
+            eb2.setTitle("<:check:314349398811475968>Succeeded pulling update from GitHub");
+            channel.sendMessage(eb2.build()).queue();
+            eb3.setTitle("<:stafftools:314348604095594498>Running `mvn package shade:shade`... ");
+            channel.sendMessage(eb3.build()).queue();
             File updateDir = new File("update/VertGreen");
 
             Process mvnBuild = rt.exec("mvn -f " + updateDir.getAbsolutePath() + "/pom.xml package shade:shade");
@@ -77,8 +81,8 @@ public class UpdateCommand extends Command implements ICommandOwnerRestricted {
                 msg = msg.editMessage(msg.getRawContent() + "[:anger: returned code " + mvnBuild.exitValue() + "]\n\n").complete(true);
                 throw new RuntimeException("Bad response code");
             }
-            eb2.setTitle("<:check:314349398811475968>Succeeded packaging VertGreen.jar");
-            channel.sendMessage(eb2.build()).queue();
+            eb4.setTitle("<:check:314349398811475968>Succeeded packaging VertGreen.jar");
+            channel.sendMessage(eb4.build()).queue();
 
             if(!new File("./update/VertGreen/target/VertGreen-1.0.jar").renameTo(new File(System.getProperty("user.home") + "/VertGreen-1.0.jar"))){
                 throw new RuntimeException("Failed to move jar to home");

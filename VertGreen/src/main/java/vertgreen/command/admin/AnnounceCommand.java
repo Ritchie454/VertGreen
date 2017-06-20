@@ -25,7 +25,7 @@ public class AnnounceCommand extends Command implements ICommandAdminRestricted 
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         List<GuildPlayer> players = PlayerRegistry.getPlayingPlayers();
         String input = message.getRawContent().substring(args[0].length() + 1);
-        String msg = HEAD + input;
+        String msg = input;
 
         Message status;
         try {
