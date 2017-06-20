@@ -42,8 +42,10 @@ public class ServerInfoCommand extends Command implements IUtilCommand {
         eb.addField(rb.getString("serverinfoCreationDate"), guild.getCreationTime().format(dtf),true);
         eb.addField(rb.getString("serverinfoVLv"), guild.getVerificationLevel().name(),true);
         eb.addField(rb.getString("serverinfoOwner"), guild.getOwner().getAsMention(),true);
+        eb.addField("Guild Emotes", String.valueOf(guild.getEmotes()), true);
         eb.setFooter(channel.getJDA().getSelfUser().getName(), channel.getJDA().getSelfUser().getAvatarUrl());
         channel.sendMessage(eb.build()).queue();
+        
     }
     
     public void pickColor(){
