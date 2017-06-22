@@ -1,14 +1,14 @@
 package vertgreen.commandmeta.init;
 
-import vertgreen.command.util.AvatarCommand;
+import vertgreen.command.user.AvatarCommand;
 import vertgreen.command.util.InviteCommand;
 import vertgreen.command.util.HelpCommand;
 import vertgreen.command.util.CommandsCommand;
 import vertgreen.command.util.MALCommand;
 import vertgreen.command.util.DonateCommand;
-import vertgreen.command.util.PermissionsCommand;
-import vertgreen.command.util.RolesCommand;
-import vertgreen.command.util.KnownServersCommand;
+import vertgreen.command.user.PermissionsCommand;
+import vertgreen.command.user.RolesCommand;
+import vertgreen.command.user.KnownServersCommand;
 import vertgreen.command.maintenance.GitInfoCommand;
 import vertgreen.command.maintenance.StatsCommand;
 import vertgreen.command.maintenance.VersionCommand;
@@ -42,7 +42,7 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("serverinfo", new vertgreen.command.util.ServerInfoCommand());
         CommandRegistry.registerAlias("serverinfo", "guildinfo");
         CommandRegistry.registerCommand("invite", new InviteCommand());
-        CommandRegistry.registerCommand("userinfo", new vertgreen.command.util.UserInfoCommand());
+        CommandRegistry.registerCommand("userinfo", new vertgreen.command.user.UserInfoCommand());
         CommandRegistry.registerCommand("gitinfo", new GitInfoCommand());
         CommandRegistry.registerAlias("gitinfo", "git");
         CommandRegistry.registerCommand("exit", new ExitCommand());

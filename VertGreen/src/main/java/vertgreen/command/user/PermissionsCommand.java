@@ -1,8 +1,8 @@
-package vertgreen.command.util;
+package vertgreen.command.user;
 
 import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 import vertgreen.commandmeta.abs.Command;
-import vertgreen.commandmeta.abs.IUtilCommand;
+import vertgreen.commandmeta.abs.IUserCommand;
 import vertgreen.commandmeta.MessagingException;
 import vertgreen.util.TextUtils;
 import vertgreen.Config;
@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-public class PermissionsCommand extends Command implements IUtilCommand {
+public class PermissionsCommand extends Command implements IUserCommand {
     EmbedBuilder eb;
     Member target;
     String hasteurl;

@@ -1,9 +1,9 @@
-package vertgreen.command.util;
+package vertgreen.command.user;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import vertgreen.commandmeta.MessagingException;
 import vertgreen.commandmeta.abs.Command;
-import vertgreen.commandmeta.abs.IUtilCommand;
+import vertgreen.commandmeta.abs.IUserCommand;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;
@@ -16,7 +16,7 @@ import vertgreen.Config;
 import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 import vertgreen.util.TextUtils;
 
-public class RolesCommand extends Command implements IUtilCommand {
+public class RolesCommand extends Command implements IUserCommand {
     EmbedBuilder eb;
     Member target;
     String hasteurl;

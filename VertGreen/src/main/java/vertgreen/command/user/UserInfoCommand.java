@@ -1,8 +1,8 @@
-package vertgreen.command.util;
+package vertgreen.command.user;
 
 import vertgreen.VertGreen;
 import vertgreen.commandmeta.abs.Command;
-import vertgreen.commandmeta.abs.IUtilCommand;
+import vertgreen.commandmeta.abs.IUserCommand;
 import vertgreen.feature.I18n;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 import vertgreen.Config;
 import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 
-public class UserInfoCommand extends Command implements IUtilCommand {
+public class UserInfoCommand extends Command implements IUserCommand {
     Integer knownServers;
     List<Guild> matchguild;
     Member target;

@@ -1,10 +1,10 @@
-package vertgreen.command.util;
+package vertgreen.command.user;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import vertgreen.Config;
 import vertgreen.VertGreen;
 import vertgreen.commandmeta.abs.Command;
-import vertgreen.commandmeta.abs.IUtilCommand;
+import vertgreen.commandmeta.abs.IUserCommand;
 import vertgreen.feature.I18n;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
@@ -19,7 +19,7 @@ import vertgreen.commandmeta.MessagingException;
 import static vertgreen.util.ArgumentUtil.fuzzyMemberSearch;
 import vertgreen.util.TextUtils;
 
-public class KnownServersCommand extends Command implements IUtilCommand {
+public class KnownServersCommand extends Command implements IUserCommand {
     Member target;
     String msgcontent;
     String searchterm;
