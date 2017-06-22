@@ -1,29 +1,12 @@
 package vertgreen.commandmeta.init;
 
-import vertgreen.command.user.AvatarCommand;
-import vertgreen.command.util.InviteCommand;
-import vertgreen.command.util.HelpCommand;
-import vertgreen.command.util.CommandsCommand;
-import vertgreen.command.util.MALCommand;
-import vertgreen.command.util.DonateCommand;
-import vertgreen.command.user.PermissionsCommand;
-import vertgreen.command.user.RolesCommand;
-import vertgreen.command.user.KnownServersCommand;
-import vertgreen.command.maintenance.GitInfoCommand;
-import vertgreen.command.maintenance.StatsCommand;
-import vertgreen.command.maintenance.VersionCommand;
-import vertgreen.command.maintenance.ShardsCommand;
-import vertgreen.command.maintenance.MemoryCommand;
-import vertgreen.command.maintenance.StatusCommand;
-import vertgreen.command.fun.TalkCommand;
-import vertgreen.command.fun.JokeCommand;
-import vertgreen.command.admin.BotRestartCommand;
-import vertgreen.command.admin.UpdateCommand;
-import vertgreen.command.admin.ExitCommand;
-import vertgreen.command.moderation.ClearCommand;
-import vertgreen.command.moderation.HardbanCommand;
-import vertgreen.command.moderation.KickCommand;
-import vertgreen.command.moderation.SoftbanCommand;
+import vertgreen.command.user.*;
+import vertgreen.command.util.*;
+import vertgreen.command.maintenance.*;
+import vertgreen.command.fun.*;
+import vertgreen.command.admin.*;
+import vertgreen.command.moderation.*;
+
 import vertgreen.commandmeta.CommandRegistry;
 
 public class MainCommandInitializer {
@@ -62,7 +45,12 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("perms", new PermissionsCommand());
         CommandRegistry.registerCommand("roles", new RolesCommand());
         CommandRegistry.registerCommand("kservers", new KnownServersCommand());
-        
+        CommandRegistry.registerCommand("eval", new EvalCommand());
+        CommandRegistry.registerCommand("mvntest", new MavenTestCommand());
+        CommandRegistry.registerCommand("revive", new ReviveCommand());
+        CommandRegistry.registerCommand("nodes", new NodesCommand());
+        CommandRegistry.registerCommand("slist", new ShardListCommand());
+        CommandRegistry.registerAlias("slist", "shardlist");
     }
 
 }
