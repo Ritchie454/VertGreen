@@ -149,7 +149,8 @@ public class Config {
                 //this is the first request on start
                 //it sometimes fails cause network isn'T set up yet. wait 10 sec and try one more time in that case
                 try {
-                    numShards = DiscordUtil.getRecommendedShardCount(getBotToken());
+                    //numShards = DiscordUtil.getRecommendedShardCount(getBotToken());
+                    numShards = 10;
                 } catch (Exception e) {
                     try {
                         Thread.sleep(10000);

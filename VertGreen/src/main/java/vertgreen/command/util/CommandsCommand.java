@@ -1,13 +1,7 @@
 package vertgreen.command.util;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import vertgreen.commandmeta.abs.IMaintenanceCommand;
-import vertgreen.commandmeta.abs.ICommandOwnerRestricted;
-import vertgreen.commandmeta.abs.Command;
-import vertgreen.commandmeta.abs.IUtilCommand;
-import vertgreen.commandmeta.abs.IFunCommand;
-import vertgreen.commandmeta.abs.IModerationCommand;
-import vertgreen.commandmeta.abs.IUserCommand;
+import vertgreen.commandmeta.abs.*;
 import vertgreen.Config;
 import vertgreen.commandmeta.CommandRegistry;
 import vertgreen.feature.I18n;
@@ -49,6 +43,7 @@ public class CommandsCommand extends Command implements IUtilCommand {
         String maint = I18n.get(guild).getString("commandsMaintenance");
         String owner = I18n.get(guild).getString("commandsBotOwner");
         String user = "user";
+        String image = "image";
 
         for (String alias : sortedAliases) {
             Command c = CommandRegistry.getCommand(alias).command;
@@ -73,6 +68,9 @@ public class CommandsCommand extends Command implements IUtilCommand {
                 if (c instanceof IUserCommand){
                     user += formattedAlias;
                 }
+                if (c instanceof IImageCommand){
+                    user += formattedAlias;
+                }
             }
         }
 
@@ -82,6 +80,7 @@ public class CommandsCommand extends Command implements IUtilCommand {
         eb.addField("Fun", fun.replace("Fun", ""), true);
         eb.addField("Utility", util.replace("Utility", ""), true);
         eb.addField("User", user.replace("user", ""), true);
+        eb.addField("Images", image.replace("image", ""), true);
         String mods = "";
         String owners = "";
         if (invoker.hasPermission(Permission.MESSAGE_MANAGE)) {
@@ -97,7 +96,7 @@ public class CommandsCommand extends Command implements IUtilCommand {
         eb.addField(MessageFormat.format(I18n.get(guild).getString("commandsMoreHelp"), "`" + Config.CONFIG.getPrefix() + "help <command>`"), "", true);
         channel.sendMessage(eb.build()).queue();
         try {
-        String comurl = TextUtils.postToHastebin("VERTBOT COMMANDS\n--------------------------------------------\n" + "-Fun----------------------------------------\n" + fun.replace("Fun", "") + "\n-Utility------------------------------------\n" + util.replace("Utility", "") + "-User---------------------------------------\n" + user.replace("user", "") + mods + owners, true) + ".vertcmds";
+        String comurl = TextUtils.postToHastebin("VERTBOT COMMANDS\n--------------------------------------------\n" + "-Fun----------------------------------------\n" + fun.replace("Fun", "") + "\n-Utility------------------------------------\n" + util.replace("Utility", "") + "-User---------------------------------------\n" + user.replace("user", "") + "\n-Images-------------------------------------\n" + image.replace("images", "") + mods + owners, true) + ".vertcmds";
         channel.sendMessage("If you can't see embeds, you can use this handy link instead!\n" + comurl).queue();
         }
         catch (UnirestException ex) {
