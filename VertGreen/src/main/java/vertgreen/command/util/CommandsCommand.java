@@ -69,7 +69,7 @@ public class CommandsCommand extends Command implements IUtilCommand {
                     user += formattedAlias;
                 }
                 if (c instanceof IImageCommand){
-                    user += formattedAlias;
+                    image += formattedAlias;
                 }
             }
         }

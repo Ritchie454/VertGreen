@@ -53,6 +53,7 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("slist", new ShardListCommand());
         CommandRegistry.registerAlias("slist", "shardlist");
         CommandRegistry.registerCommand("card", new CardCommand());
+        CommandRegistry.registerCommand("feelswalletman", new WalletMemeCommand());
     }
 
 }
