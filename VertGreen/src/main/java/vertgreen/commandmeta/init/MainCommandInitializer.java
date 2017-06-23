@@ -6,6 +6,7 @@ import vertgreen.command.maintenance.*;
 import vertgreen.command.fun.*;
 import vertgreen.command.admin.*;
 import vertgreen.command.moderation.*;
+import vertgreen.command.image.*;
 
 import vertgreen.commandmeta.CommandRegistry;
 
@@ -51,6 +52,7 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("nodes", new NodesCommand());
         CommandRegistry.registerCommand("slist", new ShardListCommand());
         CommandRegistry.registerAlias("slist", "shardlist");
+        CommandRegistry.registerCommand("card", new CardCommand());
     }
 
 }
