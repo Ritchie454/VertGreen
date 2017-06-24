@@ -49,11 +49,14 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("eval", new EvalCommand());
         CommandRegistry.registerCommand("mvntest", new MavenTestCommand());
         CommandRegistry.registerCommand("revive", new ReviveCommand());
-        CommandRegistry.registerCommand("nodes", new NodesCommand());
         CommandRegistry.registerCommand("slist", new ShardListCommand());
         CommandRegistry.registerAlias("slist", "shardlist");
         CommandRegistry.registerCommand("card", new CardCommand());
         CommandRegistry.registerCommand("feelswalletman", new WalletMemeCommand());
+        CommandRegistry.registerCommand("rb1", new RB1Command());
+        CommandRegistry.registerCommand("rb2", new RB2Command());
+        CommandRegistry.registerCommand("rb3", new RB3Command());
+        CommandRegistry.registerCommand("vii", new VIICommand());
     }
 
 }

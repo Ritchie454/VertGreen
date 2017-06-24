@@ -53,7 +53,8 @@ public class Config {
     private boolean restServerEnabled = true;
     private List<String> adminIds = new ArrayList<>();
     private boolean useAutoBlacklist = false;
-
+    private Integer shards;
+    
     //testing related stuff
     private String testBotToken;
     private String testChannelId;
@@ -106,6 +107,7 @@ public class Config {
 
             log.info("Using prefix: " + prefix);
 
+            shards = (Integer) config.getOrDefault("shards", shards);
             mashapeKey = (String) creds.getOrDefault("mashapeKey", "");
             malUser = (String) creds.getOrDefault("malUser", "");
             malPassword = (String) creds.getOrDefault("malPassword", "");
@@ -150,7 +152,7 @@ public class Config {
                 //it sometimes fails cause network isn'T set up yet. wait 10 sec and try one more time in that case
                 try {
                     //numShards = DiscordUtil.getRecommendedShardCount(getBotToken());
-                    numShards = 10;
+                    numShards = shards;
                 } catch (Exception e) {
                     try {
                         Thread.sleep(10000);
@@ -159,7 +161,7 @@ public class Config {
                     }
                     numShards = DiscordUtil.getRecommendedShardCount(getBotToken());
                 }
-                log.info("Discord recommends " + numShards + " shard(s)");
+                log.info("Using " + numShards + " shard(s)");
 
             //more database connections don't help with performance, so use a value based on available cores
             //http://www.dailymotion.com/video/x2s8uec_oltp-performance-concurrent-mid-tier-connections_tech

@@ -13,32 +13,24 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.EmbedBuilder;
 import vertgreen.util.BotConstants;
 
-import java.text.MessageFormat;
 import vertgreen.util.GitRepoState;
 
 public class VersionCommand extends Command implements IMaintenanceCommand {
+    EmbedBuilder eb;
 
     @Override
-    public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
-        long totalSecs = (System.currentTimeMillis() -VertGreen.START_TIME) / 1000;
-        int days = (int) (totalSecs / (60 * 60 * 24));
-        int hours = (int) ((totalSecs / (60 * 60)) % 24);
-        int mins = (int) ((totalSecs / 60) % 60);
-        int secs = (int) (totalSecs % 60);
-        
-        String str = MessageFormat.format(
-                I18n.get(guild).getString("statsParagraph"),
-                days, hours, mins, secs, CommandManager.commandsExecuted - 1)
-                + "\n";
-        EmbedBuilder eb = new EmbedBuilder();
+    public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {       
+        eb = new EmbedBuilder();
         eb.setColor(BotConstants.VERTGREEN);
-        
+        getVersion(guild);
+        channel.sendMessage(eb.build()).queue();
+    }
+    
+    private void getVersion(Guild guild){         
         eb.addField("<:partner:314068430556758017> Version Info", "Distribution: " + BotConstants.RELEASE + "\n" + "Bot Version:" + BotConstants.VERSION + "\n" + "JDA responses total: " + guild.getJDA().getResponseTotal() + "\n" + "JDA version: " + JDAInfo.VERSION + "\n", true);
         GitRepoState gitRepoState = GitRepoState.getGitRepositoryState();
         eb.setFooter("Rev: " + gitRepoState.describe, "https://cdn.discordapp.com/emojis/314068430787706880.png");
-        channel.sendMessage(eb.build()).queue();
     }
-
     @Override
     public String help(Guild guild) {
         return "{0}{1}\n#Show some statistics about this bot.";
