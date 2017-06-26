@@ -84,7 +84,7 @@ public class UpdateCommand extends Command implements ICommandOwnerRestricted {
             eb4.setTitle("<:check:314349398811475968>Succeeded packaging VertGreen.jar");
             channel.sendMessage(eb4.build()).queue();
 
-            if(!new File("./update/VertGreen/target/VertGreen-1.0.jar").renameTo(new File(System.getProperty("user.home") + "/VertGreen-1.0.jar"))){
+            if(!new File("./update/VertGreen/target/VertGreen-1.0.jar").renameTo(new File("./VertGreen-1.0.jar"))){
                 throw new RuntimeException("Failed to move jar to home");
             }
         } catch (InterruptedException | IOException | RateLimitedException ex) {
