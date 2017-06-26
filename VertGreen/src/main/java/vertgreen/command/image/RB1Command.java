@@ -10,11 +10,11 @@ import vertgreen.commandmeta.abs.IImageCommand;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 public class RB1Command extends Command implements IImageCommand{
-
+    private RandomImageCommand CG = new RandomImageCommand("https://imgur.com/a/qLLdd");
+    
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {
         EmbedBuilder eb = new EmbedBuilder();
-        RandomImageCommand CG = new RandomImageCommand("htts://imgur.com/a/qLLdd");
         eb.setImage(CG.getRandomImageUrl());
         eb.setFooter(CG.getRandomImageUrl(), "https://assets.materialup.com/uploads/9d3f5836-c935-4b55-bc97-4595e1d6f4d9/preview.jpg");
         channel.sendMessage(eb.build()).queue();

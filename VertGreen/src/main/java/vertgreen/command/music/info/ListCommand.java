@@ -25,7 +25,7 @@ public class ListCommand extends Command implements IMusicCommand {
 
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(ListCommand.class);
 
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 5;
 
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member invoker, Message message, String[] args) {

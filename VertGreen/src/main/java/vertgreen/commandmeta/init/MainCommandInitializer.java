@@ -57,6 +57,7 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("rb2", new RB2Command());
         CommandRegistry.registerCommand("rb3", new RB3Command());
         CommandRegistry.registerCommand("vii", new VIICommand());
+        CommandRegistry.registerCommand("fullrestart", new FullRestartCommand());
     }
 
 }

@@ -90,8 +90,27 @@ public class UpdateCommand extends Command implements ICommandOwnerRestricted {
         } catch (InterruptedException | IOException | RateLimitedException ex) {
             throw new RuntimeException(ex);
         }
-        channel.sendMessage("Now restarting...").queue();
-        VertGreen.shutdown(ExitCodes.EXIT_CODE_UPDATE);
+        
+        Runtime rt = Runtime.getRuntime();
+        String started;
+        try {
+            channel.sendMessage("Launching new process...").queue();
+            rt.exec("./start.sh");
+            started = "true";
+        } catch (IOException e) {
+            log.warn("Unable to start new process", e);
+            channel.sendMessage("```\nWarning!\n Unable to start new process..\n```").queue();
+            started = "false";
+        }
+        if (started.equals("true")){
+            channel.sendMessage("Killing old process...").queue();
+            VertGreen.shutdown(ExitCodes.EXIT_CODE_UPDATE);
+        } else if (started.equals("false")){
+            channel.sendMessage("Aborted restart process...").queue();
+        }
+
+        
+    
     }
 
     @Override
