@@ -11,6 +11,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import net.dv8tion.jda.core.EmbedBuilder;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -18,7 +19,7 @@ import javax.script.ScriptException;
 import java.util.concurrent.*;
 
 public class EvalCommand extends Command implements ICommandOwnerRestricted {
-
+    
     private static final Logger log = LoggerFactory.getLogger(EvalCommand.class);
 
     //Thanks Dinos!
@@ -37,11 +38,11 @@ public class EvalCommand extends Command implements ICommandOwnerRestricted {
     @Override
     public void onInvoke(Guild guild, TextChannel channel, Member author, Message message, String[] args) {
         JDA jda = guild.getJDA();
-
+        EmbedBuilder eb = new EmbedBuilder();
         channel.sendTyping().queue();
 
         final String source = message.getRawContent().substring(args[0].length() + 1);
-
+        
         engine.put("jda", jda);
         engine.put("api", jda);
         engine.put("channel", channel);
@@ -53,7 +54,9 @@ public class EvalCommand extends Command implements ICommandOwnerRestricted {
         engine.put("guild", guild);
         engine.put("player", PlayerRegistry.getExisting(guild));
         engine.put("pm", AbstractPlayer.getPlayerManager());
-
+        engine.put("embed", eb);
+        
+        
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
         ScheduledFuture<?> future = service.schedule(() -> {
 
@@ -72,7 +75,7 @@ public class EvalCommand extends Command implements ICommandOwnerRestricted {
 
             String outputS;
             if (out == null) {
-                outputS = ":ok_hand::skin-tone-3:";
+                outputS = ":ok_hand:";
             } else if (out.toString().contains("\n")) {
                 outputS = "\nEval: ```\n" + out.toString() + "```";
             } else {
