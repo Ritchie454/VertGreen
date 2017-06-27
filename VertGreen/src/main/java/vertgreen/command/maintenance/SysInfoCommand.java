@@ -62,6 +62,7 @@ public class SysInfoCommand extends Command implements IMaintenanceCommand {
         eb.addField("OS Information", OSName + OSVer + OSArch, true);
         eb.addField("Java Information", JavaVer + JavaDir, true);
         eb.addField("User Information", UsrName + UsrHome + UsrDir, true);
+        eb.addBlankField(true);
         eb.addField("Hardware Information", CPU + Mem + HDD, true);
         
         channel.sendMessage(eb.build()).queue();

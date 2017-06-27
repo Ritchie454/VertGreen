@@ -31,6 +31,7 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
+import net.dv8tion.jda.core.OnlineStatus;
 
 public class EventListenerGreen extends AbstractEventListener {
 
@@ -153,11 +154,13 @@ public class EventListenerGreen extends AbstractEventListener {
     public void onReady(ReadyEvent event) {
         super.onReady(event);
         event.getJDA().getPresence().setGame(Game.of("with Nepgear"));
+        event.getJDA().getPresence().setStatus(OnlineStatus.UNKNOWN);
     }
 
     @Override
     public void onReconnect(ReconnectedEvent event) {
         event.getJDA().getPresence().setGame(Game.of("with Nepgear"));
+        event.getJDA().getPresence().setStatus(OnlineStatus.UNKNOWN);
     }
 
     /* music related */
