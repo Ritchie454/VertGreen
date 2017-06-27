@@ -7,7 +7,6 @@ https://discordapp.com/oauth2/authorize?&client_id=320192251479195648&scope=bot
 
 You can join my server (The bot's main hub) using this link:
 http://discord.gg/dWVqUP5
-<iframe src="https://discordapp.com/widget?id=285472208686546946&theme=dark" width="700" height="500" allowtransparency="true" frameborder="0"></iframe>
 
 ## Copyright
    MIT License
