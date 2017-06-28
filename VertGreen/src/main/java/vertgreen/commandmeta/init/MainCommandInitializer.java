@@ -58,6 +58,7 @@ public class MainCommandInitializer {
         CommandRegistry.registerCommand("vii", new VIICommand());
         CommandRegistry.registerCommand("botrestart", new FullRestartCommand());
         CommandRegistry.registerCommand("sysinfo", new SysInfoCommand());
+        CommandRegistry.registerCommand("setgame", new SetGameCommand());
     }
 
 }
