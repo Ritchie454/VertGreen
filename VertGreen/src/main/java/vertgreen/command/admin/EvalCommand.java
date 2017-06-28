@@ -40,7 +40,7 @@ public class EvalCommand extends Command implements ICommandOwnerRestricted {
         JDA jda = guild.getJDA();
         EmbedBuilder eb = new EmbedBuilder();
         channel.sendTyping().queue();
-        Runtime rt = new Runtime.getRuntime();
+        Runtime rt = Runtime.getRuntime();
         final String source = message.getRawContent().substring(args[0].length() + 1);
         
         engine.put("jda", jda);
